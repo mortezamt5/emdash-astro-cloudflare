@@ -1,0 +1,27 @@
+// Static prototype content: names, specifications and links require client approval.
+export const platformModules = [
+    {id:'mvm', ic:'i-monitor', t:'MvM Console', s:'Monitoring, Visualization & Management',
+     d:'A Windows application tailored for overseeing, visualizing and managing the SIPazon platform, for intercoms, speakers, amplifiers and sensors.',
+     b:['Mixed SIP endpoints from different vendor brands','Communication events with video surveillance and access control','OPC UA, MQTT, BACnet and RS485','Variants: MvM, MvM Edge and MvM Liftcom'],
+     v:`<div class="pv mvm"><div class="mh"><span class="dots"><i></i><i></i><i></i></span>MvM · Site overview</div><div class="mg"><div class="map"><i style="left:18%;top:30%"></i><i style="left:40%;top:62%"></i><i class="a" style="left:66%;top:28%"></i><i style="left:78%;top:70%"></i><i style="left:30%;top:80%"></i></div><div class="ml"><div>Lift 3<span class="warn">alarm</span></div><div>Block A PA<span>live</span></div><div>Gate 2<span>ok</span></div><div>Car park<span>ok</span></div><div>Workshop<span>ok</span></div></div></div></div>`},
+    {id:'ha', ic:'i-ha', t:'HA Redundancy', s:'Redundancy that never lets you down',
+     d:'A pair of servers with identical configuration for an intercom or PA system. One is Master, the other a hot-standby Slave kept in sync with the latest database copy.',
+     b:['Automatic failover when health checks fail','Automatic rollback when the main server recovers','UC800, UC700, UC600, jNode and SIPazon VM','Load balancer configurations supported'],
+     v:`<div class="pv pv-ha"><div class="srv"><b>UC800-A</b><small>Master · active</small><div class="bar"><i></i></div><small class="ok">● healthy</small></div><div class="hb"><svg viewBox="0 0 70 28"><path d="M0 14h18l4-9 6 18 5-12 3 3h34"/></svg>health check</div><div class="srv"><b>UC800-B</b><small>Slave · hot standby</small><div class="bar"><i style="background:var(--p-primary)"></i></div><small class="pri">● synced</small></div></div>`},
+    {id:'rec', ic:'i-rec', t:'SIPrec Recording', s:'Your complete SIP-based recording solution',
+     d:'Seamless audio and lip-synchronized audio-video recording across Edge, Fog and Cloud, for two-way calls, group conversations and public address announcements.',
+     b:['Record by class of service for chosen extensions','Local UC-series add-on storage or external NAS','No additional hardware on UC800/UC700','Scalable licences from S-L-REC2 to S-L-RECX'],
+     v:`<div class="pv pv-rec"><div class="r1"><span>Cell B-214 ↔ Control room</span><span class="recd"><span class="pulse"></span>REC 01:34</span></div><div class="wavebar" id="wb"></div><div class="r1"><span>audio + video · lip-sync</span><span>→ NAS</span></div></div>`},
+    {id:'video', ic:'i-camera', t:'Video Engine', s:'Two-sense communication in any scenario',
+     d:'Extracts video streams from existing IP cameras and combines them with SIP audio into synchronized video calls, without dedicated video intercoms.',
+     b:['Link up to five cameras to one audio device','Switch cameras with DTMF 1–4 mid-call','Lip-synchronized audio and video','Optional A/V recording for compliance'],
+     v:`<div class="pv"><div class="pv-cams"><div class="cam"><span>CAM 1</span></div><div class="cam on"><span>CAM 2 · live</span></div><div class="cam"><span>CAM 3</span></div><div class="cam"><span>CAM 4</span></div><div class="cam aud"><svg class="ic"><use href="#i-intercom"/></svg></div><div class="cam"><span>CAM 5</span></div></div><div class="dtmf"><i>1</i><i class="on">2</i><i>3</i><i>4</i></div></div>`},
+    {id:'vircom', ic:'i-phone', t:'VirCom', s:'Virtual communication',
+     d:'A virtual intercom endpoint. Scan an encrypted QR code and a smartphone becomes an intercom, with no app to install. Paired with jPhone for answering from anywhere.',
+     b:['Audio and video calls','AI face/speaker verification and liveness detection','GPS positioning and OCR for ID verification','Digital twin for critical communications in SIPazon Cloud'],
+     v:`<div class="pv pv-vir"><div class="qr" id="qr"></div><div class="phone"><div class="ph-h">VirCom · Entrance</div><div class="ph-v"></div><div class="ph-b"><i></i><i></i></div></div></div>`},
+    {id:'cc', ic:'i-cross', t:'ConnCross', s:'Connect & Cross',
+     d:'The event orchestration hub between SIP stations, IP speakers, CCTV cameras and I/O devices, so integrators can combine endpoints from various manufacturers.',
+     b:['AND, OR, XOR, XAND and timer logic','Low-level (jCon relay, I/O) and high-level (OPC UA/DA, API) interfaces','A2A converter: OPC, API/SDK, RS485/232, SIP, ONVIF, MQTT','jOPC: the first OPC server for SIP intercom and PA'],
+     v:`<div class="pv pv-logic"><div class="lg-in"><div>SIP · call request</div><div>I/O · door contact</div><div>timer · 22:00–06:00</div></div><div class="lg-gate">AND<br>+ TIMER</div><div class="lg-in"><div>CCTV · preset 4</div><div>PA · zone chime</div><div>OPC · BMS event</div></div></div>`}
+  ];

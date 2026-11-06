@@ -1,0 +1,11 @@
+---
+import { Image } from "emdash/ui";
+import type { NavigationItem } from "../../lib/navigation";
+interface Props { item: NavigationItem; mode: "desktop" | "mobile" | "top" | "mobile-top" }
+const { item, mode } = Astro.props;
+const className = mode === "desktop" ? "dd-item" : mode === "top" ? "m-btn" : mode === "mobile-top" ? "mnav-link" : undefined;
+---
+{item.href ? <a class={className} href={item.href} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined} aria-current={item.href === Astro.url.pathname ? "page" : undefined}>
+  {item.icon && (mode === "desktop" ? <span class="dd-ico"><Image image={item.icon} width={18} height={18} alt="" placeholder={false} /></span> : <Image class="nav-icon" image={item.icon} width={18} height={18} alt="" placeholder={false} />)}
+  {mode === "desktop" ? <span><span class="dd-t">{item.label}</span>{item.description && <span class="dd-d">{item.description}</span>}</span> : item.label}
+</a> : <span class={className} title={item.description}>{item.icon && <Image class="nav-icon" image={item.icon} width={18} height={18} alt="" placeholder={false} />}{item.label}</span>}

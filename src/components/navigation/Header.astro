@@ -1,0 +1,20 @@
+---
+import DesktopNavigation from "./DesktopMenu.astro";
+import type { NavigationItem } from "../../lib/navigation";
+interface Props { items: NavigationItem[] }
+const { items } = Astro.props;
+---
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="/assets/logo/SIPazon-wordmark-navy.svg" alt="SIPazon" width="132" height="30" /></a>
+    <nav class="desktop-nav" aria-label="Main navigation"><DesktopNavigation items={items} /></nav>
+    <div class="nav-cta">
+      <div class="search-pill" aria-label="Search preview, unavailable"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span><span class="kbd">/</span></div>
+      <a class="btn btn-ghost btn-sm" href="https://sipazon.com/portal" target="_blank" rel="noopener noreferrer">Portal</a>
+      <a class="btn btn-primary btn-sm" href="https://sipazon.com/contact" target="_blank" rel="noopener noreferrer">Contact us</a>
+      <button type="button" class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="mnav" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->

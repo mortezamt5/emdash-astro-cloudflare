@@ -1,0 +1,1064 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Starter",
+		"description": "A minimal EmDash starter with posts and pages",
+		"author": "EmDash"
+	},
+	"settings": {
+		"title": "SIPazon Website",
+		"tagline": "Built with SIPazon"
+	},
+	"blockTypes": [
+		{
+			"slug": "navigation_item",
+			"label": "Navigation Item",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "label",
+							"label": "Label",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "description",
+							"label": "Description",
+							"type": "text"
+						},
+						{
+							"slug": "icon",
+							"label": "Icon",
+							"type": "image"
+						},
+						{ "slug": "feature_tag", "label": "Feature tag", "type": "string" },
+						{ "slug": "feature_title", "label": "Feature title", "type": "string" },
+						{ "slug": "feature_description", "label": "Feature description", "type": "text" },
+						{ "slug": "feature_link_label", "label": "Feature link label", "type": "string" },
+						{ "slug": "feature_href", "label": "Feature link URL", "type": "string" },
+						{
+							"slug": "link_type",
+							"label": "Link type",
+							"type": "select",
+							"required": true,
+							"defaultValue": "none",
+							"validation": {
+								"options": [
+									"internal",
+									"anchor",
+									"external",
+									"none"
+								]
+							}
+						},
+						{
+							"slug": "href",
+							"label": "Destination",
+							"type": "string"
+						},
+						{
+							"slug": "target",
+							"label": "Target",
+							"type": "select",
+							"required": true,
+							"defaultValue": "_self",
+							"validation": {
+								"options": [
+									"_self",
+									"_blank"
+								]
+							}
+						},
+						{
+							"slug": "enabled",
+							"label": "Enabled",
+							"type": "boolean",
+							"required": true,
+							"defaultValue": true
+						},
+						{
+							"slug": "children",
+							"label": "Submenu items",
+							"type": "repeater",
+							"validation": {
+								"maxItems": 40,
+								"subFields": [
+									{
+										"slug": "label",
+										"label": "Label",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "description",
+										"label": "Description",
+										"type": "text"
+									},
+									{
+										"slug": "icon",
+										"label": "Icon",
+										"type": "image"
+									},
+									{
+										"slug": "link_type",
+										"label": "Link type",
+										"type": "select",
+										"required": true,
+										"options": [
+											"internal",
+											"anchor",
+											"external",
+											"none"
+										]
+									},
+									{
+										"slug": "href",
+										"label": "Destination",
+										"type": "string"
+									},
+									{
+										"slug": "target",
+										"label": "Target",
+										"type": "select",
+										"required": true,
+										"options": [
+											"_self",
+											"_blank"
+										]
+									},
+									{
+										"slug": "enabled",
+										"label": "Enabled",
+										"type": "boolean",
+										"required": true
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"collections": [
+		{
+			"slug": "site_navigation",
+			"label": "Navigation Menus",
+			"labelSingular": "Navigation Menu",
+			"routable": false,
+			"group": "Site Configuration",
+			"supports": [
+				"drafts",
+				"revisions"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "menu_key",
+					"label": "Menu key",
+					"type": "string",
+					"required": true,
+					"unique": true
+				},
+				{
+					"slug": "location",
+					"label": "Location",
+					"type": "select",
+					"required": true,
+					"validation": {
+						"options": [
+							"header",
+							"footer",
+							"other"
+						]
+					}
+				},
+				{
+					"slug": "items",
+					"label": "Items",
+					"type": "blocks",
+					"validation": {
+						"allowedTypes": [
+							"navigation_item"
+						],
+						"maxItems": 30
+					}
+				}
+			]
+		},
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"urlPattern": "/posts/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"scheduling",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text"
+				}
+			]
+		},
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"urlPattern": "/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "category",
+			"label": "Categories",
+			"labelSingular": "Category",
+			"hierarchical": true,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "general",
+					"label": "General"
+				},
+				{
+					"slug": "updates",
+					"label": "Updates"
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "starter",
+					"label": "Starter"
+				},
+				{
+					"slug": "example",
+					"label": "Example"
+				}
+			]
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Products",
+					"url": "#",
+					"cssClasses": "nav-key-products",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Intercom Stations",
+							"url": "https://sipazon.com/products/intercom-stations",
+							"target": "_blank",
+							"cssClasses": "nav-key-intercom-stations"
+						},
+						{
+							"type": "custom",
+							"label": "AMS Servers",
+							"url": "https://sipazon.com/products/ams-servers",
+							"target": "_blank",
+							"cssClasses": "nav-key-ams-servers"
+						},
+						{
+							"type": "custom",
+							"label": "PA",
+							"url": "https://sipazon.com/products/pa",
+							"target": "_blank",
+							"cssClasses": "nav-key-pa"
+						},
+						{
+							"type": "custom",
+							"label": "Special Products",
+							"url": "https://sipazon.com/products/special-products",
+							"target": "_blank",
+							"cssClasses": "nav-key-special-products"
+						},
+						{
+							"type": "custom",
+							"label": "Integrations & Compatibilities",
+							"url": "https://sipazon.com/products/integrations-and-compatibilities",
+							"target": "_blank",
+							"cssClasses": "nav-key-integrations-compatibilities"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "Platform",
+					"url": "#",
+					"cssClasses": "nav-key-platform",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Platform Overview",
+							"url": "https://sipazon.com/platform/platform-overview",
+							"target": "_blank",
+							"cssClasses": "nav-key-platform-overview"
+						},
+						{
+							"type": "custom",
+							"label": "MvM Console",
+							"url": "https://sipazon.com/platform/mvm",
+							"target": "_blank",
+							"cssClasses": "nav-key-mvm-console"
+						},
+						{
+							"type": "custom",
+							"label": "HA Redundancy",
+							"url": "https://sipazon.com/platform/ha",
+							"target": "_blank",
+							"cssClasses": "nav-key-ha-redundancy"
+						},
+						{
+							"type": "custom",
+							"label": "SIPrec Recording",
+							"url": "https://sipazon.com/platform/siprec",
+							"target": "_blank",
+							"cssClasses": "nav-key-siprec-recording"
+						},
+						{
+							"type": "custom",
+							"label": "Video Engine",
+							"url": "https://sipazon.com/platform/videoengine",
+							"target": "_blank",
+							"cssClasses": "nav-key-video-engine"
+						},
+						{
+							"type": "custom",
+							"label": "VirCom",
+							"url": "https://sipazon.com/platform/vircom",
+							"target": "_blank",
+							"cssClasses": "nav-key-vircom"
+						},
+						{
+							"type": "custom",
+							"label": "ConnCross",
+							"url": "https://sipazon.com/platform/conncross",
+							"target": "_blank",
+							"cssClasses": "nav-key-conncross"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "Solutions",
+					"url": "#",
+					"cssClasses": "nav-key-solutions",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Parking",
+							"url": "https://sipazon.com/solutions/parking",
+							"target": "_blank",
+							"cssClasses": "nav-key-parking"
+						},
+						{
+							"type": "custom",
+							"label": "Prisons & Detention",
+							"url": "https://sipazon.com/solutions/prisons-detention",
+							"target": "_blank",
+							"cssClasses": "nav-key-prisons-detention"
+						},
+						{
+							"type": "custom",
+							"label": "Residential",
+							"url": "https://sipazon.com/solutions/residential",
+							"target": "_blank",
+							"cssClasses": "nav-key-residential"
+						},
+						{
+							"type": "custom",
+							"label": "Elevator",
+							"url": "https://sipazon.com/solutions/elevator",
+							"target": "_blank",
+							"cssClasses": "nav-key-elevator"
+						},
+						{
+							"type": "custom",
+							"label": "Office",
+							"url": "https://sipazon.com/solutions/office",
+							"target": "_blank",
+							"cssClasses": "nav-key-office"
+						},
+						{
+							"type": "custom",
+							"label": "Public Safety & Security",
+							"url": "https://sipazon.com/solutions/public-safety-security",
+							"target": "_blank",
+							"cssClasses": "nav-key-public-safety-security"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "Services",
+					"url": "#",
+					"cssClasses": "nav-key-services",
+					"children": [
+						{
+							"type": "custom",
+							"label": "App Customisation",
+							"url": "https://sipazon.com/services/app-customisation",
+							"target": "_blank",
+							"cssClasses": "nav-key-app-customisation"
+						},
+						{
+							"type": "custom",
+							"label": "SIPazon OEM",
+							"url": "https://sipazon.com/services/sipazon-oem",
+							"target": "_blank",
+							"cssClasses": "nav-key-sipazon-oem"
+						},
+						{
+							"type": "custom",
+							"label": "API",
+							"url": "https://sipazon.com/services/api",
+							"target": "_blank",
+							"cssClasses": "nav-key-api"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "Company",
+					"url": "#",
+					"cssClasses": "nav-key-company",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Company Information",
+							"url": "https://sipazon.com/company-information",
+							"target": "_blank",
+							"cssClasses": "nav-key-company-information"
+						},
+						{
+							"type": "custom",
+							"label": "Team",
+							"url": "https://sipazon.com/team",
+							"target": "_blank",
+							"cssClasses": "nav-key-team"
+						},
+						{
+							"type": "custom",
+							"label": "Privacy Statements",
+							"url": "https://sipazon.com/privacy-statements",
+							"target": "_blank",
+							"cssClasses": "nav-key-privacy-statements"
+						},
+						{
+							"type": "custom",
+							"label": "Contact Us",
+							"url": "https://sipazon.com/contact",
+							"target": "_blank",
+							"cssClasses": "nav-key-contact-us"
+						}
+					]
+				}
+			]
+		}
+	],
+	"widgetAreas": [
+		{
+			"name": "sidebar",
+			"label": "Sidebar",
+			"description": "Sidebar widget area",
+			"widgets": [
+				{
+					"type": "component",
+					"componentId": "core:search",
+					"title": "Search"
+				},
+				{
+					"type": "component",
+					"componentId": "core:categories",
+					"title": "Categories"
+				},
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "Recent Posts",
+					"props": {
+						"count": 5
+					}
+				}
+			]
+		}
+	],
+	"content": {
+		"pages": [
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "About",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This is the about page. Edit it in the admin panel or replace this template with your own design.",
+									"_key": "k1"
+								}
+							],
+							"_key": "k0"
+						}
+					]
+				}
+			}
+		],
+		"posts": [
+			{
+				"id": "post-1",
+				"slug": "welcome",
+				"status": "published",
+				"data": {
+					"title": "Welcome",
+					"excerpt": "Your first post. Replace this with your own content.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This is a starter post. The templates in this project show the basic patterns for querying and rendering EmDash content. Replace them with your own design.",
+									"_key": "k1"
+								}
+							],
+							"_key": "k0"
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What to do next",
+									"_key": "k3"
+								}
+							],
+							"_key": "k2"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Open the admin panel to add content, or edit the Astro pages in src/pages to change how content is displayed.",
+									"_key": "k5"
+								}
+							],
+							"_key": "k4"
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"general"
+					],
+					"tag": [
+						"starter",
+						"example"
+					]
+				}
+			}
+		],
+		"site_navigation": [
+			{
+				"id": "navigation-primary",
+				"status": "published",
+				"data": {
+					"title": "Primary Navigation",
+					"menu_key": "primary",
+					"location": "header",
+					"items": [
+						{
+							"_type": "navigation_item",
+							"_version": 1,
+							"_key": "navigation-0",
+							"label": "Products",
+							"feature_tag": "New integration",
+							"feature_title": "SIPazon AMS Call Manager for Milestone XProtect",
+							"feature_description": "The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).",
+							"feature_link_label": "Learn more",
+							"feature_href": "#integrations",
+							"link_type": "none",
+							"href": "",
+							"target": "_self",
+							"enabled": true,
+							"children": [
+								{
+									"label": "Intercom Stations",
+									"description": "PoE native IP intercoms with HD voice",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/intercom.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/products/intercom-stations",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "AMS Servers",
+									"description": "UC800 Platform, jNode Compact CS2, VM SIPazon",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/server.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/products/ams-servers",
+									"target": "_self",
+									"enabled": true
+								},
+								{
+									"label": "PA",
+									"description": "Integrated, unified public address",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/speaker.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/products/pa",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Special Products",
+									"description": "VirCom, SIPavox, Fire Command Center",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/spark.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/products/special-products",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Integrations & Compatibilities",
+									"description": "VMS, Access Control, PSIM, BMS, SCADA",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/plug.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/products/integrations-and-compatibilities",
+									"target": "_blank",
+									"enabled": true
+								}
+							]
+						},
+						{
+							"_type": "navigation_item",
+							"_version": 1,
+							"_key": "navigation-1",
+							"label": "Platform",
+							"link_type": "none",
+							"href": "",
+							"target": "_self",
+							"enabled": true,
+							"children": [
+								{
+									"label": "Platform Overview",
+									"description": "One platform for all your SIP needs",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/layers.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/platform-overview",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "MvM Console",
+									"description": "Monitoring, Visualization & Management",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/monitor.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/mvm",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "HA Redundancy",
+									"description": "Master and hot-standby server pair",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/ha.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/ha",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "SIPrec Recording",
+									"description": "SIP-based audio and A/V recording",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/rec.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/siprec",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Video Engine",
+									"description": "Lip-synchronized video calls",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/camera.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/videoengine",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "VirCom",
+									"description": "Virtual intercom endpoint via QR",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/phone.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/vircom",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "ConnCross",
+									"description": "Connect & Cross event orchestration",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/cross.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/platform/conncross",
+									"target": "_blank",
+									"enabled": true
+								}
+							]
+						},
+						{
+							"_type": "navigation_item",
+							"_version": 1,
+							"_key": "navigation-2",
+							"label": "Solutions",
+							"link_type": "none",
+							"href": "",
+							"target": "_self",
+							"enabled": true,
+							"children": [
+								{
+									"label": "Parking",
+									"description": "Easy In Easy Out Parking",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/car.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/solutions/parking",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Prisons & Detention",
+									"description": "Tamper-resistant cell intercoms",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/lock.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/solutions/prisons-detention",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Residential",
+									"description": "Single homes to multi-tenant complexes",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/home.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/solutions/residential",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Elevator",
+									"description": "EN81 critical communication",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/elevator.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/solutions/elevator",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Office",
+									"description": "Daily operational access at the workplace",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/brief.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/solutions/office",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Public Safety & Security",
+									"description": "Audio for cities, alongside CCTV",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/siren.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/solutions/public-safety-security",
+									"target": "_blank",
+									"enabled": true
+								}
+							]
+						},
+						{
+							"_type": "navigation_item",
+							"_version": 1,
+							"_key": "navigation-3",
+							"label": "Services",
+							"link_type": "none",
+							"href": "",
+							"target": "_self",
+							"enabled": true,
+							"children": [
+								{
+									"label": "App Customisation",
+									"description": "Rebrand the jPhone SIP app",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/phone.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/services/app-customisation",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "SIPazon OEM",
+									"description": "OEM services for Edge, Fog and Cloud",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/chip.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/services/sipazon-oem",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "API",
+									"description": "Connect SIP endpoints to other ecosystems",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/code.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/services/api",
+									"target": "_blank",
+									"enabled": true
+								}
+							]
+						},
+						{
+							"_type": "navigation_item",
+							"_version": 1,
+							"_key": "navigation-4",
+							"label": "Company",
+							"link_type": "none",
+							"href": "",
+							"target": "_self",
+							"enabled": true,
+							"children": [
+								{
+									"label": "Company Information",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/info.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/company-information",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Team",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/users.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/team",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Privacy Statements",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/shield.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/privacy-statements",
+									"target": "_blank",
+									"enabled": true
+								},
+								{
+									"label": "Contact Us",
+									"icon": {
+										"id": "",
+										"provider": "external",
+										"src": "/assets/navigation-icons/mail.png",
+										"alt": ""
+									},
+									"link_type": "external",
+									"href": "https://sipazon.com/contact",
+									"target": "_blank",
+									"enabled": true
+								}
+							]
+						}
+					]
+				}
+			}
+		]
+	}
+}

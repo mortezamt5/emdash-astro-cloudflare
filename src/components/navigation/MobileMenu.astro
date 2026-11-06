@@ -1,0 +1,24 @@
+---
+import type { NavigationItem } from "../../lib/navigation";
+import { Image } from "emdash/ui";
+import NavigationItemView from "./NavigationItem.astro";
+interface Props { items: NavigationItem[] }
+const { items } = Astro.props;
+---
+<nav class="mnav" id="mnav" aria-label="Mobile navigation" aria-hidden="true" inert>
+  <div class="mnav-top">
+    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="/assets/logo/SIPazon-wordmark-navy.svg" alt="SIPazon" width="123" height="28" /></a>
+    <button type="button" class="icon-btn" id="mclose" aria-label="Close menu"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+  {items.map((item, index) => item.children.length ? <details open={index === 0}>
+    <summary title={item.description}><span>{item.icon && <Image class="nav-icon" image={item.icon} width={18} height={18} alt="" placeholder={false} />}{item.label}</span> <svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+    <div class="sub">
+      {item.href && <NavigationItemView item={{ ...item, children: [] }} mode="mobile" />}
+      {item.children.map(child => <NavigationItemView item={child} mode="mobile" />)}
+    </div>
+  </details> : <NavigationItemView item={item} mode="mobile-top" />)}
+  <div class="mnav-cta">
+    <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener noreferrer">Contact us</a>
+    <a class="btn btn-ghost" href="https://sipazon.com/portal" target="_blank" rel="noopener noreferrer">Portal</a>
+  </div>
+</nav>

@@ -1,0 +1,60 @@
+{
+  "collections": [
+    {
+      "slug": "site_navigation",
+      "label": "Navigation Menus",
+      "labelSingular": "Navigation Menu",
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "menu_key",
+          "label": "Menu key",
+          "type": "string",
+          "required": true,
+          "unique": true
+        },
+        {
+          "slug": "location",
+          "label": "Location",
+          "type": "select",
+          "required": true,
+          "unique": false,
+          "validation": {
+            "options": [
+              "header",
+              "footer",
+              "other"
+            ]
+          }
+        },
+        {
+          "slug": "items",
+          "label": "Items",
+          "type": "blocks",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "allowedTypes": [
+              "navigation_item"
+            ],
+            "retiredTypes": [],
+            "minItems": 0,
+            "maxItems": 30
+          }
+        }
+      ]
+    }
+  ],
+  "version": "a7e81ba045bae921"
+}

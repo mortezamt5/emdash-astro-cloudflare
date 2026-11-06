@@ -1,0 +1,1665 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIPazon Prototype</title>
+<meta name="description" content="SIPazon — SIP compatible headend communication and IoT platform. Design prototype.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: light, airy SaaS canvas (hairline grids, generous whitespace) broken by dark "control-room" panels that carry the product UI. */
+/* Layout: clean light SaaS canvas (white ground, hairline borders, grid texture) with a full dark mode behind a footer toggle. Ink is the SIPazon logo navy. */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F6F7F9; --ink:#0D1C2A; --ink-2:#2A3847; --muted:#5E6978;
+  --border:#E6E9EE; --border-2:#D5DAE2;
+  --primary:#2350F0; --primary-ink:#FFFFFF; --primary-soft:#EAEFFF;
+  --signal:#E0690A; --signal-soft:#FFF1E4; --on-signal:#FFFFFF;
+  --success:#12924A; --warning:#B87000; --error:#D02A2A;
+  --grid:rgba(13,28,42,.06);
+  --shadow:0 1px 2px rgba(13,28,42,.05),0 8px 24px -10px rgba(13,28,42,.10);
+  --shadow-lg:0 2px 4px rgba(13,28,42,.04),0 30px 60px -24px rgba(13,28,42,.20);
+  /* Section bands + product UI */
+  --band:#F6F7F9; --panel:#FAFBFC; --panel-2:#FFFFFF; --panel-3:#EEF1F6; --panel-line:#E4E8EE; --panel-line-2:#D3D9E2;
+  --panel-ink:#1E2B3A; --panel-mute:#606B7C; --panel-strong:#0D1C2A; --panel-dim:#8B94A5;
+  --panel-grid:rgba(13,28,42,.05); --panel-dot:rgba(13,28,42,.09); --panel-sunk:#F3F5F8;
+  --panel-shadow:0 1px 2px rgba(13,28,42,.04),0 40px 70px -34px rgba(13,28,42,.28);
+  --hub-a:#FFFFFF; --hub-b:#EEF2FF; --hub-line:#B8C5F5; --hub-glow:rgba(35,80,240,.22); --glow:rgba(35,80,240,.10); --glow-2:rgba(224,105,10,.08);
+  --wire:#D6DCE6;
+  --p-primary:#2350F0; --p-signal:#E0690A; --p-ok:#12924A; --p-warn:#B87000; --p-err:#D02A2A;
+  --logo-filter:none;
+  --f-display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r-sm:8px; --r:12px; --r-lg:18px; --r-xl:24px;
+  --wrap:1200px; --gutter:clamp(16px,4vw,32px);
+  color-scheme:light;
+}
+:root.dark{
+  --bg:#06080D; --surface:#0C1018; --surface-2:#0F141F; --ink:#EEF1F7; --ink-2:#C9D0DD; --muted:#8C95A9;
+  --border:#1B2230; --border-2:#273042;
+  --primary:#5D7EFF; --primary-ink:#06080D; --primary-soft:#131C3A;
+  --signal:#FF9133; --signal-soft:#2A1A0C; --on-signal:#1A0D02;
+  --success:#2FC873; --warning:#F2B233; --error:#FF5C5C;
+  --grid:rgba(238,241,247,.05);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -8px rgba(0,0,0,.5);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 30px 60px -20px rgba(0,0,0,.7);
+  --band:#0A0E17; --panel:#0A0E17; --panel-2:#101624; --panel-3:#161D2E; --panel-line:#1F2839; --panel-line-2:#2C364C;
+  --panel-ink:#E7EBF3; --panel-mute:#7E889D; --panel-strong:#FFFFFF; --panel-dim:#5C6680;
+  --panel-grid:rgba(255,255,255,.035); --panel-dot:rgba(255,255,255,.07); --panel-sunk:rgba(0,0,0,.25);
+  --panel-shadow:0 40px 80px -30px rgba(0,0,0,.8);
+  --hub-a:#1A2442; --hub-b:#101729; --hub-line:#33427A; --hub-glow:rgba(110,139,255,.6); --glow:rgba(93,126,255,.28); --glow-2:rgba(255,154,61,.18);
+  --wire:#2A3550;
+  --p-primary:#6E8BFF; --p-signal:#FF9A3D; --p-ok:#34D07B; --p-warn:#F5B83D; --p-err:#FF5E5E;
+  --logo-filter:brightness(0) invert(1);
+  color-scheme:dark;
+}
+html.theming,html.theming *,html.theming *::before,html.theming *::after{transition:background-color .35s ease,border-color .35s ease,color .35s ease,fill .35s ease,stroke .35s ease!important}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+svg{display:block}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--signal)}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;color:var(--ink)}
+h2{font-size:clamp(2rem,4.2vw,3.35rem);line-height:1.05;letter-spacing:-.035em;font-weight:600}
+h3{font-size:1.25rem;line-height:1.25;letter-spacing:-.015em;font-weight:600}
+p{margin:0}
+.lead{font-size:clamp(1.02rem,1.4vw,1.15rem);color:var(--muted);max-width:62ch}
+.sec{padding-block:clamp(72px,10vw,132px);position:relative}
+.sec-head{display:grid;gap:18px;max-width:760px;margin-bottom:clamp(40px,5vw,64px)}
+.sec-head.center{margin-inline:auto;text-align:center;justify-items:center}
+.muted{color:var(--muted)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding-inline:18px;border-radius:10px;font-weight:500;font-size:15px;transition:transform .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease;white-space:nowrap}
+.btn .ic{width:16px;height:16px;transition:transform .2s ease}
+.btn:hover .ic{transform:translateX(3px)}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-accent{background:var(--primary);color:#fff}
+.btn-ghost{border:1px solid var(--border-2);background:var(--surface);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-2)}
+.btn-sm{height:36px;padding-inline:14px;font-size:14px;border-radius:9px}
+.link-arrow{display:inline-flex;align-items:center;gap:6px;font-weight:500;font-size:14px;color:var(--ink)}
+.link-arrow .ic{width:15px;height:15px;transition:transform .2s}
+.link-arrow:hover .ic{transform:translateX(3px)}
+
+/* ───────── NAV ───────── */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .25s}
+.nav.scrolled{border-bottom-color:var(--border)}
+.nav-in{display:flex;align-items:center;height:68px;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:19px;letter-spacing:-.02em;flex:none}
+.brand .logo{height:30px;width:auto;aspect-ratio:623/136;display:block;filter:var(--logo-filter)}
+.menu{display:flex;align-items:center;gap:2px;flex:1}
+.menu>li{list-style:none;position:relative}
+.menu{margin:0;padding:0}
+.m-btn{display:flex;align-items:center;gap:4px;height:38px;padding-inline:12px;border-radius:8px;font-size:14.5px;font-weight:500;color:var(--ink-2);transition:background .15s,color .15s}
+.m-btn .ic{width:14px;height:14px;transition:transform .2s}
+.m-btn:hover,.menu>li.open>.m-btn{background:var(--surface-2);color:var(--ink)}
+.menu>li.open>.m-btn .ic{transform:rotate(180deg)}
+.nav-cta{display:flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--border)}
+.icon-btn:hover{border-color:var(--border-2);color:var(--ink)}
+.icon-btn .ic{width:17px;height:17px}
+.kbd{font-family:var(--f-mono);font-size:11px;border:1px solid var(--border-2);border-radius:5px;padding:1px 5px;color:var(--muted)}
+.search-pill{display:flex;align-items:center;gap:10px;height:38px;padding:0 8px 0 12px;border:1px solid var(--border);border-radius:9px;color:var(--muted);font-size:14px;min-width:190px;background:var(--surface)}
+.search-pill .ic{width:16px;height:16px}
+.search-pill .kbd{margin-left:auto}
+.burger{display:none}
+
+.dd{position:absolute;top:calc(100% + 10px);left:-12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);padding:10px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s ease,transform .18s ease,visibility .18s;z-index:60}
+.menu>li.open .dd{opacity:1;visibility:visible;transform:none}
+.dd::before{content:"";position:absolute;inset:-12px 0 auto 0;height:12px}
+.dd-grid{display:grid;gap:2px}
+.dd-2{grid-template-columns:repeat(2,minmax(0,1fr));width:600px}
+.dd-3{grid-template-columns:repeat(3,minmax(0,1fr));width:720px}
+.dd-1{width:300px}
+.dd-item{display:flex;gap:12px;padding:12px;border-radius:10px;transition:background .15s}
+.dd-item:hover{background:var(--surface-2)}
+.dd-ico{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);display:grid;place-items:center;flex:none;background:var(--bg);color:var(--ink)}
+.dd-ico .ic{width:18px;height:18px}
+.dd-item:hover .dd-ico{border-color:var(--primary);color:var(--primary)}
+.dd-t{font-weight:600;font-size:14.5px;line-height:1.3}
+.dd-d{font-size:13px;color:var(--muted);line-height:1.4;margin-top:2px}
+.dd-split{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:10px;width:820px}
+.dd-feature{border-radius:12px;background:var(--band);border:1px solid var(--panel-line);color:var(--panel-ink);padding:18px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.dd-feature::after{content:"";position:absolute;inset:auto -40px -60px auto;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--hub-glow),transparent 70%)}
+.dd-feature .tag{font-family:var(--f-mono);font-size:11px;color:var(--p-signal);letter-spacing:.06em;text-transform:uppercase}
+.dd-feature strong{font-size:15px;line-height:1.3;color:var(--panel-strong)}
+.dd-feature p{font-size:13px;color:var(--panel-mute);line-height:1.45}
+.dd-feature .link-arrow{color:var(--panel-ink);margin-top:auto;position:relative;z-index:1}
+
+/* Mobile menu */
+.mnav{position:fixed;inset:0;z-index:70;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 12px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 24px);overflow-y:auto;transform:translateY(-8px);opacity:0;visibility:hidden;transition:opacity .22s,transform .22s,visibility .22s}
+.mnav.open{opacity:1;visibility:visible;transform:none}
+.mnav-top{display:flex;align-items:center;justify-content:space-between;height:56px;margin-bottom:12px}
+.mnav details{border-bottom:1px solid var(--border)}
+.mnav summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 2px;font-size:20px;font-weight:600;letter-spacing:-.02em;cursor:pointer}
+.mnav summary::-webkit-details-marker{display:none}
+.mnav summary .ic{transition:transform .2s}
+.mnav details[open] summary .ic{transform:rotate(180deg)}
+.mnav .sub{display:grid;gap:2px;padding:0 0 16px}
+.mnav .sub a{display:flex;align-items:center;gap:12px;padding:10px 4px;font-size:15.5px;color:var(--ink-2);border-radius:8px}
+.mnav .sub a .ic{width:18px;height:18px;color:var(--muted)}
+.mnav-cta{display:grid;gap:10px;margin-top:28px}
+.mnav-cta .btn{justify-content:center;height:50px}
+
+/* ───────── HERO ───────── */
+.hero{position:relative;padding-block:clamp(56px,8vw,104px) 0;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000 30%,transparent 75%)}
+.hero::after{content:"";position:absolute;z-index:-1;left:50%;top:-240px;width:1100px;height:700px;transform:translateX(-50%);background:radial-gradient(closest-side,color-mix(in srgb,var(--primary) 16%,transparent),transparent);pointer-events:none}
+.hero-copy{text-align:center;display:grid;justify-items:center;gap:24px}
+.announce{display:inline-flex;align-items:center;gap:10px;padding:5px 6px 5px 5px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:13.5px;color:var(--ink-2);box-shadow:var(--shadow);max-width:100%}
+.announce .pill{background:var(--signal-soft);color:var(--signal);font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;font-weight:600;flex:none}
+.announce .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.announce .ic{width:14px;height:14px;margin-right:6px;flex:none}
+.hero h1{font-size:clamp(2.55rem,7vw,5.6rem);line-height:.98;letter-spacing:-.045em;font-weight:600;max-width:15ch}
+.hero h1 .q{color:var(--primary)}
+.hero h1 .dim{color:var(--muted)}
+.hero .lead{text-align:center;max-width:60ch}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--border);color:var(--ink-2);background:var(--surface)}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--success)}
+
+.stage{margin-top:clamp(48px,6vw,72px);position:relative}
+.stage-frame{border-radius:var(--r-xl) var(--r-xl) 0 0;background:var(--panel);border:1px solid var(--panel-line);border-bottom:0;box-shadow:var(--shadow-lg);overflow:hidden;position:relative}
+.stage-frame::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--panel-grid) 1px,transparent 1px),linear-gradient(90deg,var(--panel-grid) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.stage-bar{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--panel-line);color:var(--panel-mute);font-family:var(--f-mono);font-size:12px;position:relative}
+.dots{display:flex;gap:6px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--panel-3);border:1px solid var(--panel-line)}
+.stage-bar .live{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--p-ok)}
+.pulse{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,currentColor 60%,transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.eco{position:relative;padding:8px 8px 0}
+.eco svg{width:100%;height:auto}
+.eco text{font-family:var(--f-body)}
+.eco .lbl{fill:var(--panel-ink);font-size:14px;font-weight:600}
+.eco .sub{fill:var(--panel-mute);font-size:11.5px;font-family:var(--f-mono)}
+.eco .node{fill:var(--panel-2);stroke:var(--panel-line)}
+.eco .wire{fill:none;stroke:var(--wire);stroke-width:1.3}
+.eco .flow{fill:none;stroke:var(--p-primary);stroke-width:1.6;stroke-dasharray:4 10;animation:flow 1.6s linear infinite;opacity:.9}
+.eco .flow.s{stroke:var(--p-signal)}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.eco .ico{fill:none;stroke:var(--panel-ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.eco .dot-ok{fill:var(--p-ok)}
+.eco .dot-sig{fill:var(--p-signal)}
+.eco-m{display:none;padding:18px;position:relative}
+.eco-m .col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.eco-m .it{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:var(--panel-2);border:1px solid var(--panel-line);color:var(--panel-ink);font-size:13px;font-weight:500;min-width:0}
+.eco-m .it .ic{width:17px;height:17px;color:var(--p-primary)}
+.eco-m .it span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eco-m .hub{margin:14px auto;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+.eco-m .hub::before{content:"";position:absolute;left:50%;top:-14px;bottom:-14px;width:1px;background:repeating-linear-gradient(to bottom,var(--p-primary) 0 4px,transparent 4px 10px);animation:vflow 1.2s linear infinite}
+@keyframes vflow{to{background-position:0 20px}}
+.eco-m .hub b{position:relative;background:linear-gradient(180deg,var(--hub-a),var(--hub-b));border:1px solid var(--hub-line);color:var(--panel-strong);padding:12px 18px;border-radius:12px;font-size:15px;box-shadow:0 0 40px -6px var(--hub-glow)}
+.eco-m .hub small{position:relative;font-family:var(--f-mono);font-size:11px;color:var(--panel-mute);background:var(--panel);padding:0 6px}
+
+/* ───────── STRIP ───────── */
+.strip{border-block:1px solid var(--border);background:var(--surface);padding-block:28px;overflow:hidden}
+.strip-in{display:flex;align-items:center;gap:32px}
+.strip-lbl{flex:none;font-size:13px;color:var(--muted);max-width:200px;line-height:1.4}
+.marquee{flex:1;min-width:0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:10px;width:max-content;animation:marq 48s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+.tok{display:inline-flex;align-items:center;gap:8px;height:36px;padding-inline:14px;border:1px solid var(--border);border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-2);background:var(--bg);white-space:nowrap}
+.tok.m{font-family:var(--f-mono);font-size:12.5px;font-weight:500}
+.tok .ic{width:15px;height:15px;color:var(--muted)}
+.tok.hl{border-color:color-mix(in srgb,var(--primary) 40%,var(--border));color:var(--primary);background:var(--primary-soft)}
+
+/* ───────── PRODUCTS ───────── */
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.pcard{position:relative;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s}
+.pcard:hover{border-color:var(--border-2);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.pcard .viz{height:230px;position:relative;background:var(--surface-2);border-bottom:1px solid var(--border);overflow:hidden;display:grid;place-items:center}
+.pcard .viz::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--grid) 1.2px,transparent 1.2px);background-size:18px 18px}
+.pcard .body{padding:24px;display:grid;gap:12px;flex:1}
+.pcard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pcard .kicker{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.pcard .go{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;flex:none;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.pcard .go .ic{width:16px;height:16px;transform:rotate(-45deg);transition:transform .25s}
+.pcard:hover .go{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pcard:hover .go .ic{transform:rotate(0)}
+.pcard p{color:var(--muted);font-size:15px}
+.models{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.models span{font-family:var(--f-mono);font-size:11.5px;padding:3px 8px;border-radius:6px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--border)}
+
+/* Product illustrations (CSS) */
+.dev-intercom{position:relative;width:118px;height:176px;border-radius:14px;background:linear-gradient(145deg,#e9edf3,#b9c1cd 60%,#d6dce5);box-shadow:0 20px 40px -14px rgba(10,15,28,.45),inset 0 1px 0 rgba(255,255,255,.8);display:flex;flex-direction:column;align-items:center;padding-top:22px;gap:18px;transition:transform .4s}
+.pcard:hover .dev-intercom{transform:rotate(-4deg) translateY(-4px)}
+.dev-intercom .grille{width:64px;height:64px;border-radius:50%;background-image:radial-gradient(#4b5566 1.6px,transparent 1.8px);background-size:8px 8px;background-color:#c8cfd9;box-shadow:inset 0 2px 5px rgba(0,0,0,.25)}
+.dev-intercom .btn-c{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3a4457,#171d29);box-shadow:0 0 0 3px #aeb6c3,0 0 0 4px #8a93a3;display:grid;place-items:center}
+.dev-intercom .btn-c i{width:8px;height:8px;border-radius:50%;background:var(--p-ok);box-shadow:0 0 10px var(--p-ok)}
+.dev-intercom .screw{position:absolute;width:6px;height:6px;border-radius:50%;background:#8c95a4}
+.rack{display:grid;gap:8px;width:250px;transition:transform .4s}
+.pcard:hover .rack{transform:translateY(-4px)}
+.ru{height:44px;border-radius:8px;background:linear-gradient(180deg,#1b2233,#0e1320);border:1px solid #2a3348;display:flex;align-items:center;padding-inline:12px;gap:8px;box-shadow:0 10px 24px -12px rgba(0,0,0,.5)}
+.ru .l{width:6px;height:6px;border-radius:50%;background:var(--p-ok);box-shadow:0 0 8px var(--p-ok)}
+.ru .l.b{background:var(--p-primary);box-shadow:0 0 8px var(--p-primary)}
+.ru .vents{flex:1;height:18px;background:repeating-linear-gradient(90deg,#2a3348 0 2px,transparent 2px 6px);border-radius:3px;opacity:.9}
+.ru .nm{font-family:var(--f-mono);font-size:10.5px;color:#9aa4b8}
+.horn{position:relative;width:200px;height:150px}
+.horn .spk{position:absolute;left:30px;top:30px;width:80px;height:90px;border-radius:16px;background:linear-gradient(160deg,#f2f4f8,#c3cad6);box-shadow:0 18px 30px -14px rgba(10,15,28,.5);display:grid;place-items:center}
+.horn .spk::after{content:"";width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,#2b3243 20%,#555f73 22%,#3a4254 60%,#6b7488 62%)}
+.horn .w{position:absolute;left:120px;top:75px;border:2px solid var(--primary);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;transform:translate(-50%,-50%) rotate(45deg);opacity:0;animation:wave 2.4s ease-out infinite}
+.horn .w:nth-child(2){animation-delay:.8s}.horn .w:nth-child(3){animation-delay:1.6s}
+@keyframes wave{0%{width:20px;height:20px;opacity:.9}100%{width:150px;height:150px;opacity:0}}
+.spec3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(320px,86%);position:relative}
+.spec3 div{border-radius:12px;background:var(--surface);border:1px solid var(--border);padding:12px;display:grid;gap:8px;box-shadow:var(--shadow);transition:transform .3s}
+.pcard:hover .spec3 div:nth-child(1){transform:translateY(-6px)}
+.pcard:hover .spec3 div:nth-child(3){transform:translateY(-6px)}
+.spec3 .ic{width:20px;height:20px;color:var(--primary)}
+.spec3 b{font-size:12.5px;line-height:1.25}
+
+/* ───────── DARK BAND / AMS ───────── */
+.band{background:var(--band);color:var(--panel-ink);border-radius:clamp(0px,2.5vw,32px);margin-inline:clamp(0px,1.5vw,20px);overflow:hidden;position:relative;isolation:isolate}
+.band::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(var(--panel-grid) 1px,transparent 1px),linear-gradient(90deg,var(--panel-grid) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(180deg,#000,transparent 70%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%)}
+.band h2,.band h3,.band h4{color:var(--panel-strong)}
+.band .lead,.band .muted{color:var(--panel-mute)}
+.band .eyebrow{color:var(--panel-mute)}
+.band .btn-ghost{background:var(--panel-2);border-color:var(--panel-line-2);color:var(--panel-ink)}
+.band .btn-ghost:hover{border-color:var(--panel-mute)}
+.band .btn-primary{background:var(--panel-strong);color:var(--band)}
+.band .link-arrow{color:var(--panel-ink)}
+.glow{position:absolute;z-index:-1;width:800px;height:500px;border-radius:50%;background:radial-gradient(closest-side,var(--glow),transparent);pointer-events:none}
+.ams-top{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:end;margin-bottom:48px}
+.ams-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--panel-line);border:1px solid var(--panel-line);border-radius:14px;overflow:hidden}
+.ams-points div{background:var(--panel-2);padding:16px;display:grid;gap:6px}
+.ams-points .ic{color:var(--p-primary);width:18px;height:18px}
+.ams-points b{font-size:14px;color:var(--panel-strong);font-weight:600}
+.ams-points span{font-size:13px;color:var(--panel-mute);line-height:1.45}
+
+/* App mockup */
+.app{border:1px solid var(--panel-line);border-radius:16px;background:var(--panel-2);box-shadow:var(--panel-shadow);overflow:hidden;font-size:13px;color:var(--panel-ink)}
+.app-bar{display:flex;align-items:center;gap:14px;padding:10px 14px;border-bottom:1px solid var(--panel-line);background:var(--panel)}
+.app-url{font-family:var(--f-mono);font-size:12px;color:var(--panel-mute);background:var(--panel-2);border:1px solid var(--panel-line);border-radius:7px;padding:4px 12px;flex:1;max-width:420px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.sample{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--p-signal);border:1px solid color-mix(in srgb,var(--p-signal) 40%,transparent);border-radius:999px;padding:2px 8px;flex:none}
+.app-body{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:560px}
+.side{border-right:1px solid var(--panel-line);padding:14px 10px;display:flex;flex-direction:column;gap:2px;background:var(--panel)}
+.side .ttl{display:flex;align-items:center;gap:8px;padding:4px 8px 14px;font-weight:600;font-size:14px;color:var(--panel-strong)}
+.side .ttl i{width:22px;height:22px;border-radius:6px;background:var(--p-primary);display:grid;place-items:center}
+.side .ttl i svg{width:13px;height:13px;stroke:var(--panel-2)}
+.side .grp{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--panel-dim);padding:12px 8px 6px}
+.side a{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:7px;color:var(--panel-mute)}
+.side a .ic{width:15px;height:15px}
+.side a.on{background:var(--panel-3);color:var(--panel-strong)}
+.side a .n{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;background:color-mix(in srgb,var(--p-err) 14%,transparent);color:var(--p-err);border-radius:5px;padding:0 5px}
+.side .node{margin-top:auto;border:1px solid var(--panel-line);border-radius:10px;padding:10px;display:grid;gap:6px;font-size:12px}
+.side .node .r{display:flex;align-items:center;gap:8px;color:var(--panel-mute)}
+.side .node .r b{color:var(--panel-ink);font-weight:500}
+.okdot{width:7px;height:7px;border-radius:50%;background:var(--p-ok);flex:none}
+.stbdot{width:7px;height:7px;border-radius:50%;background:var(--p-primary);flex:none}
+.main{padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tabs{display:flex;gap:4px;border:1px solid var(--panel-line);border-radius:9px;padding:3px;width:max-content;max-width:100%;overflow-x:auto;background:var(--panel)}
+.tabs button{padding:6px 12px;border-radius:6px;color:var(--panel-mute);font-size:12.5px;font-weight:500;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--panel-2);color:var(--panel-strong);box-shadow:0 1px 2px rgba(13,28,42,.08)}
+.view{display:none;flex-direction:column;gap:14px;animation:vin .35s ease}
+.view.on{display:flex}
+@keyframes vin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{border:1px solid var(--panel-line);border-radius:11px;padding:12px;background:var(--panel);display:grid;gap:4px;min-width:0}
+.kpi small{color:var(--panel-mute);font-size:11.5px}
+.kpi b{font-size:22px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--panel-strong)}
+.kpi b em{font-style:normal;color:var(--panel-mute);font-size:14px;font-weight:500}
+.kpi .d{font-family:var(--f-mono);font-size:11px;display:flex;align-items:center;gap:6px}
+.ok{color:var(--p-ok)}.warn{color:var(--p-warn)}.err{color:var(--p-err)}.pri{color:var(--p-primary)}
+.split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+.card-d{border:1px solid var(--panel-line);border-radius:11px;background:var(--panel);overflow:hidden;min-width:0}
+.card-d .h{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--panel-line);font-weight:600;font-size:12.5px;color:var(--panel-strong);gap:8px}
+.card-d .h span{font-weight:400;color:var(--panel-mute);font-family:var(--f-mono);font-size:11px}
+.tbl-wrap{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-size:12px;min-width:520px}
+.t th{text-align:left;font-weight:500;color:var(--panel-dim);font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--panel-line)}
+.t td{padding:9px 12px;border-bottom:1px solid var(--panel-line);white-space:nowrap}
+.t tr:last-child td{border-bottom:0}
+.t tr:hover td{background:var(--panel-sunk)}
+.t .m{font-family:var(--f-mono);color:var(--panel-mute);font-size:11.5px}
+.st{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500}
+.st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.st.ok{background:color-mix(in srgb,var(--p-ok) 12%,transparent)}.st.warn{background:color-mix(in srgb,var(--p-warn) 12%,transparent)}.st.err{background:color-mix(in srgb,var(--p-err) 12%,transparent)}.st.pri{background:color-mix(in srgb,var(--p-primary) 12%,transparent)}
+.log{font-family:var(--f-mono);font-size:11.5px;padding:6px 0;display:flex;flex-direction:column;max-height:208px;overflow:hidden}
+.log div{display:grid;grid-template-columns:62px 42px minmax(0,1fr);gap:8px;padding:5px 12px;align-items:baseline}
+.log div.new{animation:lin .5s ease}
+@keyframes lin{from{background:color-mix(in srgb,var(--p-primary) 12%,transparent);opacity:0}to{background:transparent;opacity:1}}
+.log time{color:var(--panel-dim)}
+.log .msg{color:var(--panel-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart{padding:10px 12px 12px}
+.chart svg{width:100%;height:92px}
+.chart .axis{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;color:var(--panel-dim);margin-top:4px}
+.calls{display:grid;gap:10px}
+.call{display:grid;grid-template-columns:minmax(0,1fr) 120px auto;align-items:center;gap:14px;border:1px solid var(--panel-line);border-radius:11px;padding:12px;background:var(--panel)}
+.call .who{display:flex;align-items:center;gap:10px;min-width:0}
+.call .av{width:34px;height:34px;border-radius:9px;background:var(--panel-3);display:grid;place-items:center;flex:none}
+.call .av .ic{width:16px;height:16px;color:var(--p-primary)}
+.call .who div{min-width:0}
+.call .who b{display:block;font-weight:500;color:var(--panel-strong);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.call .who small{color:var(--panel-mute);font-family:var(--f-mono);font-size:11px}
+.meter{display:flex;align-items:flex-end;gap:2px;height:26px}
+.meter i{flex:1;background:var(--p-primary);border-radius:1px;height:20%;transition:height .12s linear;opacity:.85}
+.meter.s i{background:var(--p-signal)}
+.call .meta{display:flex;gap:6px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--panel-mute)}
+.call .dur{color:var(--panel-strong);font-variant-numeric:tabular-nums;min-width:40px;text-align:right}
+.tagx{border:1px solid var(--panel-line);border-radius:5px;padding:1px 6px}
+.tagx.rec{color:var(--p-err);border-color:color-mix(in srgb,var(--p-err) 40%,transparent)}
+.zones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.zone{border:1px solid var(--panel-line);border-radius:11px;padding:12px;background:var(--panel);display:grid;gap:10px;min-width:0}
+.zone.live{border-color:color-mix(in srgb,var(--p-signal) 45%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--p-signal) 8%,transparent),transparent)}
+.zone .zt{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.zone .zt b{color:var(--panel-strong);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.zone small{font-family:var(--f-mono);font-size:10.5px;color:var(--panel-mute)}
+.vol{height:4px;border-radius:2px;background:var(--panel-3);overflow:hidden}
+.vol i{display:block;height:100%;background:var(--p-primary);border-radius:2px}
+.zone.live .vol i{background:var(--p-signal)}
+.ann{display:flex;gap:10px;align-items:center;border:1px dashed var(--panel-line-2);border-radius:11px;padding:12px;flex-wrap:wrap}
+.ann .btn-sm{background:var(--p-signal);color:var(--on-signal);font-weight:600}
+.ann .m{font-family:var(--f-mono);font-size:11.5px;color:var(--panel-mute)}
+
+/* ───────── PLATFORM ───────── */
+.plat{display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px;align-items:stretch}
+.plat-list{display:flex;flex-direction:column;gap:6px}
+.plat-list button{display:flex;align-items:center;gap:14px;text-align:left;padding:14px;border-radius:14px;border:1px solid transparent;transition:background .2s,border-color .2s}
+.plat-list button:hover{background:var(--surface)}
+.plat-list button[aria-selected="true"]{background:var(--surface);border-color:var(--border);box-shadow:var(--shadow)}
+.plat-list .pi{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);display:grid;place-items:center;flex:none;background:var(--bg)}
+.plat-list button[aria-selected="true"] .pi{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.plat-list b{display:block;font-size:15px;font-weight:600}
+.plat-list small{display:block;color:var(--muted);font-size:13px;line-height:1.35}
+.plat-panel{border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);overflow:hidden;display:grid;grid-template-rows:auto 1fr;box-shadow:var(--shadow)}
+.plat-viz{height:280px;background:var(--panel);position:relative;overflow:hidden;display:grid;place-items:center;border-bottom:1px solid var(--border)}
+.plat-viz::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--panel-dot) 1px,transparent 1px);background-size:16px 16px}
+.plat-txt{padding:28px;display:grid;gap:14px;align-content:start}
+.plat-txt .tag{font-family:var(--f-mono);font-size:12px;color:var(--primary)}
+.plat-txt h3{font-size:1.6rem;letter-spacing:-.025em}
+.plat-txt ul{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px}
+.plat-txt li{display:flex;gap:10px;font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.plat-txt li .ic{width:17px;height:17px;color:var(--success);margin-top:2px}
+.fade-in{animation:vin .4s ease}
+/* platform mini visuals */
+.pv{position:relative;color:var(--panel-ink);font-size:12px}
+.pv-ha{display:flex;align-items:center;gap:26px}
+.srv{width:150px;border:1px solid var(--panel-line);background:var(--panel-2);border-radius:12px;padding:14px;display:grid;gap:8px}
+.srv b{color:var(--panel-strong);font-size:13px}
+.srv small{font-family:var(--f-mono);color:var(--panel-mute);font-size:11px}
+.srv .bar{height:5px;border-radius:3px;background:var(--panel-3);overflow:hidden}
+.srv .bar i{display:block;height:100%;width:100%;background:var(--p-ok);animation:sync 2.4s ease-in-out infinite}
+@keyframes sync{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.hb{display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--f-mono);font-size:10.5px;color:var(--panel-mute)}
+.hb svg{width:70px;height:28px}
+.hb path{fill:none;stroke:var(--p-ok);stroke-width:1.6;stroke-dasharray:120;animation:hbeat 1.8s linear infinite}
+@keyframes hbeat{from{stroke-dashoffset:120}to{stroke-dashoffset:-120}}
+.pv-rec{width:min(440px,88%);border:1px solid var(--panel-line);background:var(--panel-2);border-radius:14px;padding:16px;display:grid;gap:12px}
+.pv-rec .r1{display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11.5px;color:var(--panel-mute)}
+.pv-rec .recd{display:flex;align-items:center;gap:6px;color:var(--p-err)}
+.wavebar{display:flex;align-items:center;gap:2px;height:60px}
+.wavebar i{flex:1;background:linear-gradient(180deg,var(--p-primary),#3a54c4);border-radius:2px}
+.pv-cams{display:grid;grid-template-columns:repeat(3,92px);gap:8px}
+.cam{height:62px;border-radius:8px;border:1px solid var(--panel-line);background:linear-gradient(135deg,#1a2233,#0f1420);position:relative;overflow:hidden}
+.cam::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px)}
+.cam span{position:absolute;left:6px;top:4px;font-family:var(--f-mono);font-size:9.5px;color:var(--panel-mute)}
+.cam.on{border-color:var(--p-signal);box-shadow:0 0 0 1px var(--p-signal)}
+.cam.on span{color:var(--p-signal)}
+.cam.aud{display:grid;place-items:center;background:var(--panel-3)}
+.cam.aud .ic{width:22px;height:22px;color:var(--p-primary)}
+.dtmf{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dtmf i{font-style:normal;font-family:var(--f-mono);width:24px;height:24px;border-radius:6px;border:1px solid var(--panel-line);display:grid;place-items:center;color:var(--panel-mute);font-size:11px}
+.dtmf i.on{background:var(--p-signal);color:var(--on-signal);border-color:var(--p-signal)}
+.pv-vir{display:flex;gap:26px;align-items:center}
+.phone{width:120px;height:210px;border-radius:22px;border:2px solid #2c364c;background:#0d1220;padding:10px;display:grid;grid-template-rows:auto 1fr auto;gap:8px}
+.phone .ph-h{font-family:var(--f-mono);font-size:9.5px;color:var(--panel-mute);text-align:center}
+.phone .ph-v{border-radius:10px;background:linear-gradient(160deg,#27324d,#131a2a);position:relative}
+.phone .ph-v::after{content:"";position:absolute;left:50%;top:40%;width:34px;height:34px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.3)}
+.phone .ph-b{display:flex;justify-content:center;gap:10px}
+.phone .ph-b i{width:26px;height:26px;border-radius:50%;background:var(--p-err)}
+.phone .ph-b i+i{background:var(--p-ok)}
+.qr{width:96px;height:96px;border-radius:10px;background:#fff;padding:8px;display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.qr i{background:#0A0E17;border-radius:1px}
+.qr{box-shadow:0 0 0 1px var(--panel-line)}
+.qr i.w{background:transparent}
+.pv-logic{display:grid;grid-template-columns:auto auto auto;gap:18px;align-items:center}
+.lg-in{display:grid;gap:8px}
+.lg-in div{font-family:var(--f-mono);font-size:11px;border:1px solid var(--panel-line);background:var(--panel-2);border-radius:8px;padding:6px 10px;color:var(--panel-ink);white-space:nowrap}
+.lg-gate{width:92px;height:92px;border-radius:16px;border:1px solid var(--hub-line);background:linear-gradient(180deg,var(--hub-a),var(--hub-b));display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;color:var(--panel-strong);box-shadow:0 0 30px -6px var(--hub-glow);font-size:13px;text-align:center;line-height:1.3}
+.mvm{width:min(460px,90%);border:1px solid var(--panel-line);border-radius:12px;background:var(--panel-2);overflow:hidden}
+.mvm .mh{display:flex;gap:6px;padding:8px 10px;border-bottom:1px solid var(--panel-line);font-family:var(--f-mono);font-size:10.5px;color:var(--panel-mute);align-items:center}
+.mvm .mg{display:grid;grid-template-columns:1.3fr 1fr;gap:8px;padding:10px}
+.mvm .map{height:150px;border-radius:8px;background:var(--panel-3);position:relative;background-image:linear-gradient(var(--panel-grid) 1px,transparent 1px),linear-gradient(90deg,var(--panel-grid) 1px,transparent 1px);background-size:20px 20px}
+.mvm .map i{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--p-ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--p-ok) 20%,transparent)}
+.mvm .map i.a{background:var(--p-signal);box-shadow:0 0 0 3px color-mix(in srgb,var(--p-signal) 25%,transparent);animation:pulse 1.6s infinite;color:var(--p-signal)}
+.mvm .ml{display:grid;gap:5px;align-content:start}
+.mvm .ml div{font-size:10.5px;border:1px solid var(--panel-line);border-radius:6px;padding:5px 7px;display:flex;justify-content:space-between;gap:6px;color:var(--panel-ink)}
+.mvm .ml div span{font-family:var(--f-mono);color:var(--panel-mute)}
+
+/* ───────── LAYERS ───────── */
+.layers-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.layers{position:relative;display:grid;gap:18px}
+.layer{position:relative;border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:18px 20px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:center;box-shadow:var(--shadow);z-index:1;transition:transform .3s,border-color .3s}
+.layer:hover{transform:translateX(6px);border-color:var(--border-2)}
+.layer .ln{display:grid;gap:4px}
+.layer .ln .k{display:flex;align-items:center;gap:8px;font-weight:600;font-size:17px}
+.layer .ln .k .ic{width:20px;height:20px}
+.layer .ln small{font-size:12.5px;color:var(--muted);line-height:1.35}
+.layer .nodes{display:flex;flex-wrap:wrap;gap:8px}
+.layer .nodes span{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:6px 10px;border-radius:8px;background:var(--bg);border:1px solid var(--border);color:var(--ink-2)}
+.layer .nodes span .ic{width:14px;height:14px;color:var(--muted)}
+.layer.cloud{border-color:color-mix(in srgb,var(--primary) 30%,var(--border))}
+.layer.cloud .k{color:var(--primary)}
+.layer.fog .k{color:var(--ink)}
+.layer.edge .k{color:var(--signal)}
+.pipes{position:absolute;left:94px;top:30px;bottom:30px;width:40px;z-index:0;display:flex;justify-content:space-between}
+.pipes i{width:2px;background:var(--border-2);position:relative;overflow:hidden;border-radius:2px}
+.pipes i::after{content:"";position:absolute;left:0;width:2px;height:40px;background:linear-gradient(180deg,transparent,var(--primary));animation:up 2.4s linear infinite}
+.pipes i:nth-child(2)::after{background:linear-gradient(0deg,transparent,var(--signal));animation:down 2.8s linear infinite;animation-delay:.6s}
+.pipes i:nth-child(3)::after{animation-delay:1.2s}
+@keyframes up{from{top:100%}to{top:-40px}}
+@keyframes down{from{top:-40px}to{top:100%}}
+.quote-sm{border-left:2px solid var(--signal);padding-left:14px;font-size:15px;color:var(--ink-2)}
+.quote-sm span{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:4px}
+
+/* ───────── SOLUTIONS ───────── */
+.sgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.scard{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s}
+.scard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--border-2)}
+.scene{height:190px;position:relative;overflow:hidden;background:linear-gradient(180deg,var(--surface-2),var(--surface));border-bottom:1px solid var(--border)}
+.scene .big{position:absolute;right:-18px;bottom:-26px;width:170px;height:170px;color:var(--border-2);stroke-width:1.1;transition:transform .5s,color .5s}
+.scard:hover .scene .big{transform:scale(1.06) rotate(-4deg);color:color-mix(in srgb,var(--primary) 40%,var(--border-2))}
+.scene .ui{position:absolute;left:18px;top:22px;width:min(240px,78%);background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:12px;display:grid;gap:8px;transition:transform .35s}
+.scard:hover .scene .ui{transform:translateY(-4px)}
+.scene .ui .r{display:flex;align-items:center;gap:8px;font-size:12.5px}
+.scene .ui .r b{font-weight:600}
+.scene .ui .r .ic{width:15px;height:15px}
+.scene .ui .r.m{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.scene .ui .acts{display:flex;gap:6px}
+.scene .ui .acts span{font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);color:var(--ink-2)}
+.scene .ui .acts span.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sdot{width:8px;height:8px;border-radius:50%;flex:none}
+.scard .body{padding:22px;display:grid;gap:8px;flex:1;align-content:start}
+.scard .body p{font-size:14.5px;color:var(--muted)}
+.scard .body .link-arrow{margin-top:8px}
+
+/* ───────── EN81 ───────── */
+.en81{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.en81-feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.en81-feats div{display:flex;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--panel-line);border-radius:11px;font-size:14px;color:var(--panel-ink);background:var(--panel-2)}
+.en81-feats .ic{width:17px;height:17px;color:var(--p-signal)}
+.shaft{position:relative;border:1px solid var(--panel-line);border-radius:22px;background:linear-gradient(180deg,var(--panel-2),var(--panel));padding:20px;overflow:hidden}
+.shaft svg{width:100%;height:auto}
+.shaft text{font-family:var(--f-body)}
+.shaft .t1{fill:var(--panel-ink);font-size:13px;font-weight:600}
+.shaft .t2{fill:var(--panel-mute);font-size:10.5px;font-family:var(--f-mono)}
+.car{animation:ride 9s ease-in-out infinite}
+@keyframes ride{0%,12%{transform:translateY(0)}45%,60%{transform:translateY(150px)}92%,100%{transform:translateY(0)}}
+.vl{stroke:var(--p-signal);stroke-width:1.4;stroke-dasharray:3 6;animation:flow 1.2s linear infinite;fill:none}
+.vl.b{stroke:var(--p-primary)}
+.codes{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.codes span{font-family:var(--f-mono);font-size:11.5px;border:1px solid var(--panel-line);border-radius:6px;padding:3px 8px;color:var(--panel-mute)}
+
+/* ───────── HARDWARE ───────── */
+.hw{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px;align-items:stretch}
+.hw-hero{border:1px solid var(--border);border-radius:var(--r-xl);background:radial-gradient(120% 90% at 30% 20%,var(--surface),var(--surface-2));position:relative;overflow:hidden;min-height:440px;display:grid;place-items:center;padding:40px 24px}
+.hw-hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(circle at 50% 50%,#000,transparent 70%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 70%)}
+.jnode{position:relative;width:min(340px,80vw);aspect-ratio:1.55;max-width:100%;transform:perspective(900px) rotateX(18deg) rotateY(-24deg) rotateZ(2deg);transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.hw-hero:hover .jnode{transform:perspective(900px) rotateX(10deg) rotateY(-12deg)}
+.jnode .top{position:absolute;inset:0;border-radius:18px;background:repeating-linear-gradient(90deg,#2b3244 0 6px,#1a2030 6px 12px);box-shadow:0 50px 60px -30px rgba(10,15,28,.6),inset 0 0 0 1px #3a4358}
+.jnode .front{position:absolute;left:0;right:0;bottom:-44px;height:44px;border-radius:0 0 14px 14px;background:linear-gradient(180deg,#1b2130,#0e121c);transform-origin:top;transform:rotateX(-90deg) translateZ(0);display:none}
+.jnode .plate{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#0e121c;border:1px solid #3a4358;border-radius:10px;padding:10px 16px;display:grid;justify-items:center;gap:2px}
+.jnode .plate b{font-family:var(--f-mono);font-size:13px;color:#fff;letter-spacing:.04em}
+.jnode .plate span{font-family:var(--f-mono);font-size:9.5px;color:#7e889d}
+.jnode .leds{position:absolute;right:16px;bottom:14px;display:flex;gap:6px}
+.jnode .leds i{width:6px;height:6px;border-radius:50%;background:var(--p-ok);box-shadow:0 0 8px var(--p-ok)}
+.jnode .leds i:nth-child(2){background:var(--p-primary);box-shadow:0 0 8px var(--p-primary);animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.callout{position:absolute;font-family:var(--f-mono);font-size:11.5px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:6px;color:var(--ink-2);white-space:nowrap}
+.callout i{width:6px;height:6px;border-radius:50%;background:var(--signal)}
+.hw-side{display:grid;gap:16px;align-content:start}
+.hw-side h2{font-size:clamp(1.9rem,3.4vw,2.8rem)}
+.attrs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.attrs div{border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface);display:grid;gap:6px}
+.attrs .ic{width:18px;height:18px;color:var(--primary)}
+.attrs b{font-size:14px}
+.lineup{border:1px solid var(--border);border-radius:16px;background:var(--surface);overflow:hidden}
+.lineup .row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);transition:background .2s}
+.lineup .row:last-child{border-bottom:0}
+.lineup .row:hover{background:var(--surface-2)}
+.lineup .row .ic{width:20px;height:20px}
+.lineup .row b{display:block;font-size:15px}
+.lineup .row small{color:var(--muted);font-size:13px}
+.lineup .row .badge{font-family:var(--f-mono);font-size:11px;padding:3px 8px;border-radius:999px;background:var(--primary-soft);color:var(--primary);white-space:nowrap}
+
+/* ───────── INTEGRATIONS ───────── */
+.intg{display:grid;grid-template-columns:minmax(0,1fr) 220px minmax(0,1fr);gap:0;align-items:center;position:relative}
+.icol{min-width:0;grid-template-columns:minmax(0,1fr);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);padding:18px;display:grid;gap:10px;box-shadow:var(--shadow);position:relative;z-index:1}
+.icol h4{font-size:13px;font-family:var(--f-mono);font-weight:500;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 10px}
+.vendor{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--bg);font-size:14px;font-weight:500;transition:border-color .2s}
+.vendor:hover{border-color:var(--primary)}
+.vendor .lg{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;font-weight:600;background:var(--surface-2);color:var(--ink-2);flex:none;border:1px solid var(--border)}
+.vendor .sm{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;color:var(--success);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.vendor .sm::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.vendor span.n{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hub{position:relative;height:100%;display:grid;place-items:center;min-height:320px}
+.hub .wires{position:absolute;inset:0;display:grid;align-content:center;gap:34px}
+.hub .wires i{height:2px;background:repeating-linear-gradient(90deg,var(--border-2) 0 6px,transparent 6px 12px);position:relative;overflow:hidden}
+.hub .wires i::after{content:"";position:absolute;top:0;height:2px;width:30px;background:var(--primary);border-radius:2px;animation:slide 2.2s linear infinite}
+.hub .wires i:nth-child(2)::after{animation-delay:.7s;background:var(--signal);animation-direction:reverse}
+.hub .wires i:nth-child(3)::after{animation-delay:1.4s}
+@keyframes slide{from{left:-30px}to{left:100%}}
+.hub .core{position:relative;z-index:1;width:150px;height:150px;border-radius:28px;background:linear-gradient(180deg,var(--hub-a),var(--hub-b));border:1px solid var(--hub-line);display:grid;place-items:center;text-align:center;color:var(--panel-strong);box-shadow:0 0 0 8px color-mix(in srgb,var(--primary) 10%,transparent),0 0 0 16px color-mix(in srgb,var(--primary) 5%,transparent),var(--shadow-lg)}
+.hub .core b{font-size:18px;letter-spacing:-.01em}
+.hub .core small{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--panel-mute);margin-top:2px}
+.proto{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:36px}
+.proto span{font-family:var(--f-mono);font-size:12.5px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink-2)}
+.proto span em{font-style:normal;color:var(--muted);font-size:11px;margin-left:6px}
+.feature-xp{margin-top:28px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:22px 24px}
+.feature-xp .l{display:flex;gap:16px;align-items:center;min-width:0}
+.feature-xp .ico2{width:48px;height:48px;border-radius:12px;background:var(--ink);color:var(--bg);display:grid;place-items:center;flex:none}
+.feature-xp b{font-size:16px;display:block}
+.feature-xp small{color:var(--muted);font-size:14px}
+
+/* ───────── CRITICAL COMM BENTO ───────── */
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.bx{border:1px solid var(--panel-line);border-radius:18px;background:var(--panel-2);padding:22px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:border-color .25s,background .25s}
+.bx:hover{border-color:var(--panel-line-2);box-shadow:var(--shadow)}
+.bx .ic{width:22px;height:22px;color:var(--p-primary)}
+.bx h3{font-size:1.1rem}
+.bx p{font-size:14px;color:var(--panel-mute)}
+.bx .mono{font-size:11.5px;color:var(--panel-dim);margin-top:auto}
+.bx.w3{grid-column:span 3}.bx.w2{grid-column:span 2}.bx.w4{grid-column:span 4}
+.bx.hero-bx{background:linear-gradient(135deg,var(--hub-b),var(--panel-2) 70%);border-color:var(--hub-line)}
+.bx.hero-bx h3{font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:-.025em;line-height:1.1}
+.sipline{font-family:var(--f-mono);font-size:11.5px;color:var(--panel-mute);background:var(--panel-sunk);border:1px solid var(--panel-line);border-radius:10px;padding:10px 12px;line-height:1.7;overflow-x:auto;white-space:pre;margin-top:auto}
+.sipline .k{color:var(--p-primary)}.sipline .v{color:var(--p-signal)}.sipline .g{color:var(--p-ok)}
+
+/* ───────── ENTERPRISE ───────── */
+.ent{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--border);gap:1px}
+.ent div{background:var(--surface);padding:28px;display:grid;gap:10px;align-content:start;transition:background .2s}
+.ent div:hover{background:var(--bg)}
+.ent .ic{width:22px;height:22px;color:var(--ink)}
+.ent h3{font-size:1.08rem}
+.ent p{font-size:14.5px;color:var(--muted)}
+.ent .mono{font-size:11.5px;color:var(--primary)}
+
+/* ───────── CTA ───────── */
+.cta{text-align:center;padding-block:clamp(72px,10vw,120px);display:grid;justify-items:center;gap:22px}
+.cta h2{font-size:clamp(2.3rem,5.4vw,4.4rem);max-width:17ch;line-height:1}
+.cta .rings{position:absolute;inset:0;z-index:-1;display:grid;place-items:center;pointer-events:none}
+.cta .rings i{position:absolute;border:1px solid var(--hub-line);border-radius:50%;width:200px;height:200px;animation:ring 6s linear infinite;opacity:0}
+.cta .rings i:nth-child(2){animation-delay:2s}.cta .rings i:nth-child(3){animation-delay:4s}
+@keyframes ring{0%{transform:scale(.6);opacity:.8}100%{transform:scale(5);opacity:0}}
+
+/* ───────── FOOTER ───────── */
+footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:clamp(40px,6vw,80px)}
+.f-top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(5,minmax(0,1fr));gap:28px}
+.f-brand{display:grid;gap:14px;align-content:start}
+.f-brand p{font-size:14px;color:var(--muted);max-width:34ch}
+.social{display:flex;gap:8px}
+.f-col h5{margin:0 0 14px;font-size:12px;font-family:var(--f-mono);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.f-col ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.f-col a{font-size:14px;color:var(--ink-2)}
+.f-col a:hover{color:var(--primary)}
+.f-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.f-bot .mono{font-size:12px}
+.f-meta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.theme-toggle{display:inline-flex;align-items:center;gap:8px;height:34px;padding-inline:12px;border:1px solid var(--border);border-radius:999px;font-size:13px;font-weight:500;color:var(--ink-2);background:var(--surface);transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--border-2);color:var(--ink)}
+.theme-toggle .ic{width:15px;height:15px}
+.theme-toggle .sun{display:none}
+:root.dark .theme-toggle .sun{display:block}
+:root.dark .theme-toggle .moon{display:none}
+.f-brand .logo{height:28px}
+
+/* Reveal */
+.rv.pre{opacity:0;transform:translateY(22px)}
+.rv{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width:1180px){
+  .search-pill{min-width:0}.search-pill span,.search-pill .kbd{display:none}
+  .dd-3{width:620px}
+}
+@media (max-width:1024px){
+  .menu,.nav-cta .btn-ghost,.search-pill{display:none}
+  .burger{display:grid}
+  .ams-top,.en81,.layers-wrap,.hw{grid-template-columns:minmax(0,1fr)}
+  .ams-top{gap:28px}
+  .plat{grid-template-columns:minmax(0,1fr)}
+  .plat-list{flex-direction:row;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+  .plat-list::-webkit-scrollbar{display:none}
+  .plat-list button{flex:none;padding:10px 14px}
+  .plat-list small{display:none}
+  .sgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .app-body{grid-template-columns:minmax(0,1fr)}
+  .side{display:none}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .f-top{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .f-brand{grid-column:1/-1}
+  .intg{grid-template-columns:minmax(0,1fr);gap:0}
+  .hub{min-height:0;padding-block:18px}
+  .hub .wires{display:none}
+  .hub::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:repeating-linear-gradient(0deg,var(--border-2) 0 6px,transparent 6px 12px)}
+  .hub .core{width:auto;height:auto;padding:16px 22px;border-radius:16px}
+  .bx.w3,.bx.w2,.bx.w4{grid-column:span 3}
+}
+@media (max-width:768px){
+  .pgrid{grid-template-columns:minmax(0,1fr)}
+  .split{grid-template-columns:minmax(0,1fr)}
+  .zones{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .call{grid-template-columns:minmax(0,1fr) auto}
+  .call .meter{grid-column:1/-1;order:3}
+  .eco>svg{display:none}.eco-m{display:block}.eco{padding:0}
+  .strip-in{flex-direction:column;align-items:flex-start;gap:14px}
+  .strip-lbl{max-width:none}
+  .marquee{width:100%}
+  .plat-txt ul{grid-template-columns:minmax(0,1fr)}
+  .layer{grid-template-columns:minmax(0,1fr);gap:12px}
+  .pipes{display:none}
+  .ent{grid-template-columns:minmax(0,1fr)}
+  .bento{grid-template-columns:minmax(0,1fr)}
+  .bx.w3,.bx.w2,.bx.w4{grid-column:auto}
+  .feature-xp{grid-template-columns:minmax(0,1fr)}
+  .en81-feats{grid-template-columns:minmax(0,1fr)}
+  .plat-viz{height:240px}
+  .attrs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .band{border-radius:20px;margin-inline:8px}
+}
+@media (max-width:640px){
+  .brand .logo{height:26px}
+  .f-bot{flex-direction:column-reverse;align-items:flex-start}
+  .sgrid{grid-template-columns:minmax(0,1fr)}
+  .f-top{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-ctas{width:100%}
+  .hero-ctas .btn{flex:1;justify-content:center}
+  .announce .t{max-width:210px}
+  .pcard .viz{height:200px}
+  .pv-cams{grid-template-columns:repeat(3,72px)}
+  .pv-ha{gap:12px}.srv{width:124px;padding:10px}
+  .pv-vir{gap:14px}
+  .pv-logic{gap:10px}.lg-gate{width:70px;height:70px;font-size:11px}
+  .lg-in div{font-size:10px;padding:5px 7px}
+  .attrs{grid-template-columns:minmax(0,1fr)}
+  .hw-hero{min-height:340px}
+  .callout{display:none}
+}
+@media (max-width:480px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .kpi b{font-size:18px}
+  .main{padding:12px}
+  .zones{grid-template-columns:minmax(0,1fr)}
+  .eco-m .col{grid-template-columns:minmax(0,1fr)}
+  .plat-txt{padding:22px}
+  .scene .ui{width:calc(100% - 36px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rv.pre{opacity:1;transform:none}
+  .track{animation:none}
+}
+</style>
+</head><body>
+<script>try{if(localStorage.getItem("sipazon-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
+
+<!-- ───────── ICON SPRITE ───────── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-intercom" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="8" r="2.5"/><path d="M9.5 14h5"/><circle cx="12" cy="18" r="1"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M3 10v4h4l5 4V6L7 10H3z"/><path d="M16 9a4 4 0 010 6M19 6a8 8 0 010 12"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></symbol>
+  <symbol id="i-elevator" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M12 3v18M7.5 10.5L9 8.5l1.5 2M13.5 13.5l1.5 2 1.5-2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18M12 8h8v13M8 8h.01M8 12h.01M8 16h.01M16 12h.01M16 16h.01M3 21h18"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 01-10 0zM12 17v4"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h1M7 8v8M11 4v16M15 8v8M19 10.5v3M22 12h-1"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 01-.6-7.96A6 6 0 0118 11.2 3.5 3.5 0 0117.5 18z"/></symbol>
+  <symbol id="i-fog" viewBox="0 0 24 24"><path d="M6 8h12M3 12h14M7 16h14M4 20h9"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9.5 3v4M14.5 3v4M9.5 17v4M14.5 17v4M3 9.5h4M3 14.5h4M17 9.5h4M17 14.5h4"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 12l2-5h10l2 5M3.5 12h17v5h-17zM7 17v2M17 17v2M7 14.5h.01M17 14.5h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3M12 15v2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/></symbol>
+  <symbol id="i-siren" viewBox="0 0 24 24"><path d="M7 17v-5a5 5 0 0110 0v5M5 17h14v3H5zM12 3v2M4.5 6l1.4 1.4M19.5 6l-1.4 1.4"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path d="M3 7h5l8 10h5M3 17h5l8-10h5"/><path d="M18 4l3 3-3 3M18 14l3 3-3 3"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4M7 12l3-3 2 2 4-4"/></symbol>
+  <symbol id="i-ha" viewBox="0 0 24 24"><rect x="3" y="5" width="7" height="14" rx="1.2"/><rect x="14" y="5" width="7" height="14" rx="1.2"/><path d="M10 10h4M12.5 8.5L14 10l-1.5 1.5M14 14h-4M11.5 12.5L10 14l1.5 1.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4.5a3.5 3.5 0 010 7M18 14a6 6 0 013.5 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M4 20h16M6 20V10M10 20V6M14 20v-8M18 20V4"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 01-10 0c0-2 1-3.5 2-4.5.3 1.5 1 2.5 2 3 0-3 .5-6 1-8.5z"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.8v.01M12 16v-5.5M12 13a2.5 2.5 0 015 0v3"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10 9.3v5.4l4.6-2.7z"/></symbol>
+</svg>
+
+<!-- ───────── NAV ───────── -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="data:image/png;base64,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" alt="SIPazon" width="137" height="30"></a>
+    <ul class="menu" id="menu">
+      <li>
+        <button class="m-btn" aria-expanded="false">Products <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="dd"><div class="dd-split">
+          <div class="dd-grid dd-2" style="width:auto">
+            <a class="dd-item" href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-intercom"/></svg></span><span><span class="dd-t">Intercom Stations</span><span class="dd-d">PoE native IP intercoms with HD voice</span></span></a>
+            <a class="dd-item" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-server"/></svg></span><span><span class="dd-t">AMS Servers</span><span class="dd-d">UC800 Platform, jNode Compact CS2, VM SIPazon</span></span></a>
+            <a class="dd-item" href="https://sipazon.com/products/pa" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-speaker"/></svg></span><span><span class="dd-t">PA</span><span class="dd-d">Integrated, unified public address</span></span></a>
+            <a class="dd-item" href="https://sipazon.com/products/special-products" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-spark"/></svg></span><span><span class="dd-t">Special Products</span><span class="dd-d">VirCom, SIPavox, Fire Command Center</span></span></a>
+            <a class="dd-item" href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-plug"/></svg></span><span><span class="dd-t">Integrations &amp; Compatibilities</span><span class="dd-d">VMS, Access Control, PSIM, BMS, SCADA</span></span></a>
+          </div>
+          <div class="dd-feature">
+            <span class="tag">New integration</span>
+            <strong>SIPazon AMS Call Manager for Milestone XProtect</strong>
+            <p>The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).</p>
+            <a class="link-arrow" href="#integrations">Learn more <svg class="ic"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div></div>
+      </li>
+      <li>
+        <button class="m-btn" aria-expanded="false">Platform <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="dd"><div class="dd-grid dd-3">
+          <a class="dd-item" href="https://sipazon.com/platform/platform-overview" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-layers"/></svg></span><span><span class="dd-t">Platform Overview</span><span class="dd-d">One platform for all your SIP needs</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-monitor"/></svg></span><span><span class="dd-t">MvM Console</span><span class="dd-d">Monitoring, Visualization &amp; Management</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/platform/ha" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-ha"/></svg></span><span><span class="dd-t">HA Redundancy</span><span class="dd-d">Master and hot-standby server pair</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/platform/siprec" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-rec"/></svg></span><span><span class="dd-t">SIPrec Recording</span><span class="dd-d">SIP-based audio and A/V recording</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/platform/videoengine" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-camera"/></svg></span><span><span class="dd-t">Video Engine</span><span class="dd-d">Lip-synchronized video calls</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/platform/vircom" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-phone"/></svg></span><span><span class="dd-t">VirCom</span><span class="dd-d">Virtual intercom endpoint via QR</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/platform/conncross" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-cross"/></svg></span><span><span class="dd-t">ConnCross</span><span class="dd-d">Connect &amp; Cross event orchestration</span></span></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="m-btn" aria-expanded="false">Solutions <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="dd"><div class="dd-grid dd-2">
+          <a class="dd-item" href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-car"/></svg></span><span><span class="dd-t">Parking</span><span class="dd-d">Easy In Easy Out Parking</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-lock"/></svg></span><span><span class="dd-t">Prisons &amp; Detention</span><span class="dd-d">Tamper-resistant cell intercoms</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-home"/></svg></span><span><span class="dd-t">Residential</span><span class="dd-d">Single homes to multi-tenant complexes</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-elevator"/></svg></span><span><span class="dd-t">Elevator</span><span class="dd-d">EN81 critical communication</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/solutions/office" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-brief"/></svg></span><span><span class="dd-t">Office</span><span class="dd-d">Daily operational access at the workplace</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-siren"/></svg></span><span><span class="dd-t">Public Safety &amp; Security</span><span class="dd-d">Audio for cities, alongside CCTV</span></span></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="m-btn" aria-expanded="false">Services <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="dd"><div class="dd-grid dd-1">
+          <a class="dd-item" href="https://sipazon.com/services/app-customisation" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-phone"/></svg></span><span><span class="dd-t">App Customisation</span><span class="dd-d">Rebrand the jPhone SIP app</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-chip"/></svg></span><span><span class="dd-t">SIPazon OEM</span><span class="dd-d">OEM services for Edge, Fog and Cloud</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/services/api" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-code"/></svg></span><span><span class="dd-t">API</span><span class="dd-d">Connect SIP endpoints to other ecosystems</span></span></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="m-btn" aria-expanded="false">Company <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="dd"><div class="dd-grid dd-1" style="width:260px">
+          <a class="dd-item" href="https://sipazon.com/company-information" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-info"/></svg></span><span><span class="dd-t">Company Information</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/team" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-users"/></svg></span><span><span class="dd-t">Team</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/privacy-statements" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-shield"/></svg></span><span><span class="dd-t">Privacy Statements</span></span></a>
+          <a class="dd-item" href="https://sipazon.com/contact" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-mail"/></svg></span><span><span class="dd-t">Contact Us</span></span></a>
+        </div></div>
+      </li>
+    </ul>
+    <div class="nav-cta">
+      <button class="search-pill" type="button" aria-label="Search"><svg class="ic"><use href="#i-search"/></svg><span>Search</span><span class="kbd">/</span></button>
+      <a class="btn btn-ghost btn-sm" href="https://sipazon.com/portal" target="_blank" rel="noopener">Portal</a>
+      <a class="btn btn-primary btn-sm" href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact us</a>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="mnav" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mnav" id="mnav" aria-hidden="true">
+  <div class="mnav-top">
+    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="data:image/png;base64,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" alt="SIPazon" width="128" height="28"></a>
+    <button class="icon-btn" id="mclose" aria-label="Close menu"><svg class="ic"><use href="#i-close"/></svg></button>
+  </div>
+  <details open><summary>Products <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
+    <a href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener"><svg class="ic"><use href="#i-intercom"/></svg>Intercom Stations</a>
+    <a href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-server"/></svg>AMS Servers</a>
+    <a href="https://sipazon.com/products/pa" target="_blank" rel="noopener"><svg class="ic"><use href="#i-speaker"/></svg>PA</a>
+    <a href="https://sipazon.com/products/special-products" target="_blank" rel="noopener"><svg class="ic"><use href="#i-spark"/></svg>Special Products</a>
+    <a href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener"><svg class="ic"><use href="#i-plug"/></svg>Integrations &amp; Compatibilities</a>
+  </div></details>
+  <details><summary>Platform <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
+    <a href="https://sipazon.com/platform/platform-overview" target="_blank" rel="noopener"><svg class="ic"><use href="#i-layers"/></svg>Platform Overview</a>
+    <a href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener"><svg class="ic"><use href="#i-monitor"/></svg>MvM Console</a>
+    <a href="https://sipazon.com/platform/ha" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ha"/></svg>HA Redundancy</a>
+    <a href="https://sipazon.com/platform/siprec" target="_blank" rel="noopener"><svg class="ic"><use href="#i-rec"/></svg>SIPrec Recording</a>
+    <a href="https://sipazon.com/platform/videoengine" target="_blank" rel="noopener"><svg class="ic"><use href="#i-camera"/></svg>Video Engine</a>
+    <a href="https://sipazon.com/platform/vircom" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>VirCom</a>
+    <a href="https://sipazon.com/platform/conncross" target="_blank" rel="noopener"><svg class="ic"><use href="#i-cross"/></svg>ConnCross</a>
+  </div></details>
+  <details><summary>Solutions <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
+    <a href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener"><svg class="ic"><use href="#i-car"/></svg>Parking</a>
+    <a href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener"><svg class="ic"><use href="#i-lock"/></svg>Prisons &amp; Detention</a>
+    <a href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener"><svg class="ic"><use href="#i-home"/></svg>Residential</a>
+    <a href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener"><svg class="ic"><use href="#i-elevator"/></svg>Elevator</a>
+    <a href="https://sipazon.com/solutions/office" target="_blank" rel="noopener"><svg class="ic"><use href="#i-brief"/></svg>Office</a>
+    <a href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener"><svg class="ic"><use href="#i-siren"/></svg>Public Safety &amp; Security</a>
+  </div></details>
+  <details><summary>Services <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
+    <a href="https://sipazon.com/services/app-customisation" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>App Customisation</a>
+    <a href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chip"/></svg>SIPazon OEM</a>
+    <a href="https://sipazon.com/services/api" target="_blank" rel="noopener"><svg class="ic"><use href="#i-code"/></svg>API</a>
+  </div></details>
+  <details><summary>Company <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
+    <a href="https://sipazon.com/company-information" target="_blank" rel="noopener"><svg class="ic"><use href="#i-info"/></svg>Company Information</a>
+    <a href="https://sipazon.com/team" target="_blank" rel="noopener"><svg class="ic"><use href="#i-users"/></svg>Team</a>
+    <a href="https://sipazon.com/privacy-statements" target="_blank" rel="noopener"><svg class="ic"><use href="#i-shield"/></svg>Privacy Statements</a>
+    <a href="https://sipazon.com/contact" target="_blank" rel="noopener"><svg class="ic"><use href="#i-mail"/></svg>Contact Us</a>
+  </div></details>
+  <div class="mnav-cta">
+    <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact us</a>
+    <a class="btn btn-ghost" href="https://sipazon.com/portal" target="_blank" rel="noopener">Portal</a>
+  </div>
+</div>
+
+<main id="top">
+<!-- ───────── HERO ───────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <a class="announce" href="#integrations"><span class="pill">New</span><span class="t">SIPazon AMS Call Manager for Milestone XProtect</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+      <span class="eyebrow">Intercom &amp; PA · Critical Communication</span>
+      <h1>Intercom &amp; PA solutions at its best: <span class="q">SIP</span></h1>
+      <p class="lead">SIPazon is a SIP compatible headend communication and IoT platform for all types of projects or applications, from a single door entry intercom to the most complex and demanding projects like airport or prison systems.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener">Talk to SIPazon <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="#platform">Explore the platform</a>
+      </div>
+      <div class="hero-tags">
+        <span class="chip"><i></i>First AMS · Audio Management System</span>
+        <span class="chip">EN81 elevator intercom</span>
+        <span class="chip">Edge · Fog · Cloud</span>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-frame">
+        <div class="stage-bar"><span class="dots"><i></i><i></i><i></i></span><span>sipazon · ecosystem</span><span class="live"><span class="pulse"></span>SIP · live topology</span></div>
+        <div class="eco">
+          <svg viewBox="0 0 1120 440" role="img" aria-label="SIPazon AMS connecting intercoms, PA, cameras and elevators to VMS, access control, BMS and IP-PBX systems">
+            <defs>
+              <radialGradient id="hubg" cx="50%" cy="40%" r="70%"><stop offset="0" style="stop-color:var(--hub-a)"/><stop offset="1" style="stop-color:var(--hub-b)"/></radialGradient>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+            </defs>
+            <!-- wires left -->
+            <g>
+              <path class="wire" d="M250 70 C 400 70, 420 220, 480 220"/>
+              <path class="wire" d="M250 170 C 380 170, 420 220, 480 220"/>
+              <path class="wire" d="M250 270 C 380 270, 420 220, 480 220"/>
+              <path class="wire" d="M250 370 C 400 370, 420 220, 480 220"/>
+              <path class="flow" d="M250 70 C 400 70, 420 220, 480 220"/>
+              <path class="flow s" d="M250 170 C 380 170, 420 220, 480 220" style="animation-delay:-.4s"/>
+              <path class="flow" d="M250 270 C 380 270, 420 220, 480 220" style="animation-delay:-.8s"/>
+              <path class="flow s" d="M250 370 C 400 370, 420 220, 480 220" style="animation-delay:-1.2s"/>
+            </g>
+            <!-- wires right -->
+            <g>
+              <path class="wire" d="M640 220 C 700 220, 720 70, 870 70"/>
+              <path class="wire" d="M640 220 C 700 220, 740 170, 870 170"/>
+              <path class="wire" d="M640 220 C 700 220, 740 270, 870 270"/>
+              <path class="wire" d="M640 220 C 700 220, 720 370, 870 370"/>
+              <path class="flow" d="M640 220 C 700 220, 720 70, 870 70" style="animation-delay:-.2s"/>
+              <path class="flow" d="M640 220 C 700 220, 740 170, 870 170" style="animation-delay:-.6s"/>
+              <path class="flow s" d="M640 220 C 700 220, 740 270, 870 270" style="animation-delay:-1s"/>
+              <path class="flow" d="M640 220 C 700 220, 720 370, 870 370" style="animation-delay:-1.4s"/>
+            </g>
+            <!-- hub -->
+            <circle cx="560" cy="220" r="110" opacity=".16" filter="url(#glow)" style="fill:var(--p-primary)"/>
+            <rect x="480" y="150" width="160" height="140" rx="26" fill="url(#hubg)" style="stroke:var(--hub-line)"/>
+            <g transform="translate(544 172)" class="ico"><path d="M4 16a12 12 0 0124 0M9 16a7 7 0 0114 0M14 16h4v12h-4z" style="stroke:var(--p-primary)"/></g>
+            <text x="560" y="232" text-anchor="middle" class="lbl" style="font-size:17px;fill:var(--panel-strong)">SIPazon AMS</text>
+            <text x="560" y="252" text-anchor="middle" class="sub">Audio Management System</text>
+            <text x="560" y="272" text-anchor="middle" class="sub" style="fill:var(--p-primary)">SIP · RTP · TLS</text>
+            <!-- left nodes: SIP endpoints -->
+            <text x="40" y="26" class="sub" style="fill:var(--panel-dim);letter-spacing:.08em">SIP ENDPOINTS · MULTI-VENDOR</text>
+            <g transform="translate(40 44)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14) scale(1)" class="ico"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="8" r="2.5"/><path d="M9.5 14h5"/></g><text x="48" y="23" class="lbl">Intercom stations</text><text x="48" y="40" class="sub">J-762C-1 · J-762P-1</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
+            <g transform="translate(40 144)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><path d="M3 10v4h4l5 4V6L7 10H3z"/><path d="M16 9a4 4 0 010 6M19 6a8 8 0 010 12"/></g><text x="48" y="23" class="lbl">Public Address</text><text x="48" y="40" class="sub">J-IPS30 · J-PA1000</text><circle cx="192" cy="26" r="4" class="dot-sig"/></g>
+            <g transform="translate(40 244)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></g><text x="48" y="23" class="lbl">IP cameras</text><text x="48" y="40" class="sub">RTSP · Video Engine</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
+            <g transform="translate(40 344)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M12 3v18M7.5 10.5L9 8.5l1.5 2M13.5 13.5l1.5 2 1.5-2"/></g><text x="48" y="23" class="lbl">Elevator · EN81</text><text x="48" y="40" class="sub">J-263-IP-1D · jNode</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
+            <!-- right nodes: systems -->
+            <text x="870" y="26" class="sub" style="fill:var(--panel-dim);letter-spacing:.08em">THIRD-PARTY SYSTEMS</text>
+            <g transform="translate(870 44)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></g><text x="48" y="23" class="lbl">Milestone XProtect</text><text x="48" y="40" class="sub">VMS · Smart Client</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
+            <g transform="translate(870 144)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></g><text x="48" y="23" class="lbl">Access Control · PSIM</text><text x="48" y="40" class="sub">Gallagher · G-SIM</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
+            <g transform="translate(870 244)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><path d="M4 21V5l8-2v18M12 8h8v13M3 21h18"/></g><text x="48" y="23" class="lbl">BMS · SCADA</text><text x="48" y="40" class="sub">OPC UA · MQTT · BACnet</text><circle cx="192" cy="26" r="4" class="dot-sig"/></g>
+            <g transform="translate(870 344)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></g><text x="48" y="23" class="lbl">IP-PBX · jPhone</text><text x="48" y="40" class="sub">Asterisk · 3CX · CUCM</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
+            <!-- bottom band -->
+            <g transform="translate(400 350)">
+              <rect width="320" height="46" rx="23" style="fill:var(--panel-2);stroke:var(--panel-line)"/>
+              <text x="40" y="28" class="sub" style="fill:var(--p-signal)">EDGE</text>
+              <text x="100" y="28" class="sub">→</text>
+              <text x="130" y="28" class="sub" style="fill:var(--panel-ink)">FOG</text>
+              <text x="180" y="28" class="sub">→</text>
+              <text x="212" y="28" class="sub" style="fill:var(--p-primary)">CLOUD</text>
+            </g>
+          </svg>
+          <div class="eco-m" aria-hidden="true">
+            <div class="col">
+              <div class="it"><svg class="ic"><use href="#i-intercom"/></svg><span>Intercom stations</span></div>
+              <div class="it"><svg class="ic"><use href="#i-speaker"/></svg><span>Public Address</span></div>
+              <div class="it"><svg class="ic"><use href="#i-camera"/></svg><span>IP cameras</span></div>
+              <div class="it"><svg class="ic"><use href="#i-elevator"/></svg><span>Elevator · EN81</span></div>
+            </div>
+            <div class="hub"><b>SIPazon AMS</b><small>SIP · RTP · TLS</small></div>
+            <div class="col">
+              <div class="it"><svg class="ic"><use href="#i-monitor"/></svg><span>Milestone XProtect</span></div>
+              <div class="it"><svg class="ic"><use href="#i-lock"/></svg><span>Access Control</span></div>
+              <div class="it"><svg class="ic"><use href="#i-building"/></svg><span>BMS · SCADA</span></div>
+              <div class="it"><svg class="ic"><use href="#i-phone"/></svg><span>IP-PBX · jPhone</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── TRUST STRIP ───────── -->
+<section class="strip" aria-label="Technology ecosystem">
+  <div class="wrap strip-in">
+    <p class="strip-lbl">Built on open standards. Compatible with the systems you already run.</p>
+    <div class="marquee"><div class="track" id="track">
+      <span class="tok hl m">SIP</span><span class="tok">Milestone XProtect</span><span class="tok m">VMS</span><span class="tok">Gallagher Command Centre</span><span class="tok m">IoT</span><span class="tok">Cisco CUCM</span><span class="tok m"><svg class="ic"><use href="#i-chip"/></svg>Edge</span><span class="tok">Avaya Aura CM</span><span class="tok m"><svg class="ic"><use href="#i-fog"/></svg>Fog</span><span class="tok">Geutebrück G-SIM</span><span class="tok m"><svg class="ic"><use href="#i-cloud"/></svg>Cloud</span><span class="tok">Mitel 3300</span><span class="tok hl m">Critical Communication</span><span class="tok">Alcatel-Lucent OmniPCX</span><span class="tok m">OPC UA</span><span class="tok">3CX</span><span class="tok m">MQTT</span><span class="tok">Asterisk</span><span class="tok m">WebRTC</span><span class="tok">FreeSWITCH</span><span class="tok m">EN81</span><span class="tok">Kamailio</span>
+    </div></div>
+  </div>
+</section>
+
+<!-- ───────── PRODUCTS ───────── -->
+<section class="sec" id="products">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Products</span>
+      <h2>Hardware and headend, designed for high-security areas</h2>
+      <p class="lead">From PoE native IP intercoms to AMS servers and unified PA, every SIPazon product speaks SIP and plugs into one platform.</p>
+    </div>
+    <div class="pgrid">
+      <a class="pcard rv" href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener">
+        <div class="viz">
+          <div class="dev-intercom"><span class="screw" style="left:8px;top:8px"></span><span class="screw" style="right:8px;top:8px"></span><span class="screw" style="left:8px;bottom:8px"></span><span class="screw" style="right:8px;bottom:8px"></span><span class="grille"></span><span class="btn-c"><i></i></span></div>
+        </div>
+        <div class="body">
+          <div class="top"><div><div class="kicker">Audio &amp; video intercoms</div><h3>Intercom Stations</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
+          <p>Advanced PoE native IP intercoms with exceptional HD voice quality. Designed for high-security areas, they seamlessly use the SIP protocol.</p>
+          <div class="models"><span>J-762C-1</span><span>J-762P-1</span><span>J-263-IP-1</span><span>J-263-IP-1D</span><span>J-264-IP-1</span><span>J-762V-1</span><span>J-762V-2</span></div>
+        </div>
+      </a>
+      <a class="pcard rv d1" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener">
+        <div class="viz">
+          <div class="rack">
+            <div class="ru"><span class="l"></span><span class="nm">UC800</span><span class="vents"></span><span class="l b"></span></div>
+            <div class="ru"><span class="l"></span><span class="nm">jNode CS2</span><span class="vents"></span><span class="l"></span></div>
+            <div class="ru"><span class="l b"></span><span class="nm">VM SIPazon</span><span class="vents"></span><span class="l"></span></div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="top"><div><div class="kicker">Headend</div><h3>AMS Servers</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
+          <p>The servers that run SIPazon AMS, from a physical platform and a compact fanless node to a virtual machine.</p>
+          <div class="models"><span>UC800 Platform</span><span>jNode Compact CS2</span><span>VM SIPazon</span></div>
+        </div>
+      </a>
+      <a class="pcard rv" href="https://sipazon.com/products/pa" target="_blank" rel="noopener">
+        <div class="viz"><div class="horn"><span class="spk"></span><span class="w"></span><span class="w"></span><span class="w"></span></div></div>
+        <div class="body">
+          <div class="top"><div><div class="kicker">Integrated PA system</div><h3>PA</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
+          <p>SIPazon's Unified PA solution is a key part of our holistic approach to unified communication. Relay messages through loudspeakers across buildings, industrial complexes, transport networks and smart cities.</p>
+          <div class="models"><span>J-IPS30</span><span>J-IPC15</span><span>J-IPW15</span><span>J-PA1000</span><span>J-PA1081</span></div>
+        </div>
+      </a>
+      <a class="pcard rv d1" href="https://sipazon.com/products/special-products" target="_blank" rel="noopener">
+        <div class="viz">
+          <div class="spec3">
+            <div><svg class="ic"><use href="#i-phone"/></svg><b>VirCom</b></div>
+            <div><svg class="ic"><use href="#i-users"/></svg><b>SIPavox Call Center</b></div>
+            <div><svg class="ic"><use href="#i-fire"/></svg><b>Fire Command Center</b></div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="top"><div><div class="kicker">Special products</div><h3>Special Products</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
+          <p>VirCom links the physical and digital worlds. SIPavox is an independent cloud-based call center. Fire Command Center supervises elevators and escalators during firefighting.</p>
+          <div class="models"><span>VirCom</span><span>SIPavox</span><span>Fire Command Center</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── AMS ───────── -->
+<section class="band sec" id="ams">
+  <span class="glow" style="left:-200px;top:-160px"></span>
+  <div class="wrap">
+    <div class="ams-top">
+      <div class="sec-head rv" style="margin:0">
+        <span class="eyebrow">SIPazon AMS</span>
+        <h2>First AMS: Audio Management System</h2>
+        <p class="lead">Our Audio Management Software, similar to VMS, can seamlessly integrate with any SIP endpoints, offering the advantages of a multi-vendor integrated system.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+          <a class="btn btn-primary" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener">AMS Servers <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#integrations">AMS for Milestone XProtect</a>
+        </div>
+      </div>
+      <div class="ams-points rv d1">
+        <div><svg class="ic"><use href="#i-intercom"/></svg><b>Any SIP endpoint</b><span>Mixed endpoints from different vendor brands.</span></div>
+        <div><svg class="ic"><use href="#i-speaker"/></svg><b>Intercom + PA</b><span>Two-way calls, group calls and announcements.</span></div>
+        <div><svg class="ic"><use href="#i-camera"/></svg><b>VMS integration</b><span>Fully integrated within Milestone XProtect.</span></div>
+        <div><svg class="ic"><use href="#i-plug"/></svg><b>Third-party systems</b><span>Access Control, PSIM, BMS and SCADA.</span></div>
+      </div>
+    </div>
+
+    <div class="app rv">
+      <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><span class="app-url">ams.site-01.local / overview</span><span class="sample">Example data</span></div>
+      <div class="app-body">
+        <aside class="side">
+          <div class="ttl"><i><svg class="ic"><use href="#i-wave"/></svg></i>SIPazon AMS</div>
+          <a class="on" href="#ams"><svg class="ic"><use href="#i-grid"/></svg>Overview</a>
+          <a href="#ams"><svg class="ic"><use href="#i-intercom"/></svg>Endpoints</a>
+          <a href="#ams"><svg class="ic"><use href="#i-phone"/></svg>Calls</a>
+          <a href="#ams"><svg class="ic"><use href="#i-speaker"/></svg>PA zones</a>
+          <span class="grp">Platform</span>
+          <a href="#ams"><svg class="ic"><use href="#i-rec"/></svg>SIPrec</a>
+          <a href="#ams"><svg class="ic"><use href="#i-camera"/></svg>Video Engine</a>
+          <a href="#ams"><svg class="ic"><use href="#i-cross"/></svg>ConnCross</a>
+          <a href="#ams"><svg class="ic"><use href="#i-bell"/></svg>Events<span class="n">2</span></a>
+          <div class="node">
+            <div class="r"><span class="okdot"></span><b>UC800-A</b>Master</div>
+            <div class="r"><span class="stbdot"></span><b>UC800-B</b>Hot standby</div>
+          </div>
+        </aside>
+        <div class="main">
+          <div class="tabs" role="tablist" aria-label="AMS views">
+            <button role="tab" aria-selected="true" data-view="v-ov">Overview</button>
+            <button role="tab" aria-selected="false" data-view="v-calls">Active calls</button>
+            <button role="tab" aria-selected="false" data-view="v-pa">PA zones</button>
+          </div>
+
+          <div class="view on" id="v-ov">
+            <div class="kpis">
+              <div class="kpi"><small>Endpoints online</small><b>1,184<em> / 1,192</em></b><span class="d ok">● 99.3% reachable</span></div>
+              <div class="kpi"><small>Active calls</small><b id="k-calls">7</b><span class="d pri">3 with video</span></div>
+              <div class="kpi"><small>PA zones live</small><b>2<em> / 14</em></b><span class="d warn">● Yard, Block A</span></div>
+              <div class="kpi"><small>HA state</small><b style="font-size:17px;padding-block:3px">Master</b><span class="d ok">● Standby synced</span></div>
+            </div>
+            <div class="split">
+              <div class="card-d">
+                <div class="h">Endpoints<span>SIP · multi-vendor</span></div>
+                <div class="tbl-wrap"><table class="t">
+                  <thead><tr><th>Location</th><th>Model</th><th>Transport</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td>Cell B-214</td><td class="m">J-762C-1</td><td class="m">SIP/TLS</td><td><span class="st pri">In call</span></td></tr>
+                    <tr><td>Gate 2 · Perimeter</td><td class="m">J-762P-1</td><td class="m">SIP/TLS</td><td><span class="st err">Tamper alarm</span></td></tr>
+                    <tr><td>Lift 3 · Car</td><td class="m">J-263-IP-1D</td><td class="m">SIP</td><td><span class="st warn">EN81 alarm</span></td></tr>
+                    <tr><td>Yard · Zone 1</td><td class="m">J-IPS30</td><td class="m">SIP/RTP</td><td><span class="st warn">PA live</span></td></tr>
+                    <tr><td>Visitor entrance</td><td class="m">J-762V-1</td><td class="m">SIP + RTSP</td><td><span class="st ok">Online</span></td></tr>
+                    <tr><td>Control room</td><td class="m">MvM Console</td><td class="m">SIP</td><td><span class="st ok">Online</span></td></tr>
+                  </tbody>
+                </table></div>
+              </div>
+              <div style="display:grid;gap:14px;min-width:0">
+                <div class="card-d">
+                  <div class="h">Calls per hour<span>today</span></div>
+                  <div class="chart">
+                    <svg viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true">
+                      <defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".35" style="stop-color:var(--p-primary)"/><stop offset="1" stop-opacity="0" style="stop-color:var(--p-primary)"/></linearGradient></defs>
+                      <g stroke-width="1" style="stroke:var(--panel-line)"><line x1="0" y1="23" x2="300" y2="23"/><line x1="0" y1="46" x2="300" y2="46"/><line x1="0" y1="69" x2="300" y2="69"/></g>
+                      <path d="M0 78 L25 74 L50 70 L75 58 L100 44 L125 50 L150 36 L175 40 L200 28 L225 34 L250 22 L275 26 L300 18 L300 92 L0 92Z" fill="url(#ar)"/>
+                      <path d="M0 78 L25 74 L50 70 L75 58 L100 44 L125 50 L150 36 L175 40 L200 28 L225 34 L250 22 L275 26 L300 18" fill="none" stroke-width="1.8" vector-effect="non-scaling-stroke" style="stroke:var(--p-primary)"/>
+                      <circle cx="298" cy="18" r="3" style="fill:var(--p-primary)"/>
+                    </svg>
+                    <div class="axis"><span>06:00</span><span>09:00</span><span>12:00</span><span>now</span></div>
+                  </div>
+                </div>
+                <div class="card-d">
+                  <div class="h">Events<span class="mono" id="clock">live</span></div>
+                  <div class="log" id="log">
+                    <div><time>09:41:12</time><span class="pri">INFO</span><span class="msg">Cell B-214 · call answered by Control room</span></div>
+                    <div><time>09:41:09</time><span class="ok">OK</span><span class="msg">UC800-B · standby database synced</span></div>
+                    <div><time>09:40:55</time><span class="warn">WARN</span><span class="msg">Lift 3 · EN81 alarm call</span></div>
+                    <div><time>09:40:31</time><span class="pri">INFO</span><span class="msg">PA · Yard · announcement started</span></div>
+                    <div><time>09:39:47</time><span class="err">ALRM</span><span class="msg">Gate 2 · tamper alarm</span></div>
+                    <div><time>09:39:02</time><span class="pri">INFO</span><span class="msg">SIPrec · A/V session recorded</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="view" id="v-calls">
+            <div class="calls">
+              <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-intercom"/></svg></span><div><b>Cell B-214 ↔ Control room</b><small>J-762C-1 · Opus</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="tagx rec">● REC</span><span class="dur" data-t="94">01:34</span></div></div>
+              <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-elevator"/></svg></span><div><b>Lift 3 · Car ↔ Service centre</b><small>J-263-IP-1D · EN81</small></div></div><div class="meter s" data-meter></div><div class="meta"><span class="tagx">VIDEO</span><span class="dur" data-t="41">00:41</span></div></div>
+              <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-camera"/></svg></span><div><b>Visitor entrance ↔ Reception</b><small>J-762V-1 · cam 2 of 3</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="tagx">VIDEO</span><span class="tagx rec">● REC</span><span class="dur" data-t="203">03:23</span></div></div>
+              <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-phone"/></svg></span><div><b>Gate 2 ↔ jPhone · Guard 4</b><small>J-762P-1 · SIP/TLS</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="dur" data-t="12">00:12</span></div></div>
+            </div>
+          </div>
+
+          <div class="view" id="v-pa">
+            <div class="zones">
+              <div class="zone live"><div class="zt"><b>Yard</b><span class="st warn">Live</span></div><small>6 speakers · J-IPS30</small><div class="vol"><i style="width:78%"></i></div></div>
+              <div class="zone live"><div class="zt"><b>Block A</b><span class="st warn">Live</span></div><small>12 speakers · J-IPC15</small><div class="vol"><i style="width:64%"></i></div></div>
+              <div class="zone"><div class="zt"><b>Block B</b><span class="st ok">Idle</span></div><small>12 speakers · J-IPC15</small><div class="vol"><i style="width:60%"></i></div></div>
+              <div class="zone"><div class="zt"><b>Visitors</b><span class="st pri">Scheduled</span></div><small>4 speakers · J-IPW15</small><div class="vol"><i style="width:45%"></i></div></div>
+              <div class="zone"><div class="zt"><b>Lobby</b><span class="st ok">Idle</span></div><small>3 speakers · J-IPW15</small><div class="vol"><i style="width:40%"></i></div></div>
+              <div class="zone"><div class="zt"><b>Perimeter</b><span class="st ok">Idle</span></div><small>8 horns · J-PA1000</small><div class="vol"><i style="width:85%"></i></div></div>
+              <div class="zone"><div class="zt"><b>Workshop</b><span class="st ok">Idle</span></div><small>5 speakers · J-IPS30</small><div class="vol"><i style="width:70%"></i></div></div>
+              <div class="zone"><div class="zt"><b>Car park</b><span class="st ok">Idle</span></div><small>4 horns · J-PA1081</small><div class="vol"><i style="width:72%"></i></div></div>
+            </div>
+            <div class="ann"><button class="btn btn-sm" type="button">Announce</button><span class="m">Target: Yard + Block A · pre-chime on · recorded via SIPrec</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── PLATFORM ───────── -->
+<section class="sec" id="platform">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Platform</span>
+      <h2>One platform for all your SIP needs</h2>
+      <p class="lead">Streaming audio, video, analytics and integration from Edge to Cloud via Fog. Choose the power of choice in your eco-system.</p>
+    </div>
+    <div class="plat rv">
+      <div class="plat-list" role="tablist" aria-label="Platform modules" id="platList"></div>
+      <div class="plat-panel" id="platPanel" role="tabpanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── EDGE / FOG / CLOUD ───────── -->
+<section class="sec" id="landscape" style="padding-top:0">
+  <div class="wrap layers-wrap">
+    <div class="sec-head rv" style="margin:0">
+      <span class="eyebrow">SIPazon Landscape</span>
+      <h2>From Edge to Cloud, via Fog</h2>
+      <p class="lead">Run communication locally at the edge, connect and protect it in the fog, and add the convenience of cloud where it helps. The same SIP platform across all three.</p>
+      <div class="quote-sm">Market call it Hybrid, we redefined as Fog.<span>SIPazon · Platform overview</span></div>
+    </div>
+    <div class="layers rv d1">
+      <div class="pipes" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="layer cloud">
+        <div class="ln"><span class="k"><svg class="ic"><use href="#i-cloud"/></svg>Cloud</span><small>The Convenience of Cloud</small></div>
+        <div class="nodes"><span><svg class="ic"><use href="#i-grid"/></svg>SBP Cloud</span><span><svg class="ic"><use href="#i-phone"/></svg>VirCom</span><span><svg class="ic"><use href="#i-users"/></svg>SIPavox Call Center</span><span><svg class="ic"><use href="#i-plug"/></svg>AI · IoT · CRM</span></div>
+      </div>
+      <div class="layer fog">
+        <div class="ln"><span class="k"><svg class="ic"><use href="#i-fog"/></svg>Fog</span><small>To Connect &amp; Protect against Cloud</small></div>
+        <div class="nodes"><span><svg class="ic"><use href="#i-server"/></svg>AMS servers</span><span><svg class="ic"><use href="#i-ha"/></svg>HA pair</span><span><svg class="ic"><use href="#i-cross"/></svg>ConnCross</span><span><svg class="ic"><use href="#i-rec"/></svg>SIPrec</span></div>
+      </div>
+      <div class="layer edge">
+        <div class="ln"><span class="k"><svg class="ic"><use href="#i-chip"/></svg>Edge</span><small>The Edge of Success</small></div>
+        <div class="nodes"><span><svg class="ic"><use href="#i-intercom"/></svg>Intercom stations</span><span><svg class="ic"><use href="#i-speaker"/></svg>PA speakers</span><span><svg class="ic"><use href="#i-camera"/></svg>IP cameras</span><span><svg class="ic"><use href="#i-server"/></svg>jNode</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── SOLUTIONS ───────── -->
+<section class="sec" id="solutions" style="background:var(--surface-2);border-block:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head rv" style="display:grid">
+      <span class="eyebrow">Solutions</span>
+      <h2>Built for the places where communication can't fail</h2>
+      <p class="lead">From a single door entry intercom to the most complex and demanding projects, the same platform adapts to each environment.</p>
+    </div>
+    <div class="sgrid">
+      <a class="scard rv" href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener">
+        <div class="scene"><svg class="ic big"><use href="#i-car"/></svg>
+          <div class="ui"><div class="r"><span class="sdot" style="background:var(--signal)"></span><b>Exit barrier · Level 1</b></div><div class="r m">Call to operator · 00:18</div><div class="acts"><span class="p">Open barrier</span><span>Video</span></div></div></div>
+        <div class="body"><h3>Parking</h3><p>Easy in, easy out. A complete communication solution for parkings, for vehicle flow, security and a better driver experience.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+      </a>
+      <a class="scard rv d1" href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener">
+        <div class="scene"><svg class="ic big"><use href="#i-lock"/></svg>
+          <div class="ui"><div class="r"><span class="sdot" style="background:var(--error)"></span><b>Cell B-214</b></div><div class="r m">Tamper alarm · J-762C-1</div><div class="acts"><span class="p">Answer</span><span>Listen-in</span></div></div></div>
+        <div class="body"><h3>Prisons &amp; Detention</h3><p>Tamper-resistant intercom stations with built-in alarms. Cell intercoms, visitor stations and perimeter loudspeakers on a single uniform platform.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+      </a>
+      <a class="scard rv d2" href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener">
+        <div class="scene"><svg class="ic big"><use href="#i-home"/></svg>
+          <div class="ui"><div class="r"><span class="sdot" style="background:var(--success)"></span><b>Entrance · Building C</b></div><div class="r m">Answered on jPhone</div><div class="acts"><span class="p">Open door</span><span>Decline</span></div></div></div>
+        <div class="body"><h3>Residential</h3><p>For single homes as well as multi-tenant apartment complexes where third-party integration is required, administered through SIPazon Business Portal (SBP).</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+      </a>
+      <a class="scard rv" href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener">
+        <div class="scene"><svg class="ic big"><use href="#i-elevator"/></svg>
+          <div class="ui"><div class="r"><span class="sdot" style="background:var(--warning)"></span><b>Lift 3 · Car</b></div><div class="r m">EN81 alarm call · LiftCom</div><div class="acts"><span class="p">Talk</span><span>Camera</span></div></div></div>
+        <div class="body"><h3>Elevator</h3><p>EN81 critical communication with LiftCom, from a single shaft to airports and subways, over IP or wired networks.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+      </a>
+      <a class="scard rv d1" href="https://sipazon.com/solutions/office" target="_blank" rel="noopener">
+        <div class="scene"><svg class="ic big"><use href="#i-brief"/></svg>
+          <div class="ui"><div class="r"><span class="sdot" style="background:var(--primary)"></span><b>Visitor · Main door</b></div><div class="r m">QR access code · host notified</div><div class="acts"><span class="p">Grant access</span><span>Call host</span></div></div></div>
+        <div class="body"><h3>Office</h3><p>Streamlining daily operational access at the workplace. Visitors reach their host directly, with QR or SMS access codes and live video verification.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+      </a>
+      <a class="scard rv d2" href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener">
+        <div class="scene"><svg class="ic big"><use href="#i-siren"/></svg>
+          <div class="ui"><div class="r"><span class="sdot" style="background:var(--error)"></span><b>Square · Pole 12</b></div><div class="r m">Pre-alarm · audio detection</div><div class="acts"><span class="p">Talk down</span><span>CCTV</span></div></div></div>
+        <div class="body"><h3>Public Safety &amp; Security</h3><p>Imagine watching TV on mute. SIPazon adds audio communication, pre-alarm detection and emergency response to the city's existing CCTV.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── EN81 ───────── -->
+<section class="sec" style="padding-bottom:clamp(40px,6vw,72px)">
+  <div class="band" style="padding-block:clamp(56px,8vw,104px)">
+    <span class="glow" style="right:-260px;bottom:-200px;background:radial-gradient(closest-side,var(--glow-2),transparent)"></span>
+    <div class="wrap en81">
+      <div class="sec-head rv" style="margin:0">
+        <span class="eyebrow">Elevator · EN81</span>
+        <h2>IP Intercom in compliance with EN81</h2>
+        <p class="lead">By offering a purpose-built EN81 elevator critical communication solution, we contribute to creating a better society and strive to establish a safer and more trusted environment for passengers in every vertical transportation setting.</p>
+        <div class="en81-feats">
+          <div><svg class="ic"><use href="#i-speaker"/></svg>Voice communication per EN81</div>
+          <div><svg class="ic"><use href="#i-camera"/></svg>Video surveillance</div>
+          <div><svg class="ic"><use href="#i-users"/></svg>Call center</div>
+          <div><svg class="ic"><use href="#i-monitor"/></svg>Remote monitoring, elevators &amp; escalators</div>
+          <div><svg class="ic"><use href="#i-lock"/></svg>Access control</div>
+          <div><svg class="ic"><use href="#i-cloud"/></svg>IoT cloud integration</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <a class="btn btn-primary" href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener">Elevator solution <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener">MvM Liftcom</a>
+        </div>
+      </div>
+      <div class="shaft rv d1">
+        <svg viewBox="0 0 440 500" role="img" aria-label="Bidirectional EN81 voice communication between car, car roof, pit, machine room, landing, lobby and control centre">
+          <!-- shaft -->
+          <rect x="70" y="30" width="120" height="440" rx="6" style="fill:var(--panel);stroke:var(--panel-line-2)"/>
+          <line x1="85" y1="30" x2="85" y2="470" stroke-width="3" style="stroke:var(--panel-line)"/><line x1="175" y1="30" x2="175" y2="470" stroke-width="3" style="stroke:var(--panel-line)"/>
+          <rect x="60" y="10" width="140" height="34" rx="6" style="fill:var(--panel-3);stroke:var(--panel-line-2)"/>
+          <text x="130" y="31" text-anchor="middle" class="t2">MACHINE ROOM</text>
+          <rect x="60" y="452" width="140" height="30" rx="6" style="fill:var(--panel-3);stroke:var(--panel-line-2)"/>
+          <text x="130" y="471" text-anchor="middle" class="t2">PIT</text>
+          <line x1="130" y1="44" x2="130" y2="120" stroke-width="1.2" style="stroke:var(--panel-dim)"/>
+          <g class="car">
+            <rect x="92" y="120" width="76" height="96" rx="6" style="fill:var(--hub-b);stroke:var(--p-primary)"/>
+            <rect x="100" y="112" width="60" height="8" rx="2" style="fill:var(--panel-line-2)"/>
+            <line x1="130" y1="126" x2="130" y2="210" style="stroke:var(--panel-line-2)"/>
+            <circle cx="152" cy="150" r="5" style="fill:var(--p-signal)"><animate attributeName="opacity" values="1;.25;1" dur="1.2s" repeatCount="indefinite"/></circle>
+            <text x="130" y="236" text-anchor="middle" class="t2" style="fill:var(--p-primary)">CAR · J-263-IP-1D</text>
+          </g>
+          <!-- landings -->
+          <g style="fill:var(--panel-3);stroke:var(--panel-line-2)"><rect x="190" y="100" width="14" height="40"/><rect x="190" y="250" width="14" height="40"/><rect x="190" y="390" width="14" height="40"/></g>
+          <!-- control centre -->
+          <rect x="290" y="210" width="130" height="80" rx="12" style="fill:var(--panel-2);stroke:var(--hub-line)"/>
+          <text x="355" y="240" text-anchor="middle" class="t1">Control centre</text>
+          <text x="355" y="258" text-anchor="middle" class="t2">MvM Liftcom</text>
+          <circle cx="355" cy="275" r="4" style="fill:var(--p-ok)"/>
+          <!-- voice lines -->
+          <path class="vl" d="M200 27 C 260 27, 300 160, 330 210"/>
+          <path class="vl b" d="M170 160 C 230 160, 260 230, 290 245"/>
+          <path class="vl" d="M204 270 L 290 262"/>
+          <path class="vl b" d="M204 410 C 250 410, 290 320, 320 290"/>
+          <path class="vl" d="M200 467 C 280 467, 340 360, 355 290"/>
+          <!-- labels left -->
+          <g class="t2"><text x="12" y="124">LANDING</text><text x="12" y="274">LOBBY</text><text x="12" y="414">LANDING</text></g>
+          <line x1="60" y1="120" x2="70" y2="120" style="stroke:var(--panel-dim)"/><line x1="60" y1="270" x2="70" y2="270" style="stroke:var(--panel-dim)"/><line x1="60" y1="410" x2="70" y2="410" style="stroke:var(--panel-dim)"/>
+          <text x="290" y="330" class="t2" style="fill:var(--p-signal)">⇄ BIDIRECTIONAL VOICE</text>
+          <text x="290" y="348" class="t2">IP or wired networks</text>
+        </svg>
+        <div class="codes"><span>Car</span><span>Car roof</span><span>Pit</span><span>Machine room</span><span>Landing</span><span>Lobby</span><span>Control centre</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── HARDWARE ───────── -->
+<section class="sec" id="hardware" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="wrap hw">
+    <div class="hw-hero rv">
+      <div class="jnode"><span class="top"></span><span class="plate"><b>jNode · CS2</b><span>SIPazon</span></span><span class="leds"><i></i><i></i><i></i></span></div>
+      <span class="callout" style="left:22px;top:28px"><i></i>Fanless</span>
+      <span class="callout" style="right:22px;top:88px"><i></i>Compact IP server</span>
+      <span class="callout" style="left:34px;bottom:34px"><i></i>Maintenance-free</span>
+    </div>
+    <div class="hw-side rv d1">
+      <span class="eyebrow">Hardware + Software</span>
+      <h2>When unique hardware meets unique software</h2>
+      <p class="lead">jNode-CS2 is a compact IP server combining a robust, fanless and maintenance-free design for critical and reliable communication.</p>
+      <div class="attrs">
+        <div><svg class="ic"><use href="#i-server"/></svg><b>Compact</b><small class="muted">IP server</small></div>
+        <div><svg class="ic"><use href="#i-wave"/></svg><b>Fanless</b><small class="muted">Robust design</small></div>
+        <div><svg class="ic"><use href="#i-shield"/></svg><b>Maintenance-free</b><small class="muted">Critical use</small></div>
+      </div>
+      <div class="lineup">
+        <a class="row" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-server"/></svg><span><b>UC800 Platform</b><small>SIPrec recording without additional hardware</small></span><span class="badge">HA-ready</span></a>
+        <a class="row" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chip"/></svg><span><b>jNode Compact CS2</b><small>Compact, fanless node for the edge</small></span><span class="badge">HA-ready</span></a>
+        <a class="row" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-layers"/></svg><span><b>VM SIPazon</b><small>SIPazon as a virtual machine</small></span><span class="badge">HA-ready</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── INTEGRATIONS ───────── -->
+<section class="sec" id="integrations" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Integrations &amp; Compatibilities</span>
+      <h2>Eco-system instead of ego-system</h2>
+      <p class="lead">The SIPazon AMS solution offers broad compatibility with various SIP-enabled brands and seamlessly integrates with third-party systems, including VMS, Access Control, PSIM, BMS and SCADA.</p>
+    </div>
+    <div class="intg rv">
+      <div class="icol">
+        <h4>IP-PBX &amp; SIP servers <span>8</span></h4>
+        <div class="vendor"><span class="lg">CI</span><span class="n">Cisco Unified CM</span><span class="sm">Compatible</span></div>
+        <div class="vendor"><span class="lg">AV</span><span class="n">Avaya Aura CM</span><span class="sm">Compatible</span></div>
+        <div class="vendor"><span class="lg">MI</span><span class="n">Mitel VoIP 3300</span><span class="sm">Compatible</span></div>
+        <div class="vendor"><span class="lg">AL</span><span class="n">Alcatel-Lucent OmniPCX</span><span class="sm">Compatible</span></div>
+        <div class="vendor"><span class="lg">3C</span><span class="n">3CX Phone System</span><span class="sm">Compatible</span></div>
+        <div class="vendor"><span class="lg">*</span><span class="n">Asterisk · FreeSWITCH · Kamailio</span><span class="sm">Compatible</span></div>
+      </div>
+      <div class="hub">
+        <div class="wires" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="core"><div><b>SIPazon AMS</b><small>SIP headend</small></div></div>
+      </div>
+      <div class="icol">
+        <h4>Security &amp; building <span>VMS · PSIM · BMS</span></h4>
+        <div class="vendor"><span class="lg">MX</span><span class="n">Milestone XProtect Smart Client</span><span class="sm">Integrated</span></div>
+        <div class="vendor"><span class="lg">GA</span><span class="n">Gallagher Command Centre</span><span class="sm">Integrated</span></div>
+        <div class="vendor"><span class="lg">GE</span><span class="n">Geutebrück G-SIM</span><span class="sm">Integrated</span></div>
+        <div class="vendor"><span class="lg"><svg class="ic" style="width:15px;height:15px"><use href="#i-lock"/></svg></span><span class="n">Access Control</span></div>
+        <div class="vendor"><span class="lg"><svg class="ic" style="width:15px;height:15px"><use href="#i-building"/></svg></span><span class="n">BMS · SCADA</span></div>
+        <div class="vendor"><span class="lg"><svg class="ic" style="width:15px;height:15px"><use href="#i-shield"/></svg></span><span class="n">PSIM</span></div>
+      </div>
+    </div>
+    <div class="proto rv">
+      <span>SIP</span><span>OPC UA / DA</span><span>MQTT</span><span>BACnet</span><span>RS485 / 232</span><span>API / SDK</span><span>RTSP</span><span>ONVIF<em>Profile S · coming soon</em></span>
+    </div>
+    <div class="feature-xp rv">
+      <div class="l"><span class="ico2"><svg class="ic"><use href="#i-monitor"/></svg></span><div><b>SIPazon AMS Call Manager for Milestone XProtect</b><small>The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).</small></div></div>
+      <a class="btn btn-ghost btn-sm" href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener">All integrations <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── CRITICAL COMMUNICATION ───────── -->
+<section class="band sec" id="critical">
+  <span class="glow" style="left:30%;top:-240px"></span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Critical Communication</span>
+      <h2>If you're seeking an integrated critical communication, reach out to SIPazon</h2>
+      <p class="lead">Intercom, PA, audio, video and IoT managed together over SIP, with security built into the transport.</p>
+    </div>
+    <div class="bento">
+      <div class="bx hero-bx w4 rv">
+        <svg class="ic"><use href="#i-wave"/></svg>
+        <h3>Feel the freedom with SIPazon</h3>
+        <p>Customers are walking away from old style pricing structures and lock-in policies. SIPazon keeps solution providers vendor-independent, with mixed SIP endpoints from different brands on one platform.</p>
+<div class="sipline"><span class="k">INVITE</span> sip:control-room@ams.site-01 SIP/2.0
+<span class="k">From:</span> <span class="v">"Cell B-214"</span> &lt;sip:b214@ams.site-01&gt;
+<span class="k">Content-Type:</span> application/sdp   <span class="g">m=audio · m=video</span></div>
+      </div>
+      <div class="bx w2 rv d1"><svg class="ic"><use href="#i-intercom"/></svg><h3>Intercom</h3><p>HD voice, tamper alarms, programmable buttons and relay outputs, indoor and outdoor.</p><span class="mono">J-762 · J-263 · J-264</span></div>
+      <div class="bx w2 rv"><svg class="ic"><use href="#i-speaker"/></svg><h3>Public Address</h3><p>Station announcements and quick message relay through loudspeakers.</p><span class="mono">J-IPS30 · J-PA1000</span></div>
+      <div class="bx w2 rv d1"><svg class="ic"><use href="#i-camera"/></svg><h3>Video</h3><p>Extract streams from existing IP cameras and pair them with SIP audio.</p><span class="mono">Video Engine · RTSP</span></div>
+      <div class="bx w2 rv d2"><svg class="ic"><use href="#i-rec"/></svg><h3>Audio &amp; recording</h3><p>Audio or lip-synchronized A/V recording of calls, groups and announcements.</p><span class="mono">SIPrec</span></div>
+      <div class="bx w3 rv"><svg class="ic"><use href="#i-chip"/></svg><h3>IoT</h3><p>Real-time events into building automation and industrial systems through jOPC, the first OPC server for SIP intercom and PA.</p><span class="mono">OPC UA/DA · MQTT · BACnet · RS485</span></div>
+      <div class="bx w3 rv d1"><svg class="ic"><use href="#i-shield"/></svg><h3>Security</h3><p>SIP TLS with state-of-the-art cypher algorithms, with SRTP and ZRTP for audio and video in the jPhone app.</p><span class="mono">SIP/TLS · SRTP · ZRTP</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── ENTERPRISE ───────── -->
+<section class="sec" id="enterprise">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Enterprise</span>
+      <h2>Reliability that never lets you down</h2>
+      <p class="lead">What SIPazon brings to large, distributed and security-critical deployments.</p>
+    </div>
+    <div class="ent rv">
+      <div><svg class="ic"><use href="#i-ha"/></svg><span class="mono">HA Redundancy</span><h3>High availability</h3><p>A master and hot-standby pair with identical configuration. Intercom connections shift automatically to the redundant server on failure, and roll back when the main server recovers.</p></div>
+      <div><svg class="ic"><use href="#i-grid"/></svg><span class="mono">Multi-vendor</span><h3>Any SIP endpoint</h3><p>Manage mixed SIP endpoints from different vendor brands, and connect to Cisco, Avaya, Mitel, Alcatel-Lucent, 3CX, Asterisk, FreeSWITCH and Kamailio.</p></div>
+      <div><svg class="ic"><use href="#i-scale"/></svg><span class="mono">Scalability</span><h3>From one door to an airport</h3><p>The same platform scales from a single door entry intercom to airport and prison systems. MvM handles thousands of monitored objects.</p></div>
+      <div><svg class="ic"><use href="#i-shield"/></svg><span class="mono">Security</span><h3>Encrypted by design</h3><p>SIP TLS signalling, SRTP and ZRTP media encryption in the jPhone app, and tamper-resistant stations for high-security areas.</p></div>
+      <div><svg class="ic"><use href="#i-rec"/></svg><span class="mono">SIPrec</span><h3>Every conversation kept</h3><p>Record all incoming and outgoing calls by class of service, to local UC-series storage or external NAS.</p></div>
+      <div><svg class="ic"><use href="#i-layers"/></svg><span class="mono">Edge · Fog · Cloud</span><h3>Deploy where it fits</h3><p>Run on UC800, jNode, a virtual machine or SIPazon Cloud, across Edge, Fog and Cloud deployments.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── FINAL CTA ───────── -->
+<section style="padding-bottom:0">
+  <div class="band">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap cta">
+      <span class="eyebrow">Get in touch</span>
+      <h2>Planning a critical communication project?</h2>
+      <p class="lead" style="text-align:center">From a single door entry intercom to an airport or prison system, talk to SIPazon about intercom, PA and integration for your site.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact us <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener">SIPazon OEM &amp; API</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ───────── FOOTER ───────── -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="data:image/png;base64,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" alt="SIPazon" width="128" height="28"></a>
+        <p>SIP compatible headend communication and IoT platform for all types of projects or applications.</p>
+        <div class="social">
+          <a class="icon-btn" href="https://www.linkedin.com/company/sipazon/" target="_blank" rel="noopener" aria-label="SIPazon on LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a>
+          <a class="icon-btn" href="https://www.youtube.com/@sipazon6601/videos" target="_blank" rel="noopener" aria-label="SIPazon on YouTube"><svg class="ic"><use href="#i-play"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col"><h5>Products</h5><ul>
+        <li><a href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener">Intercom Stations</a></li>
+        <li><a href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener">AMS Servers</a></li>
+        <li><a href="https://sipazon.com/products/pa" target="_blank" rel="noopener">PA</a></li>
+        <li><a href="https://sipazon.com/products/special-products" target="_blank" rel="noopener">Special Products</a></li>
+        <li><a href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener">Integrations</a></li>
+      </ul></div>
+      <div class="f-col"><h5>Platform</h5><ul>
+        <li><a href="https://sipazon.com/platform/platform-overview" target="_blank" rel="noopener">Overview</a></li>
+        <li><a href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener">MvM Console</a></li>
+        <li><a href="https://sipazon.com/platform/ha" target="_blank" rel="noopener">HA Redundancy</a></li>
+        <li><a href="https://sipazon.com/platform/siprec" target="_blank" rel="noopener">SIPrec Recording</a></li>
+        <li><a href="https://sipazon.com/platform/videoengine" target="_blank" rel="noopener">Video Engine</a></li>
+        <li><a href="https://sipazon.com/platform/vircom" target="_blank" rel="noopener">VirCom</a></li>
+        <li><a href="https://sipazon.com/platform/conncross" target="_blank" rel="noopener">ConnCross</a></li>
+      </ul></div>
+      <div class="f-col"><h5>Solutions</h5><ul>
+        <li><a href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener">Parking</a></li>
+        <li><a href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener">Prisons &amp; Detention</a></li>
+        <li><a href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener">Residential</a></li>
+        <li><a href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener">Elevator</a></li>
+        <li><a href="https://sipazon.com/solutions/office" target="_blank" rel="noopener">Office</a></li>
+        <li><a href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener">Public Safety &amp; Security</a></li>
+      </ul></div>
+      <div class="f-col"><h5>Services</h5><ul>
+        <li><a href="https://sipazon.com/services/app-customisation" target="_blank" rel="noopener">App Customisation</a></li>
+        <li><a href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener">SIPazon OEM</a></li>
+        <li><a href="https://sipazon.com/services/api" target="_blank" rel="noopener">API</a></li>
+      </ul></div>
+      <div class="f-col"><h5>Company</h5><ul>
+        <li><a href="https://sipazon.com/company-information" target="_blank" rel="noopener">Company Information</a></li>
+        <li><a href="https://sipazon.com/team" target="_blank" rel="noopener">Team</a></li>
+        <li><a href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact Us</a></li>
+        <li><a href="https://sipazon.com/privacy-statements" target="_blank" rel="noopener">Privacy Statements</a></li>
+      </ul></div>
+    </div>
+    <div class="f-bot"><div class="f-meta"><span>© Copyright 2026 SIPazon.</span><span class="mono">Design prototype · content from sipazon.com</span></div><button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"><svg class="ic moon"><use href="#i-moon"/></svg><svg class="ic sun"><use href="#i-sun"/></svg><span id="themeLabel">Switch to dark mode</span></button></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Nav: scrolled border */
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* Desktop dropdowns: hover on fine pointers, click everywhere */
+  const items = [...document.querySelectorAll('#menu > li')];
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  let tmr;
+  const closeAll = except => items.forEach(li => { if (li !== except){ li.classList.remove('open'); li.querySelector('.m-btn').setAttribute('aria-expanded','false'); }});
+  const open = li => { closeAll(li); li.classList.add('open'); li.querySelector('.m-btn').setAttribute('aria-expanded','true'); };
+  items.forEach(li => {
+    const b = li.querySelector('.m-btn');
+    b.addEventListener('click', e => { e.stopPropagation(); li.classList.contains('open') ? closeAll() : open(li); });
+    if (fine){
+      li.addEventListener('mouseenter', () => { clearTimeout(tmr); open(li); });
+      li.addEventListener('mouseleave', () => { tmr = setTimeout(() => closeAll(), 140); });
+    }
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('#menu')) closeAll(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeAll(); closeM(); } });
+
+  /* Mobile menu */
+  const mnav = document.getElementById('mnav'), burger = document.getElementById('burger');
+  const openM = () => { mnav.classList.add('open'); mnav.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+  function closeM(){ mnav.classList.remove('open'); mnav.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  burger.addEventListener('click', openM);
+  document.getElementById('mclose').addEventListener('click', closeM);
+  mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeM));
+
+  /* Duplicate marquee for seamless loop */
+  const track = document.getElementById('track');
+  track.innerHTML += track.innerHTML;
+  [...track.children].slice(track.children.length/2).forEach(n => n.setAttribute('aria-hidden','true'));
+
+  /* AMS mockup tabs */
+  const tabs = document.querySelectorAll('.tabs [role=tab]');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.setAttribute('aria-selected', x === t));
+    document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === t.dataset.view));
+  }));
+
+  /* Audio meters */
+  const meters = [...document.querySelectorAll('[data-meter]')];
+  meters.forEach(m => { for (let i=0;i<18;i++){ const b=document.createElement('i'); b.style.height=(15+Math.random()*60)+'%'; m.appendChild(b);} });
+  if (!reduce) setInterval(() => {
+    meters.forEach(m => { if (!m.offsetParent) return; [...m.children].forEach((b,i) => { const env = Math.sin(Date.now()/300 + i*.6)*.3+.5; b.style.height = Math.max(8, Math.min(100, (env*70 + Math.random()*40))) + '%'; }); });
+  }, 140);
+
+  /* Call timers */
+  const durs = [...document.querySelectorAll('.dur[data-t]')];
+  setInterval(() => durs.forEach(d => { const t = ++d.dataset.t; d.textContent = String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0'); }), 1000);
+
+  /* Event log */
+  const log = document.getElementById('log');
+  const evs = [
+    ['pri','INFO','Visitor entrance · camera 2 selected (DTMF 2)'],
+    ['ok','OK','HA health check · master responding'],
+    ['pri','INFO','PA · Block A · announcement ended'],
+    ['warn','WARN','Workshop · J-IPS30 · packet loss 2%'],
+    ['pri','INFO','ConnCross · Gate 2 relay → CCTV preset 4'],
+    ['ok','OK','Lift 3 · EN81 call closed by service centre'],
+    ['pri','INFO','jPhone · Guard 4 registered (SIP/TLS)']
+  ];
+  let ei = 0;
+  const fmt = d => d.toTimeString().slice(0,8);
+  if (!reduce) setInterval(() => {
+    const [c,l,m] = evs[ei++ % evs.length];
+    const row = document.createElement('div'); row.className='new';
+    row.innerHTML = `<time>${fmt(new Date())}</time><span class="${c}">${l}</span><span class="msg"></span>`;
+    row.lastChild.textContent = m;
+    log.prepend(row); while (log.children.length > 7) log.lastChild.remove();
+  }, 3800);
+
+  /* Platform module */
+  const P = [
+    {id:'mvm', ic:'i-monitor', t:'MvM Console', s:'Monitoring, Visualization & Management',
+     d:'A Windows application tailored for overseeing, visualizing and managing the SIPazon platform, for intercoms, speakers, amplifiers and sensors.',
+     b:['Mixed SIP endpoints from different vendor brands','Communication events with video surveillance and access control','OPC UA, MQTT, BACnet and RS485','Variants: MvM, MvM Edge and MvM Liftcom'],
+     v:`<div class="pv mvm"><div class="mh"><span class="dots"><i></i><i></i><i></i></span>MvM · Site overview</div><div class="mg"><div class="map"><i style="left:18%;top:30%"></i><i style="left:40%;top:62%"></i><i class="a" style="left:66%;top:28%"></i><i style="left:78%;top:70%"></i><i style="left:30%;top:80%"></i></div><div class="ml"><div>Lift 3<span class="warn">alarm</span></div><div>Block A PA<span>live</span></div><div>Gate 2<span>ok</span></div><div>Car park<span>ok</span></div><div>Workshop<span>ok</span></div></div></div></div>`},
+    {id:'ha', ic:'i-ha', t:'HA Redundancy', s:'Redundancy that never lets you down',
+     d:'A pair of servers with identical configuration for an intercom or PA system. One is Master, the other a hot-standby Slave kept in sync with the latest database copy.',
+     b:['Automatic failover when health checks fail','Automatic rollback when the main server recovers','UC800, UC700, UC600, jNode and SIPazon VM','Load balancer configurations supported'],
+     v:`<div class="pv pv-ha"><div class="srv"><b>UC800-A</b><small>Master · active</small><div class="bar"><i></i></div><small class="ok">● healthy</small></div><div class="hb"><svg viewBox="0 0 70 28"><path d="M0 14h18l4-9 6 18 5-12 3 3h34"/></svg>health check</div><div class="srv"><b>UC800-B</b><small>Slave · hot standby</small><div class="bar"><i style="background:var(--p-primary)"></i></div><small class="pri">● synced</small></div></div>`},
+    {id:'rec', ic:'i-rec', t:'SIPrec Recording', s:'Your complete SIP-based recording solution',
+     d:'Seamless audio and lip-synchronized audio-video recording across Edge, Fog and Cloud, for two-way calls, group conversations and public address announcements.',
+     b:['Record by class of service for chosen extensions','Local UC-series add-on storage or external NAS','No additional hardware on UC800/UC700','Scalable licences from S-L-REC2 to S-L-RECX'],
+     v:`<div class="pv pv-rec"><div class="r1"><span>Cell B-214 ↔ Control room</span><span class="recd"><span class="pulse"></span>REC 01:34</span></div><div class="wavebar" id="wb"></div><div class="r1"><span>audio + video · lip-sync</span><span>→ NAS</span></div></div>`},
+    {id:'video', ic:'i-camera', t:'Video Engine', s:'Two-sense communication in any scenario',
+     d:'Extracts video streams from existing IP cameras and combines them with SIP audio into synchronized video calls, without dedicated video intercoms.',
+     b:['Link up to five cameras to one audio device','Switch cameras with DTMF 1–4 mid-call','Lip-synchronized audio and video','Optional A/V recording for compliance'],
+     v:`<div class="pv"><div class="pv-cams"><div class="cam"><span>CAM 1</span></div><div class="cam on"><span>CAM 2 · live</span></div><div class="cam"><span>CAM 3</span></div><div class="cam"><span>CAM 4</span></div><div class="cam aud"><svg class="ic"><use href="#i-intercom"/></svg></div><div class="cam"><span>CAM 5</span></div></div><div class="dtmf"><i>1</i><i class="on">2</i><i>3</i><i>4</i></div></div>`},
+    {id:'vircom', ic:'i-phone', t:'VirCom', s:'Virtual communication',
+     d:'A virtual intercom endpoint. Scan an encrypted QR code and a smartphone becomes an intercom, with no app to install. Paired with jPhone for answering from anywhere.',
+     b:['Audio and video calls','AI face/speaker verification and liveness detection','GPS positioning and OCR for ID verification','Digital twin for critical communications in SIPazon Cloud'],
+     v:`<div class="pv pv-vir"><div class="qr" id="qr"></div><div class="phone"><div class="ph-h">VirCom · Entrance</div><div class="ph-v"></div><div class="ph-b"><i></i><i></i></div></div></div>`},
+    {id:'cc', ic:'i-cross', t:'ConnCross', s:'Connect & Cross',
+     d:'The event orchestration hub between SIP stations, IP speakers, CCTV cameras and I/O devices, so integrators can combine endpoints from various manufacturers.',
+     b:['AND, OR, XOR, XAND and timer logic','Low-level (jCon relay, I/O) and high-level (OPC UA/DA, API) interfaces','A2A converter: OPC, API/SDK, RS485/232, SIP, ONVIF, MQTT','jOPC: the first OPC server for SIP intercom and PA'],
+     v:`<div class="pv pv-logic"><div class="lg-in"><div>SIP · call request</div><div>I/O · door contact</div><div>timer · 22:00–06:00</div></div><div class="lg-gate">AND<br>+ TIMER</div><div class="lg-in"><div>CCTV · preset 4</div><div>PA · zone chime</div><div>OPC · BMS event</div></div></div>`}
+  ];
+  const list = document.getElementById('platList'), panel = document.getElementById('platPanel');
+  P.forEach((p,i) => {
+    const b = document.createElement('button');
+    b.setAttribute('role','tab'); b.setAttribute('aria-selected', i===0); b.dataset.i = i;
+    b.innerHTML = `<span class="pi"><svg class="ic"><use href="#${p.ic}"/></svg></span><span><b>${p.t}</b><small>${p.s}</small></span>`;
+    b.addEventListener('click', () => show(i));
+    list.appendChild(b);
+  });
+  let cur = 0, auto;
+  function show(i, fromAuto){
+    cur = i;
+    [...list.children].forEach((b,j) => b.setAttribute('aria-selected', j===i));
+    const p = P[i];
+    panel.innerHTML = `<div class="plat-viz">${p.v}</div><div class="plat-txt fade-in"><span class="tag">${p.s}</span><h3>${p.t}</h3><p class="muted">${p.d}</p><ul>${p.b.map(x=>`<li><svg class="ic"><use href="#i-check"/></svg><span>${x}</span></li>`).join('')}</ul><a class="link-arrow" href="https://sipazon.com/platform/${({mvm:'mvm',ha:'ha',rec:'siprec',video:'videoengine',vircom:'vircom',cc:'conncross'})[p.id]}" target="_blank" rel="noopener">Read more about ${p.t} <svg class="ic"><use href="#i-arrow"/></svg></a></div>`;
+    const wb = panel.querySelector('#wb');
+    if (wb) for (let k=0;k<64;k++){ const e=document.createElement('i'); e.style.height=(12+Math.abs(Math.sin(k*.45))*60+Math.random()*28)+'%'; wb.appendChild(e); }
+    const qr = panel.querySelector('#qr');
+    if (qr){ const pat='1111111100000110111011010110101101101100000111111101000101010101001101';
+      for (let k=0;k<49;k++){ const e=document.createElement('i'); const fx=(k%7<3&&k<21)||(k%7>3&&k<21)||(k%7<3&&k>27); if(!(fx||pat[k]==='1')) e.className='w'; qr.appendChild(e);} }
+    if (!fromAuto && list.children[i].scrollIntoView && innerWidth < 1024) list.children[i].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+    if (!fromAuto) stopAuto();
+  }
+  function stopAuto(){ clearInterval(auto); auto = null; }
+  show(0, true);
+  if (!reduce){
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && auto === undefined){ auto = setInterval(() => show((cur+1)%P.length, true), 6000); }
+    }), {threshold:.4});
+    io.observe(panel);
+    panel.addEventListener('mouseenter', stopAuto);
+  }
+
+  /* Scroll reveal: only elements below the first screen start hidden */
+  if (!reduce && 'IntersectionObserver' in window){
+    const els = [...document.querySelectorAll('.rv')].filter(el => el.getBoundingClientRect().top > innerHeight * .92);
+    els.forEach(el => el.classList.add('pre'));
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.remove('pre'); ro.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'});
+    els.forEach(el => ro.observe(el));
+  }
+
+  /* Theme toggle (light is default) */
+  const root = document.documentElement, tbtn = document.getElementById('themeToggle'), tlbl = document.getElementById('themeLabel');
+  const syncT = () => { const d = root.classList.contains('dark'); tlbl.textContent = d ? 'Switch to light mode' : 'Switch to dark mode'; tbtn.setAttribute('aria-pressed', d); };
+  syncT();
+  tbtn.addEventListener('click', () => {
+    root.classList.add('theming');
+    const d = root.classList.toggle('dark');
+    try { localStorage.setItem('sipazon-theme', d ? 'dark' : 'light'); } catch(e){}
+    syncT();
+    setTimeout(() => root.classList.remove('theming'), 400);
+  });
+
+  /* "/" focuses search (visual only) */
+  document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement === document.body){ e.preventDefault(); document.querySelector('.search-pill').focus(); } });
+})();
+</script>
+</body></html>

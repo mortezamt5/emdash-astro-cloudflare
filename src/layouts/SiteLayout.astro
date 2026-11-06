@@ -1,0 +1,59 @@
+---
+import IconSprite from "../components/ui/IconSprite.astro";
+import Header from "../components/navigation/Header.astro";
+import MobileNavigation from "../components/navigation/MobileMenu.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/tokens.css";
+import "../styles/site.css";
+import { getNavigation } from "../lib/navigation";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title = "SIPazon | Intercom, PA and Critical Communication",
+  description = "Explore SIPazon intercom, public address and communication platform solutions for connected sites.",
+  noindex = false,
+} = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const menuResult = await getNavigation("primary");
+if (Astro.cache?.enabled && Astro.url.pathname === "/") Astro.cache.set(menuResult.cacheHint);
+if (import.meta.env.DEV && !menuResult.items.length) {
+  console.warn('[navigation] The published "primary" navigation is missing or empty.', menuResult.error);
+}
+const items = menuResult.items;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <IconSprite />
+    <Header items={items} />
+    <MobileNavigation items={items} />
+    <main id="main-content"><div id="top"><slot /></div></main>
+    <Footer />
+    <script src="../scripts/interactions.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+---
+import type { NavigationItem } from "../../lib/navigation";
+import { Image } from "emdash/ui";
+import NavigationItemView from "./NavigationItem.astro";
+interface Props { items: NavigationItem[] }
+const { items } = Astro.props;
+---
+<ul class="menu" id="menu">
+  {items.map((item, index) => <li>
+    {item.children.length ? <>
+      <button class="m-btn" type="button" aria-expanded="false" aria-controls={`nav-menu-${index}`} title={item.description}>{item.icon && <Image class="nav-icon" image={item.icon} width={18} height={18} alt="" placeholder={false} />}{item.label} <svg class="ic" aria-hidden="true"><use href="#i-chev" /></svg></button>
+      <div class="dd" id={`nav-menu-${index}`}><div class={item.feature ? "dd-split" : undefined}><div class:list={["dd-grid", item.children.length > 6 ? "dd-3" : item.children.length > 3 ? "dd-2" : "dd-1"]} style={item.feature ? "width:auto" : undefined}>
+        {item.href && <NavigationItemView item={{ ...item, children: [] }} mode="desktop" />}
+        {item.children.map(child => <NavigationItemView item={child} mode="desktop" />)}
+      </div>{item.feature && <div class="dd-feature">
+        {item.feature.tag && <span class="tag">{item.feature.tag}</span>}
+        <strong>{item.feature.title}</strong>
+        {item.feature.description && <p>{item.feature.description}</p>}
+        {item.feature.href && item.feature.linkLabel && <a class="link-arrow" href={item.feature.href}>{item.feature.linkLabel} <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>}
+      </div>}</div></div>
+    </> : <NavigationItemView item={item} mode="top" />}
+  </li>)}
+</ul>
