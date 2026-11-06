@@ -18,7 +18,7 @@ export default defineConfig({
 		react(),
 		emdash({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
-			storage: r2({ binding: "MEDIA" }),
+			// storage: r2({ binding: "MEDIA" }),
 		}),
 	],
 	devToolbar: { enabled: false },
