@@ -7,8 +7,8 @@
 		"author": "EmDash"
 	},
 	"settings": {
-		"title": "SIPazon Website",
-		"tagline": "Built with SIPazon"
+		"title": "MORazon Website",
+		"tagline": "Built with MORazon"
 	},
 	"blockTypes": [
 		{
@@ -317,35 +317,35 @@
 						{
 							"type": "custom",
 							"label": "Intercom Stations",
-							"url": "https://sipazon.com/products/intercom-stations",
+							"url": "https://MORazon.com/products/intercom-stations",
 							"target": "_blank",
 							"cssClasses": "nav-key-intercom-stations"
 						},
 						{
 							"type": "custom",
 							"label": "AMS Servers",
-							"url": "https://sipazon.com/products/ams-servers",
+							"url": "https://MORazon.com/products/ams-servers",
 							"target": "_blank",
 							"cssClasses": "nav-key-ams-servers"
 						},
 						{
 							"type": "custom",
 							"label": "PA",
-							"url": "https://sipazon.com/products/pa",
+							"url": "https://MORazon.com/products/pa",
 							"target": "_blank",
 							"cssClasses": "nav-key-pa"
 						},
 						{
 							"type": "custom",
 							"label": "Special Products",
-							"url": "https://sipazon.com/products/special-products",
+							"url": "https://MORazon.com/products/special-products",
 							"target": "_blank",
 							"cssClasses": "nav-key-special-products"
 						},
 						{
 							"type": "custom",
 							"label": "Integrations & Compatibilities",
-							"url": "https://sipazon.com/products/integrations-and-compatibilities",
+							"url": "https://MORazon.com/products/integrations-and-compatibilities",
 							"target": "_blank",
 							"cssClasses": "nav-key-integrations-compatibilities"
 						}
@@ -360,49 +360,49 @@
 						{
 							"type": "custom",
 							"label": "Platform Overview",
-							"url": "https://sipazon.com/platform/platform-overview",
+							"url": "https://MORazon.com/platform/platform-overview",
 							"target": "_blank",
 							"cssClasses": "nav-key-platform-overview"
 						},
 						{
 							"type": "custom",
 							"label": "MvM Console",
-							"url": "https://sipazon.com/platform/mvm",
+							"url": "https://MORazon.com/platform/mvm",
 							"target": "_blank",
 							"cssClasses": "nav-key-mvm-console"
 						},
 						{
 							"type": "custom",
 							"label": "HA Redundancy",
-							"url": "https://sipazon.com/platform/ha",
+							"url": "https://MORazon.com/platform/ha",
 							"target": "_blank",
 							"cssClasses": "nav-key-ha-redundancy"
 						},
 						{
 							"type": "custom",
-							"label": "SIPrec Recording",
-							"url": "https://sipazon.com/platform/siprec",
+							"label": "MORrec Recording",
+							"url": "https://MORazon.com/platform/siprec",
 							"target": "_blank",
 							"cssClasses": "nav-key-siprec-recording"
 						},
 						{
 							"type": "custom",
 							"label": "Video Engine",
-							"url": "https://sipazon.com/platform/videoengine",
+							"url": "https://MORazon.com/platform/videoengine",
 							"target": "_blank",
 							"cssClasses": "nav-key-video-engine"
 						},
 						{
 							"type": "custom",
 							"label": "VirCom",
-							"url": "https://sipazon.com/platform/vircom",
+							"url": "https://MORazon.com/platform/vircom",
 							"target": "_blank",
 							"cssClasses": "nav-key-vircom"
 						},
 						{
 							"type": "custom",
 							"label": "ConnCross",
-							"url": "https://sipazon.com/platform/conncross",
+							"url": "https://MORazon.com/platform/conncross",
 							"target": "_blank",
 							"cssClasses": "nav-key-conncross"
 						}
@@ -417,42 +417,42 @@
 						{
 							"type": "custom",
 							"label": "Parking",
-							"url": "https://sipazon.com/solutions/parking",
+							"url": "https://MORazon.com/solutions/parking",
 							"target": "_blank",
 							"cssClasses": "nav-key-parking"
 						},
 						{
 							"type": "custom",
 							"label": "Prisons & Detention",
-							"url": "https://sipazon.com/solutions/prisons-detention",
+							"url": "https://MORazon.com/solutions/prisons-detention",
 							"target": "_blank",
 							"cssClasses": "nav-key-prisons-detention"
 						},
 						{
 							"type": "custom",
 							"label": "Residential",
-							"url": "https://sipazon.com/solutions/residential",
+							"url": "https://MORazon.com/solutions/residential",
 							"target": "_blank",
 							"cssClasses": "nav-key-residential"
 						},
 						{
 							"type": "custom",
 							"label": "Elevator",
-							"url": "https://sipazon.com/solutions/elevator",
+							"url": "https://MORazon.com/solutions/elevator",
 							"target": "_blank",
 							"cssClasses": "nav-key-elevator"
 						},
 						{
 							"type": "custom",
 							"label": "Office",
-							"url": "https://sipazon.com/solutions/office",
+							"url": "https://MORazon.com/solutions/office",
 							"target": "_blank",
 							"cssClasses": "nav-key-office"
 						},
 						{
 							"type": "custom",
 							"label": "Public Safety & Security",
-							"url": "https://sipazon.com/solutions/public-safety-security",
+							"url": "https://MORazon.com/solutions/public-safety-security",
 							"target": "_blank",
 							"cssClasses": "nav-key-public-safety-security"
 						}
@@ -467,21 +467,21 @@
 						{
 							"type": "custom",
 							"label": "App Customisation",
-							"url": "https://sipazon.com/services/app-customisation",
+							"url": "https://MORazon.com/services/app-customisation",
 							"target": "_blank",
 							"cssClasses": "nav-key-app-customisation"
 						},
 						{
 							"type": "custom",
-							"label": "SIPazon OEM",
-							"url": "https://sipazon.com/services/sipazon-oem",
+							"label": "MORazon OEM",
+							"url": "https://MORazon.com/services/MORazon-oem",
 							"target": "_blank",
-							"cssClasses": "nav-key-sipazon-oem"
+							"cssClasses": "nav-key-MORazon-oem"
 						},
 						{
 							"type": "custom",
 							"label": "API",
-							"url": "https://sipazon.com/services/api",
+							"url": "https://MORazon.com/services/api",
 							"target": "_blank",
 							"cssClasses": "nav-key-api"
 						}
@@ -496,28 +496,28 @@
 						{
 							"type": "custom",
 							"label": "Company Information",
-							"url": "https://sipazon.com/company-information",
+							"url": "https://MORazon.com/company-information",
 							"target": "_blank",
 							"cssClasses": "nav-key-company-information"
 						},
 						{
 							"type": "custom",
 							"label": "Team",
-							"url": "https://sipazon.com/team",
+							"url": "https://MORazon.com/team",
 							"target": "_blank",
 							"cssClasses": "nav-key-team"
 						},
 						{
 							"type": "custom",
 							"label": "Privacy Statements",
-							"url": "https://sipazon.com/privacy-statements",
+							"url": "https://MORazon.com/privacy-statements",
 							"target": "_blank",
 							"cssClasses": "nav-key-privacy-statements"
 						},
 						{
 							"type": "custom",
 							"label": "Contact Us",
-							"url": "https://sipazon.com/contact",
+							"url": "https://MORazon.com/contact",
 							"target": "_blank",
 							"cssClasses": "nav-key-contact-us"
 						}
@@ -651,7 +651,7 @@
 							"_key": "navigation-0",
 							"label": "Products",
 							"feature_tag": "New integration",
-							"feature_title": "SIPazon AMS Call Manager for Milestone XProtect",
+							"feature_title": "MORazon AMS Call Manager for Milestone XProtect",
 							"feature_description": "The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).",
 							"feature_link_label": "Learn more",
 							"feature_href": "#integrations",
@@ -670,13 +670,13 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/products/intercom-stations",
+									"href": "https://MORazon.com/products/intercom-stations",
 									"target": "_blank",
 									"enabled": true
 								},
 								{
 									"label": "AMS Servers",
-									"description": "UC800 Platform, jNode Compact CS2, VM SIPazon",
+									"description": "UC800 Platform, jNode Compact CS2, VM MORazon",
 									"icon": {
 										"id": "",
 										"provider": "external",
@@ -684,7 +684,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/products/ams-servers",
+									"href": "https://MORazon.com/products/ams-servers",
 									"target": "_self",
 									"enabled": true
 								},
@@ -698,13 +698,13 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/products/pa",
+									"href": "https://MORazon.com/products/pa",
 									"target": "_blank",
 									"enabled": true
 								},
 								{
 									"label": "Special Products",
-									"description": "VirCom, SIPavox, Fire Command Center",
+									"description": "VirCom, MORavox, Fire Command Center",
 									"icon": {
 										"id": "",
 										"provider": "external",
@@ -712,7 +712,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/products/special-products",
+									"href": "https://MORazon.com/products/special-products",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -726,7 +726,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/products/integrations-and-compatibilities",
+									"href": "https://MORazon.com/products/integrations-and-compatibilities",
 									"target": "_blank",
 									"enabled": true
 								}
@@ -744,7 +744,7 @@
 							"children": [
 								{
 									"label": "Platform Overview",
-									"description": "One platform for all your SIP needs",
+									"description": "One platform for all your MOR needs",
 									"icon": {
 										"id": "",
 										"provider": "external",
@@ -752,7 +752,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/platform-overview",
+									"href": "https://MORazon.com/platform/platform-overview",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -766,7 +766,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/mvm",
+									"href": "https://MORazon.com/platform/mvm",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -780,13 +780,13 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/ha",
+									"href": "https://MORazon.com/platform/ha",
 									"target": "_blank",
 									"enabled": true
 								},
 								{
-									"label": "SIPrec Recording",
-									"description": "SIP-based audio and A/V recording",
+									"label": "MORrec Recording",
+									"description": "MOR-based audio and A/V recording",
 									"icon": {
 										"id": "",
 										"provider": "external",
@@ -794,7 +794,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/siprec",
+									"href": "https://MORazon.com/platform/siprec",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -808,7 +808,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/videoengine",
+									"href": "https://MORazon.com/platform/videoengine",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -822,7 +822,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/vircom",
+									"href": "https://MORazon.com/platform/vircom",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -836,7 +836,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/platform/conncross",
+									"href": "https://MORazon.com/platform/conncross",
 									"target": "_blank",
 									"enabled": true
 								}
@@ -862,7 +862,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/solutions/parking",
+									"href": "https://MORazon.com/solutions/parking",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -876,7 +876,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/solutions/prisons-detention",
+									"href": "https://MORazon.com/solutions/prisons-detention",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -890,7 +890,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/solutions/residential",
+									"href": "https://MORazon.com/solutions/residential",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -904,7 +904,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/solutions/elevator",
+									"href": "https://MORazon.com/solutions/elevator",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -918,7 +918,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/solutions/office",
+									"href": "https://MORazon.com/solutions/office",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -932,7 +932,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/solutions/public-safety-security",
+									"href": "https://MORazon.com/solutions/public-safety-security",
 									"target": "_blank",
 									"enabled": true
 								}
@@ -950,7 +950,7 @@
 							"children": [
 								{
 									"label": "App Customisation",
-									"description": "Rebrand the jPhone SIP app",
+									"description": "Rebrand the jPhone MOR app",
 									"icon": {
 										"id": "",
 										"provider": "external",
@@ -958,12 +958,12 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/services/app-customisation",
+									"href": "https://MORazon.com/services/app-customisation",
 									"target": "_blank",
 									"enabled": true
 								},
 								{
-									"label": "SIPazon OEM",
+									"label": "MORazon OEM",
 									"description": "OEM services for Edge, Fog and Cloud",
 									"icon": {
 										"id": "",
@@ -972,13 +972,13 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/services/sipazon-oem",
+									"href": "https://MORazon.com/services/MORazon-oem",
 									"target": "_blank",
 									"enabled": true
 								},
 								{
 									"label": "API",
-									"description": "Connect SIP endpoints to other ecosystems",
+									"description": "Connect MOR endpoints to other ecosystems",
 									"icon": {
 										"id": "",
 										"provider": "external",
@@ -986,7 +986,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/services/api",
+									"href": "https://MORazon.com/services/api",
 									"target": "_blank",
 									"enabled": true
 								}
@@ -1011,7 +1011,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/company-information",
+									"href": "https://MORazon.com/company-information",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -1024,7 +1024,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/team",
+									"href": "https://MORazon.com/team",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -1037,7 +1037,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/privacy-statements",
+									"href": "https://MORazon.com/privacy-statements",
 									"target": "_blank",
 									"enabled": true
 								},
@@ -1050,7 +1050,7 @@
 										"alt": ""
 									},
 									"link_type": "external",
-									"href": "https://sipazon.com/contact",
+									"href": "https://MORazon.com/contact",
 									"target": "_blank",
 									"enabled": true
 								}

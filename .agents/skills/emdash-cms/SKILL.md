@@ -1,6 +1,6 @@
 ---
 name: emdash-cms
-description: Design or change Sipazon's EmDash content models, product editing, media, editorial workflows, server queries, previews, and publishing behavior.
+description: Design or change MORazon's EmDash content models, product editing, media, editorial workflows, server queries, previews, and publishing behavior.
 ---
 
 # EmDash CMS

@@ -1,12 +1,12 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SIPazon Prototype</title>
-<meta name="description" content="SIPazon — SIP compatible headend communication and IoT platform. Design prototype.">
+<title>MORazon Prototype</title>
+<meta name="description" content="MORazon — MOR compatible headend communication and IoT platform. Design prototype.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: light, airy SaaS canvas (hairline grids, generous whitespace) broken by dark "control-room" panels that carry the product UI. */
-/* Layout: clean light SaaS canvas (white ground, hairline borders, grid texture) with a full dark mode behind a footer toggle. Ink is the SIPazon logo navy. */
+/* Layout: clean light SaaS canvas (white ground, hairline borders, grid texture) with a full dark mode behind a footer toggle. Ink is the MORazon logo navy. */
 :root{
   --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F6F7F9; --ink:#0D1C2A; --ink-2:#2A3847; --muted:#5E6978;
   --border:#E6E9EE; --border-2:#D5DAE2;
@@ -702,7 +702,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 }
 </style>
 </head><body>
-<script>try{if(localStorage.getItem("sipazon-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
+<script>try{if(localStorage.getItem("MORazon-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
 
 <!-- ───────── ICON SPRITE ───────── -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -753,21 +753,21 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 <!-- ───────── NAV ───────── -->
 <header class="nav" id="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="data:image/png;base64,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" alt="SIPazon" width="137" height="30"></a>
+    <a class="brand" href="#top" aria-label="MORazon home"><img class="logo" src="data:image/png;base64,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" alt="MORazon" width="137" height="30"></a>
     <ul class="menu" id="menu">
       <li>
         <button class="m-btn" aria-expanded="false">Products <svg class="ic"><use href="#i-chev"/></svg></button>
         <div class="dd"><div class="dd-split">
           <div class="dd-grid dd-2" style="width:auto">
-            <a class="dd-item" href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-intercom"/></svg></span><span><span class="dd-t">Intercom Stations</span><span class="dd-d">PoE native IP intercoms with HD voice</span></span></a>
-            <a class="dd-item" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-server"/></svg></span><span><span class="dd-t">AMS Servers</span><span class="dd-d">UC800 Platform, jNode Compact CS2, VM SIPazon</span></span></a>
-            <a class="dd-item" href="https://sipazon.com/products/pa" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-speaker"/></svg></span><span><span class="dd-t">PA</span><span class="dd-d">Integrated, unified public address</span></span></a>
-            <a class="dd-item" href="https://sipazon.com/products/special-products" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-spark"/></svg></span><span><span class="dd-t">Special Products</span><span class="dd-d">VirCom, SIPavox, Fire Command Center</span></span></a>
-            <a class="dd-item" href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-plug"/></svg></span><span><span class="dd-t">Integrations &amp; Compatibilities</span><span class="dd-d">VMS, Access Control, PSIM, BMS, SCADA</span></span></a>
+            <a class="dd-item" href="https://MORazon.com/products/intercom-stations" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-intercom"/></svg></span><span><span class="dd-t">Intercom Stations</span><span class="dd-d">PoE native IP intercoms with HD voice</span></span></a>
+            <a class="dd-item" href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-server"/></svg></span><span><span class="dd-t">AMS Servers</span><span class="dd-d">UC800 Platform, jNode Compact CS2, VM MORazon</span></span></a>
+            <a class="dd-item" href="https://MORazon.com/products/pa" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-speaker"/></svg></span><span><span class="dd-t">PA</span><span class="dd-d">Integrated, unified public address</span></span></a>
+            <a class="dd-item" href="https://MORazon.com/products/special-products" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-spark"/></svg></span><span><span class="dd-t">Special Products</span><span class="dd-d">VirCom, MORavox, Fire Command Center</span></span></a>
+            <a class="dd-item" href="https://MORazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-plug"/></svg></span><span><span class="dd-t">Integrations &amp; Compatibilities</span><span class="dd-d">VMS, Access Control, PSIM, BMS, SCADA</span></span></a>
           </div>
           <div class="dd-feature">
             <span class="tag">New integration</span>
-            <strong>SIPazon AMS Call Manager for Milestone XProtect</strong>
+            <strong>MORazon AMS Call Manager for Milestone XProtect</strong>
             <p>The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).</p>
             <a class="link-arrow" href="#integrations">Learn more <svg class="ic"><use href="#i-arrow"/></svg></a>
           </div>
@@ -776,48 +776,48 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
       <li>
         <button class="m-btn" aria-expanded="false">Platform <svg class="ic"><use href="#i-chev"/></svg></button>
         <div class="dd"><div class="dd-grid dd-3">
-          <a class="dd-item" href="https://sipazon.com/platform/platform-overview" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-layers"/></svg></span><span><span class="dd-t">Platform Overview</span><span class="dd-d">One platform for all your SIP needs</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-monitor"/></svg></span><span><span class="dd-t">MvM Console</span><span class="dd-d">Monitoring, Visualization &amp; Management</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/platform/ha" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-ha"/></svg></span><span><span class="dd-t">HA Redundancy</span><span class="dd-d">Master and hot-standby server pair</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/platform/siprec" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-rec"/></svg></span><span><span class="dd-t">SIPrec Recording</span><span class="dd-d">SIP-based audio and A/V recording</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/platform/videoengine" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-camera"/></svg></span><span><span class="dd-t">Video Engine</span><span class="dd-d">Lip-synchronized video calls</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/platform/vircom" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-phone"/></svg></span><span><span class="dd-t">VirCom</span><span class="dd-d">Virtual intercom endpoint via QR</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/platform/conncross" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-cross"/></svg></span><span><span class="dd-t">ConnCross</span><span class="dd-d">Connect &amp; Cross event orchestration</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/platform-overview" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-layers"/></svg></span><span><span class="dd-t">Platform Overview</span><span class="dd-d">One platform for all your MOR needs</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/mvm" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-monitor"/></svg></span><span><span class="dd-t">MvM Console</span><span class="dd-d">Monitoring, Visualization &amp; Management</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/ha" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-ha"/></svg></span><span><span class="dd-t">HA Redundancy</span><span class="dd-d">Master and hot-standby server pair</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/siprec" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-rec"/></svg></span><span><span class="dd-t">MORrec Recording</span><span class="dd-d">MOR-based audio and A/V recording</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/videoengine" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-camera"/></svg></span><span><span class="dd-t">Video Engine</span><span class="dd-d">Lip-synchronized video calls</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/vircom" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-phone"/></svg></span><span><span class="dd-t">VirCom</span><span class="dd-d">Virtual intercom endpoint via QR</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/platform/conncross" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-cross"/></svg></span><span><span class="dd-t">ConnCross</span><span class="dd-d">Connect &amp; Cross event orchestration</span></span></a>
         </div></div>
       </li>
       <li>
         <button class="m-btn" aria-expanded="false">Solutions <svg class="ic"><use href="#i-chev"/></svg></button>
         <div class="dd"><div class="dd-grid dd-2">
-          <a class="dd-item" href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-car"/></svg></span><span><span class="dd-t">Parking</span><span class="dd-d">Easy In Easy Out Parking</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-lock"/></svg></span><span><span class="dd-t">Prisons &amp; Detention</span><span class="dd-d">Tamper-resistant cell intercoms</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-home"/></svg></span><span><span class="dd-t">Residential</span><span class="dd-d">Single homes to multi-tenant complexes</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-elevator"/></svg></span><span><span class="dd-t">Elevator</span><span class="dd-d">EN81 critical communication</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/solutions/office" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-brief"/></svg></span><span><span class="dd-t">Office</span><span class="dd-d">Daily operational access at the workplace</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-siren"/></svg></span><span><span class="dd-t">Public Safety &amp; Security</span><span class="dd-d">Audio for cities, alongside CCTV</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/solutions/parking" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-car"/></svg></span><span><span class="dd-t">Parking</span><span class="dd-d">Easy In Easy Out Parking</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/solutions/prisons-detention" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-lock"/></svg></span><span><span class="dd-t">Prisons &amp; Detention</span><span class="dd-d">Tamper-resistant cell intercoms</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/solutions/residential" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-home"/></svg></span><span><span class="dd-t">Residential</span><span class="dd-d">Single homes to multi-tenant complexes</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/solutions/elevator" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-elevator"/></svg></span><span><span class="dd-t">Elevator</span><span class="dd-d">EN81 critical communication</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/solutions/office" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-brief"/></svg></span><span><span class="dd-t">Office</span><span class="dd-d">Daily operational access at the workplace</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/solutions/public-safety-security" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-siren"/></svg></span><span><span class="dd-t">Public Safety &amp; Security</span><span class="dd-d">Audio for cities, alongside CCTV</span></span></a>
         </div></div>
       </li>
       <li>
         <button class="m-btn" aria-expanded="false">Services <svg class="ic"><use href="#i-chev"/></svg></button>
         <div class="dd"><div class="dd-grid dd-1">
-          <a class="dd-item" href="https://sipazon.com/services/app-customisation" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-phone"/></svg></span><span><span class="dd-t">App Customisation</span><span class="dd-d">Rebrand the jPhone SIP app</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-chip"/></svg></span><span><span class="dd-t">SIPazon OEM</span><span class="dd-d">OEM services for Edge, Fog and Cloud</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/services/api" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-code"/></svg></span><span><span class="dd-t">API</span><span class="dd-d">Connect SIP endpoints to other ecosystems</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/services/app-customisation" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-phone"/></svg></span><span><span class="dd-t">App Customisation</span><span class="dd-d">Rebrand the jPhone MOR app</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/services/MORazon-oem" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-chip"/></svg></span><span><span class="dd-t">MORazon OEM</span><span class="dd-d">OEM services for Edge, Fog and Cloud</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/services/api" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-code"/></svg></span><span><span class="dd-t">API</span><span class="dd-d">Connect MOR endpoints to other ecosystems</span></span></a>
         </div></div>
       </li>
       <li>
         <button class="m-btn" aria-expanded="false">Company <svg class="ic"><use href="#i-chev"/></svg></button>
         <div class="dd"><div class="dd-grid dd-1" style="width:260px">
-          <a class="dd-item" href="https://sipazon.com/company-information" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-info"/></svg></span><span><span class="dd-t">Company Information</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/team" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-users"/></svg></span><span><span class="dd-t">Team</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/privacy-statements" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-shield"/></svg></span><span><span class="dd-t">Privacy Statements</span></span></a>
-          <a class="dd-item" href="https://sipazon.com/contact" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-mail"/></svg></span><span><span class="dd-t">Contact Us</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/company-information" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-info"/></svg></span><span><span class="dd-t">Company Information</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/team" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-users"/></svg></span><span><span class="dd-t">Team</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/privacy-statements" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-shield"/></svg></span><span><span class="dd-t">Privacy Statements</span></span></a>
+          <a class="dd-item" href="https://MORazon.com/contact" target="_blank" rel="noopener"><span class="dd-ico"><svg class="ic"><use href="#i-mail"/></svg></span><span><span class="dd-t">Contact Us</span></span></a>
         </div></div>
       </li>
     </ul>
     <div class="nav-cta">
       <button class="search-pill" type="button" aria-label="Search"><svg class="ic"><use href="#i-search"/></svg><span>Search</span><span class="kbd">/</span></button>
-      <a class="btn btn-ghost btn-sm" href="https://sipazon.com/portal" target="_blank" rel="noopener">Portal</a>
-      <a class="btn btn-primary btn-sm" href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact us</a>
+      <a class="btn btn-ghost btn-sm" href="https://MORazon.com/portal" target="_blank" rel="noopener">Portal</a>
+      <a class="btn btn-primary btn-sm" href="https://MORazon.com/contact" target="_blank" rel="noopener">Contact us</a>
       <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="mnav" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button>
     </div>
   </div>
@@ -826,47 +826,47 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 <!-- Mobile nav -->
 <div class="mnav" id="mnav" aria-hidden="true">
   <div class="mnav-top">
-    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="data:image/png;base64,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" alt="SIPazon" width="128" height="28"></a>
+    <a class="brand" href="#top" aria-label="MORazon home"><img class="logo" src="data:image/png;base64,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" alt="MORazon" width="128" height="28"></a>
     <button class="icon-btn" id="mclose" aria-label="Close menu"><svg class="ic"><use href="#i-close"/></svg></button>
   </div>
   <details open><summary>Products <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
-    <a href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener"><svg class="ic"><use href="#i-intercom"/></svg>Intercom Stations</a>
-    <a href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-server"/></svg>AMS Servers</a>
-    <a href="https://sipazon.com/products/pa" target="_blank" rel="noopener"><svg class="ic"><use href="#i-speaker"/></svg>PA</a>
-    <a href="https://sipazon.com/products/special-products" target="_blank" rel="noopener"><svg class="ic"><use href="#i-spark"/></svg>Special Products</a>
-    <a href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener"><svg class="ic"><use href="#i-plug"/></svg>Integrations &amp; Compatibilities</a>
+    <a href="https://MORazon.com/products/intercom-stations" target="_blank" rel="noopener"><svg class="ic"><use href="#i-intercom"/></svg>Intercom Stations</a>
+    <a href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-server"/></svg>AMS Servers</a>
+    <a href="https://MORazon.com/products/pa" target="_blank" rel="noopener"><svg class="ic"><use href="#i-speaker"/></svg>PA</a>
+    <a href="https://MORazon.com/products/special-products" target="_blank" rel="noopener"><svg class="ic"><use href="#i-spark"/></svg>Special Products</a>
+    <a href="https://MORazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener"><svg class="ic"><use href="#i-plug"/></svg>Integrations &amp; Compatibilities</a>
   </div></details>
   <details><summary>Platform <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
-    <a href="https://sipazon.com/platform/platform-overview" target="_blank" rel="noopener"><svg class="ic"><use href="#i-layers"/></svg>Platform Overview</a>
-    <a href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener"><svg class="ic"><use href="#i-monitor"/></svg>MvM Console</a>
-    <a href="https://sipazon.com/platform/ha" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ha"/></svg>HA Redundancy</a>
-    <a href="https://sipazon.com/platform/siprec" target="_blank" rel="noopener"><svg class="ic"><use href="#i-rec"/></svg>SIPrec Recording</a>
-    <a href="https://sipazon.com/platform/videoengine" target="_blank" rel="noopener"><svg class="ic"><use href="#i-camera"/></svg>Video Engine</a>
-    <a href="https://sipazon.com/platform/vircom" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>VirCom</a>
-    <a href="https://sipazon.com/platform/conncross" target="_blank" rel="noopener"><svg class="ic"><use href="#i-cross"/></svg>ConnCross</a>
+    <a href="https://MORazon.com/platform/platform-overview" target="_blank" rel="noopener"><svg class="ic"><use href="#i-layers"/></svg>Platform Overview</a>
+    <a href="https://MORazon.com/platform/mvm" target="_blank" rel="noopener"><svg class="ic"><use href="#i-monitor"/></svg>MvM Console</a>
+    <a href="https://MORazon.com/platform/ha" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ha"/></svg>HA Redundancy</a>
+    <a href="https://MORazon.com/platform/siprec" target="_blank" rel="noopener"><svg class="ic"><use href="#i-rec"/></svg>MORrec Recording</a>
+    <a href="https://MORazon.com/platform/videoengine" target="_blank" rel="noopener"><svg class="ic"><use href="#i-camera"/></svg>Video Engine</a>
+    <a href="https://MORazon.com/platform/vircom" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>VirCom</a>
+    <a href="https://MORazon.com/platform/conncross" target="_blank" rel="noopener"><svg class="ic"><use href="#i-cross"/></svg>ConnCross</a>
   </div></details>
   <details><summary>Solutions <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
-    <a href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener"><svg class="ic"><use href="#i-car"/></svg>Parking</a>
-    <a href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener"><svg class="ic"><use href="#i-lock"/></svg>Prisons &amp; Detention</a>
-    <a href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener"><svg class="ic"><use href="#i-home"/></svg>Residential</a>
-    <a href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener"><svg class="ic"><use href="#i-elevator"/></svg>Elevator</a>
-    <a href="https://sipazon.com/solutions/office" target="_blank" rel="noopener"><svg class="ic"><use href="#i-brief"/></svg>Office</a>
-    <a href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener"><svg class="ic"><use href="#i-siren"/></svg>Public Safety &amp; Security</a>
+    <a href="https://MORazon.com/solutions/parking" target="_blank" rel="noopener"><svg class="ic"><use href="#i-car"/></svg>Parking</a>
+    <a href="https://MORazon.com/solutions/prisons-detention" target="_blank" rel="noopener"><svg class="ic"><use href="#i-lock"/></svg>Prisons &amp; Detention</a>
+    <a href="https://MORazon.com/solutions/residential" target="_blank" rel="noopener"><svg class="ic"><use href="#i-home"/></svg>Residential</a>
+    <a href="https://MORazon.com/solutions/elevator" target="_blank" rel="noopener"><svg class="ic"><use href="#i-elevator"/></svg>Elevator</a>
+    <a href="https://MORazon.com/solutions/office" target="_blank" rel="noopener"><svg class="ic"><use href="#i-brief"/></svg>Office</a>
+    <a href="https://MORazon.com/solutions/public-safety-security" target="_blank" rel="noopener"><svg class="ic"><use href="#i-siren"/></svg>Public Safety &amp; Security</a>
   </div></details>
   <details><summary>Services <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
-    <a href="https://sipazon.com/services/app-customisation" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>App Customisation</a>
-    <a href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chip"/></svg>SIPazon OEM</a>
-    <a href="https://sipazon.com/services/api" target="_blank" rel="noopener"><svg class="ic"><use href="#i-code"/></svg>API</a>
+    <a href="https://MORazon.com/services/app-customisation" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>App Customisation</a>
+    <a href="https://MORazon.com/services/MORazon-oem" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chip"/></svg>MORazon OEM</a>
+    <a href="https://MORazon.com/services/api" target="_blank" rel="noopener"><svg class="ic"><use href="#i-code"/></svg>API</a>
   </div></details>
   <details><summary>Company <svg class="ic"><use href="#i-chev"/></svg></summary><div class="sub">
-    <a href="https://sipazon.com/company-information" target="_blank" rel="noopener"><svg class="ic"><use href="#i-info"/></svg>Company Information</a>
-    <a href="https://sipazon.com/team" target="_blank" rel="noopener"><svg class="ic"><use href="#i-users"/></svg>Team</a>
-    <a href="https://sipazon.com/privacy-statements" target="_blank" rel="noopener"><svg class="ic"><use href="#i-shield"/></svg>Privacy Statements</a>
-    <a href="https://sipazon.com/contact" target="_blank" rel="noopener"><svg class="ic"><use href="#i-mail"/></svg>Contact Us</a>
+    <a href="https://MORazon.com/company-information" target="_blank" rel="noopener"><svg class="ic"><use href="#i-info"/></svg>Company Information</a>
+    <a href="https://MORazon.com/team" target="_blank" rel="noopener"><svg class="ic"><use href="#i-users"/></svg>Team</a>
+    <a href="https://MORazon.com/privacy-statements" target="_blank" rel="noopener"><svg class="ic"><use href="#i-shield"/></svg>Privacy Statements</a>
+    <a href="https://MORazon.com/contact" target="_blank" rel="noopener"><svg class="ic"><use href="#i-mail"/></svg>Contact Us</a>
   </div></details>
   <div class="mnav-cta">
-    <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact us</a>
-    <a class="btn btn-ghost" href="https://sipazon.com/portal" target="_blank" rel="noopener">Portal</a>
+    <a class="btn btn-primary" href="https://MORazon.com/contact" target="_blank" rel="noopener">Contact us</a>
+    <a class="btn btn-ghost" href="https://MORazon.com/portal" target="_blank" rel="noopener">Portal</a>
   </div>
 </div>
 
@@ -875,12 +875,12 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <a class="announce" href="#integrations"><span class="pill">New</span><span class="t">SIPazon AMS Call Manager for Milestone XProtect</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+      <a class="announce" href="#integrations"><span class="pill">New</span><span class="t">MORazon AMS Call Manager for Milestone XProtect</span><svg class="ic"><use href="#i-arrow"/></svg></a>
       <span class="eyebrow">Intercom &amp; PA · Critical Communication</span>
-      <h1>Intercom &amp; PA solutions at its best: <span class="q">SIP</span></h1>
-      <p class="lead">SIPazon is a SIP compatible headend communication and IoT platform for all types of projects or applications, from a single door entry intercom to the most complex and demanding projects like airport or prison systems.</p>
+      <h1>Intercom &amp; PA solutions at its best: <span class="q">MOR</span></h1>
+      <p class="lead">MORazon is a MOR compatible headend communication and IoT platform for all types of projects or applications, from a single door entry intercom to the most complex and demanding projects like airport or prison systems.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener">Talk to SIPazon <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-primary" href="https://MORazon.com/contact" target="_blank" rel="noopener">Talk to MORazon <svg class="ic"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ghost" href="#platform">Explore the platform</a>
       </div>
       <div class="hero-tags">
@@ -892,9 +892,9 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 
     <div class="stage">
       <div class="stage-frame">
-        <div class="stage-bar"><span class="dots"><i></i><i></i><i></i></span><span>sipazon · ecosystem</span><span class="live"><span class="pulse"></span>SIP · live topology</span></div>
+        <div class="stage-bar"><span class="dots"><i></i><i></i><i></i></span><span>MORazon · ecosystem</span><span class="live"><span class="pulse"></span>MOR · live topology</span></div>
         <div class="eco">
-          <svg viewBox="0 0 1120 440" role="img" aria-label="SIPazon AMS connecting intercoms, PA, cameras and elevators to VMS, access control, BMS and IP-PBX systems">
+          <svg viewBox="0 0 1120 440" role="img" aria-label="MORazon AMS connecting intercoms, PA, cameras and elevators to VMS, access control, BMS and IP-PBX systems">
             <defs>
               <radialGradient id="hubg" cx="50%" cy="40%" r="70%"><stop offset="0" style="stop-color:var(--hub-a)"/><stop offset="1" style="stop-color:var(--hub-b)"/></radialGradient>
               <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
@@ -925,11 +925,11 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
             <circle cx="560" cy="220" r="110" opacity=".16" filter="url(#glow)" style="fill:var(--p-primary)"/>
             <rect x="480" y="150" width="160" height="140" rx="26" fill="url(#hubg)" style="stroke:var(--hub-line)"/>
             <g transform="translate(544 172)" class="ico"><path d="M4 16a12 12 0 0124 0M9 16a7 7 0 0114 0M14 16h4v12h-4z" style="stroke:var(--p-primary)"/></g>
-            <text x="560" y="232" text-anchor="middle" class="lbl" style="font-size:17px;fill:var(--panel-strong)">SIPazon AMS</text>
+            <text x="560" y="232" text-anchor="middle" class="lbl" style="font-size:17px;fill:var(--panel-strong)">MORazon AMS</text>
             <text x="560" y="252" text-anchor="middle" class="sub">Audio Management System</text>
-            <text x="560" y="272" text-anchor="middle" class="sub" style="fill:var(--p-primary)">SIP · RTP · TLS</text>
-            <!-- left nodes: SIP endpoints -->
-            <text x="40" y="26" class="sub" style="fill:var(--panel-dim);letter-spacing:.08em">SIP ENDPOINTS · MULTI-VENDOR</text>
+            <text x="560" y="272" text-anchor="middle" class="sub" style="fill:var(--p-primary)">MOR · RTP · TLS</text>
+            <!-- left nodes: MOR endpoints -->
+            <text x="40" y="26" class="sub" style="fill:var(--panel-dim);letter-spacing:.08em">MOR ENDPOINTS · MULTI-VENDOR</text>
             <g transform="translate(40 44)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14) scale(1)" class="ico"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="8" r="2.5"/><path d="M9.5 14h5"/></g><text x="48" y="23" class="lbl">Intercom stations</text><text x="48" y="40" class="sub">J-762C-1 · J-762P-1</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
             <g transform="translate(40 144)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><path d="M3 10v4h4l5 4V6L7 10H3z"/><path d="M16 9a4 4 0 010 6M19 6a8 8 0 010 12"/></g><text x="48" y="23" class="lbl">Public Address</text><text x="48" y="40" class="sub">J-IPS30 · J-PA1000</text><circle cx="192" cy="26" r="4" class="dot-sig"/></g>
             <g transform="translate(40 244)"><rect class="node" width="210" height="52" rx="12"/><g transform="translate(14 14)" class="ico"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></g><text x="48" y="23" class="lbl">IP cameras</text><text x="48" y="40" class="sub">RTSP · Video Engine</text><circle cx="192" cy="26" r="4" class="dot-ok"/></g>
@@ -957,7 +957,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
               <div class="it"><svg class="ic"><use href="#i-camera"/></svg><span>IP cameras</span></div>
               <div class="it"><svg class="ic"><use href="#i-elevator"/></svg><span>Elevator · EN81</span></div>
             </div>
-            <div class="hub"><b>SIPazon AMS</b><small>SIP · RTP · TLS</small></div>
+            <div class="hub"><b>MORazon AMS</b><small>MOR · RTP · TLS</small></div>
             <div class="col">
               <div class="it"><svg class="ic"><use href="#i-monitor"/></svg><span>Milestone XProtect</span></div>
               <div class="it"><svg class="ic"><use href="#i-lock"/></svg><span>Access Control</span></div>
@@ -976,7 +976,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   <div class="wrap strip-in">
     <p class="strip-lbl">Built on open standards. Compatible with the systems you already run.</p>
     <div class="marquee"><div class="track" id="track">
-      <span class="tok hl m">SIP</span><span class="tok">Milestone XProtect</span><span class="tok m">VMS</span><span class="tok">Gallagher Command Centre</span><span class="tok m">IoT</span><span class="tok">Cisco CUCM</span><span class="tok m"><svg class="ic"><use href="#i-chip"/></svg>Edge</span><span class="tok">Avaya Aura CM</span><span class="tok m"><svg class="ic"><use href="#i-fog"/></svg>Fog</span><span class="tok">Geutebrück G-SIM</span><span class="tok m"><svg class="ic"><use href="#i-cloud"/></svg>Cloud</span><span class="tok">Mitel 3300</span><span class="tok hl m">Critical Communication</span><span class="tok">Alcatel-Lucent OmniPCX</span><span class="tok m">OPC UA</span><span class="tok">3CX</span><span class="tok m">MQTT</span><span class="tok">Asterisk</span><span class="tok m">WebRTC</span><span class="tok">FreeSWITCH</span><span class="tok m">EN81</span><span class="tok">Kamailio</span>
+      <span class="tok hl m">MOR</span><span class="tok">Milestone XProtect</span><span class="tok m">VMS</span><span class="tok">Gallagher Command Centre</span><span class="tok m">IoT</span><span class="tok">Cisco CUCM</span><span class="tok m"><svg class="ic"><use href="#i-chip"/></svg>Edge</span><span class="tok">Avaya Aura CM</span><span class="tok m"><svg class="ic"><use href="#i-fog"/></svg>Fog</span><span class="tok">Geutebrück G-SIM</span><span class="tok m"><svg class="ic"><use href="#i-cloud"/></svg>Cloud</span><span class="tok">Mitel 3300</span><span class="tok hl m">Critical Communication</span><span class="tok">Alcatel-Lucent OmniPCX</span><span class="tok m">OPC UA</span><span class="tok">3CX</span><span class="tok m">MQTT</span><span class="tok">Asterisk</span><span class="tok m">WebRTC</span><span class="tok">FreeSWITCH</span><span class="tok m">EN81</span><span class="tok">Kamailio</span>
     </div></div>
   </div>
 </section>
@@ -987,53 +987,53 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
     <div class="sec-head rv">
       <span class="eyebrow">Products</span>
       <h2>Hardware and headend, designed for high-security areas</h2>
-      <p class="lead">From PoE native IP intercoms to AMS servers and unified PA, every SIPazon product speaks SIP and plugs into one platform.</p>
+      <p class="lead">From PoE native IP intercoms to AMS servers and unified PA, every MORazon product speaks MOR and plugs into one platform.</p>
     </div>
     <div class="pgrid">
-      <a class="pcard rv" href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener">
+      <a class="pcard rv" href="https://MORazon.com/products/intercom-stations" target="_blank" rel="noopener">
         <div class="viz">
           <div class="dev-intercom"><span class="screw" style="left:8px;top:8px"></span><span class="screw" style="right:8px;top:8px"></span><span class="screw" style="left:8px;bottom:8px"></span><span class="screw" style="right:8px;bottom:8px"></span><span class="grille"></span><span class="btn-c"><i></i></span></div>
         </div>
         <div class="body">
           <div class="top"><div><div class="kicker">Audio &amp; video intercoms</div><h3>Intercom Stations</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
-          <p>Advanced PoE native IP intercoms with exceptional HD voice quality. Designed for high-security areas, they seamlessly use the SIP protocol.</p>
+          <p>Advanced PoE native IP intercoms with exceptional HD voice quality. Designed for high-security areas, they seamlessly use the MOR protocol.</p>
           <div class="models"><span>J-762C-1</span><span>J-762P-1</span><span>J-263-IP-1</span><span>J-263-IP-1D</span><span>J-264-IP-1</span><span>J-762V-1</span><span>J-762V-2</span></div>
         </div>
       </a>
-      <a class="pcard rv d1" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener">
+      <a class="pcard rv d1" href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener">
         <div class="viz">
           <div class="rack">
             <div class="ru"><span class="l"></span><span class="nm">UC800</span><span class="vents"></span><span class="l b"></span></div>
             <div class="ru"><span class="l"></span><span class="nm">jNode CS2</span><span class="vents"></span><span class="l"></span></div>
-            <div class="ru"><span class="l b"></span><span class="nm">VM SIPazon</span><span class="vents"></span><span class="l"></span></div>
+            <div class="ru"><span class="l b"></span><span class="nm">VM MORazon</span><span class="vents"></span><span class="l"></span></div>
           </div>
         </div>
         <div class="body">
           <div class="top"><div><div class="kicker">Headend</div><h3>AMS Servers</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
-          <p>The servers that run SIPazon AMS, from a physical platform and a compact fanless node to a virtual machine.</p>
-          <div class="models"><span>UC800 Platform</span><span>jNode Compact CS2</span><span>VM SIPazon</span></div>
+          <p>The servers that run MORazon AMS, from a physical platform and a compact fanless node to a virtual machine.</p>
+          <div class="models"><span>UC800 Platform</span><span>jNode Compact CS2</span><span>VM MORazon</span></div>
         </div>
       </a>
-      <a class="pcard rv" href="https://sipazon.com/products/pa" target="_blank" rel="noopener">
+      <a class="pcard rv" href="https://MORazon.com/products/pa" target="_blank" rel="noopener">
         <div class="viz"><div class="horn"><span class="spk"></span><span class="w"></span><span class="w"></span><span class="w"></span></div></div>
         <div class="body">
           <div class="top"><div><div class="kicker">Integrated PA system</div><h3>PA</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
-          <p>SIPazon's Unified PA solution is a key part of our holistic approach to unified communication. Relay messages through loudspeakers across buildings, industrial complexes, transport networks and smart cities.</p>
+          <p>MORazon's Unified PA solution is a key part of our holistic approach to unified communication. Relay messages through loudspeakers across buildings, industrial complexes, transport networks and smart cities.</p>
           <div class="models"><span>J-IPS30</span><span>J-IPC15</span><span>J-IPW15</span><span>J-PA1000</span><span>J-PA1081</span></div>
         </div>
       </a>
-      <a class="pcard rv d1" href="https://sipazon.com/products/special-products" target="_blank" rel="noopener">
+      <a class="pcard rv d1" href="https://MORazon.com/products/special-products" target="_blank" rel="noopener">
         <div class="viz">
           <div class="spec3">
             <div><svg class="ic"><use href="#i-phone"/></svg><b>VirCom</b></div>
-            <div><svg class="ic"><use href="#i-users"/></svg><b>SIPavox Call Center</b></div>
+            <div><svg class="ic"><use href="#i-users"/></svg><b>MORavox Call Center</b></div>
             <div><svg class="ic"><use href="#i-fire"/></svg><b>Fire Command Center</b></div>
           </div>
         </div>
         <div class="body">
           <div class="top"><div><div class="kicker">Special products</div><h3>Special Products</h3></div><span class="go"><svg class="ic"><use href="#i-arrow"/></svg></span></div>
-          <p>VirCom links the physical and digital worlds. SIPavox is an independent cloud-based call center. Fire Command Center supervises elevators and escalators during firefighting.</p>
-          <div class="models"><span>VirCom</span><span>SIPavox</span><span>Fire Command Center</span></div>
+          <p>VirCom links the physical and digital worlds. MORavox is an independent cloud-based call center. Fire Command Center supervises elevators and escalators during firefighting.</p>
+          <div class="models"><span>VirCom</span><span>MORavox</span><span>Fire Command Center</span></div>
         </div>
       </a>
     </div>
@@ -1046,16 +1046,16 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   <div class="wrap">
     <div class="ams-top">
       <div class="sec-head rv" style="margin:0">
-        <span class="eyebrow">SIPazon AMS</span>
+        <span class="eyebrow">MORazon AMS</span>
         <h2>First AMS: Audio Management System</h2>
-        <p class="lead">Our Audio Management Software, similar to VMS, can seamlessly integrate with any SIP endpoints, offering the advantages of a multi-vendor integrated system.</p>
+        <p class="lead">Our Audio Management Software, similar to VMS, can seamlessly integrate with any MOR endpoints, offering the advantages of a multi-vendor integrated system.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-          <a class="btn btn-primary" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener">AMS Servers <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-primary" href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener">AMS Servers <svg class="ic"><use href="#i-arrow"/></svg></a>
           <a class="btn btn-ghost" href="#integrations">AMS for Milestone XProtect</a>
         </div>
       </div>
       <div class="ams-points rv d1">
-        <div><svg class="ic"><use href="#i-intercom"/></svg><b>Any SIP endpoint</b><span>Mixed endpoints from different vendor brands.</span></div>
+        <div><svg class="ic"><use href="#i-intercom"/></svg><b>Any MOR endpoint</b><span>Mixed endpoints from different vendor brands.</span></div>
         <div><svg class="ic"><use href="#i-speaker"/></svg><b>Intercom + PA</b><span>Two-way calls, group calls and announcements.</span></div>
         <div><svg class="ic"><use href="#i-camera"/></svg><b>VMS integration</b><span>Fully integrated within Milestone XProtect.</span></div>
         <div><svg class="ic"><use href="#i-plug"/></svg><b>Third-party systems</b><span>Access Control, PSIM, BMS and SCADA.</span></div>
@@ -1066,13 +1066,13 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
       <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><span class="app-url">ams.site-01.local / overview</span><span class="sample">Example data</span></div>
       <div class="app-body">
         <aside class="side">
-          <div class="ttl"><i><svg class="ic"><use href="#i-wave"/></svg></i>SIPazon AMS</div>
+          <div class="ttl"><i><svg class="ic"><use href="#i-wave"/></svg></i>MORazon AMS</div>
           <a class="on" href="#ams"><svg class="ic"><use href="#i-grid"/></svg>Overview</a>
           <a href="#ams"><svg class="ic"><use href="#i-intercom"/></svg>Endpoints</a>
           <a href="#ams"><svg class="ic"><use href="#i-phone"/></svg>Calls</a>
           <a href="#ams"><svg class="ic"><use href="#i-speaker"/></svg>PA zones</a>
           <span class="grp">Platform</span>
-          <a href="#ams"><svg class="ic"><use href="#i-rec"/></svg>SIPrec</a>
+          <a href="#ams"><svg class="ic"><use href="#i-rec"/></svg>MORrec</a>
           <a href="#ams"><svg class="ic"><use href="#i-camera"/></svg>Video Engine</a>
           <a href="#ams"><svg class="ic"><use href="#i-cross"/></svg>ConnCross</a>
           <a href="#ams"><svg class="ic"><use href="#i-bell"/></svg>Events<span class="n">2</span></a>
@@ -1097,16 +1097,16 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
             </div>
             <div class="split">
               <div class="card-d">
-                <div class="h">Endpoints<span>SIP · multi-vendor</span></div>
+                <div class="h">Endpoints<span>MOR · multi-vendor</span></div>
                 <div class="tbl-wrap"><table class="t">
                   <thead><tr><th>Location</th><th>Model</th><th>Transport</th><th>Status</th></tr></thead>
                   <tbody>
-                    <tr><td>Cell B-214</td><td class="m">J-762C-1</td><td class="m">SIP/TLS</td><td><span class="st pri">In call</span></td></tr>
-                    <tr><td>Gate 2 · Perimeter</td><td class="m">J-762P-1</td><td class="m">SIP/TLS</td><td><span class="st err">Tamper alarm</span></td></tr>
-                    <tr><td>Lift 3 · Car</td><td class="m">J-263-IP-1D</td><td class="m">SIP</td><td><span class="st warn">EN81 alarm</span></td></tr>
-                    <tr><td>Yard · Zone 1</td><td class="m">J-IPS30</td><td class="m">SIP/RTP</td><td><span class="st warn">PA live</span></td></tr>
-                    <tr><td>Visitor entrance</td><td class="m">J-762V-1</td><td class="m">SIP + RTSP</td><td><span class="st ok">Online</span></td></tr>
-                    <tr><td>Control room</td><td class="m">MvM Console</td><td class="m">SIP</td><td><span class="st ok">Online</span></td></tr>
+                    <tr><td>Cell B-214</td><td class="m">J-762C-1</td><td class="m">MOR/TLS</td><td><span class="st pri">In call</span></td></tr>
+                    <tr><td>Gate 2 · Perimeter</td><td class="m">J-762P-1</td><td class="m">MOR/TLS</td><td><span class="st err">Tamper alarm</span></td></tr>
+                    <tr><td>Lift 3 · Car</td><td class="m">J-263-IP-1D</td><td class="m">MOR</td><td><span class="st warn">EN81 alarm</span></td></tr>
+                    <tr><td>Yard · Zone 1</td><td class="m">J-IPS30</td><td class="m">MOR/RTP</td><td><span class="st warn">PA live</span></td></tr>
+                    <tr><td>Visitor entrance</td><td class="m">J-762V-1</td><td class="m">MOR + RTSP</td><td><span class="st ok">Online</span></td></tr>
+                    <tr><td>Control room</td><td class="m">MvM Console</td><td class="m">MOR</td><td><span class="st ok">Online</span></td></tr>
                   </tbody>
                 </table></div>
               </div>
@@ -1132,7 +1132,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
                     <div><time>09:40:55</time><span class="warn">WARN</span><span class="msg">Lift 3 · EN81 alarm call</span></div>
                     <div><time>09:40:31</time><span class="pri">INFO</span><span class="msg">PA · Yard · announcement started</span></div>
                     <div><time>09:39:47</time><span class="err">ALRM</span><span class="msg">Gate 2 · tamper alarm</span></div>
-                    <div><time>09:39:02</time><span class="pri">INFO</span><span class="msg">SIPrec · A/V session recorded</span></div>
+                    <div><time>09:39:02</time><span class="pri">INFO</span><span class="msg">MORrec · A/V session recorded</span></div>
                   </div>
                 </div>
               </div>
@@ -1144,7 +1144,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
               <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-intercom"/></svg></span><div><b>Cell B-214 ↔ Control room</b><small>J-762C-1 · Opus</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="tagx rec">● REC</span><span class="dur" data-t="94">01:34</span></div></div>
               <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-elevator"/></svg></span><div><b>Lift 3 · Car ↔ Service centre</b><small>J-263-IP-1D · EN81</small></div></div><div class="meter s" data-meter></div><div class="meta"><span class="tagx">VIDEO</span><span class="dur" data-t="41">00:41</span></div></div>
               <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-camera"/></svg></span><div><b>Visitor entrance ↔ Reception</b><small>J-762V-1 · cam 2 of 3</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="tagx">VIDEO</span><span class="tagx rec">● REC</span><span class="dur" data-t="203">03:23</span></div></div>
-              <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-phone"/></svg></span><div><b>Gate 2 ↔ jPhone · Guard 4</b><small>J-762P-1 · SIP/TLS</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="dur" data-t="12">00:12</span></div></div>
+              <div class="call"><div class="who"><span class="av"><svg class="ic"><use href="#i-phone"/></svg></span><div><b>Gate 2 ↔ jPhone · Guard 4</b><small>J-762P-1 · MOR/TLS</small></div></div><div class="meter" data-meter></div><div class="meta"><span class="dur" data-t="12">00:12</span></div></div>
             </div>
           </div>
 
@@ -1159,7 +1159,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
               <div class="zone"><div class="zt"><b>Workshop</b><span class="st ok">Idle</span></div><small>5 speakers · J-IPS30</small><div class="vol"><i style="width:70%"></i></div></div>
               <div class="zone"><div class="zt"><b>Car park</b><span class="st ok">Idle</span></div><small>4 horns · J-PA1081</small><div class="vol"><i style="width:72%"></i></div></div>
             </div>
-            <div class="ann"><button class="btn btn-sm" type="button">Announce</button><span class="m">Target: Yard + Block A · pre-chime on · recorded via SIPrec</span></div>
+            <div class="ann"><button class="btn btn-sm" type="button">Announce</button><span class="m">Target: Yard + Block A · pre-chime on · recorded via MORrec</span></div>
           </div>
         </div>
       </div>
@@ -1172,7 +1172,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Platform</span>
-      <h2>One platform for all your SIP needs</h2>
+      <h2>One platform for all your MOR needs</h2>
       <p class="lead">Streaming audio, video, analytics and integration from Edge to Cloud via Fog. Choose the power of choice in your eco-system.</p>
     </div>
     <div class="plat rv">
@@ -1186,20 +1186,20 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 <section class="sec" id="landscape" style="padding-top:0">
   <div class="wrap layers-wrap">
     <div class="sec-head rv" style="margin:0">
-      <span class="eyebrow">SIPazon Landscape</span>
+      <span class="eyebrow">MORazon Landscape</span>
       <h2>From Edge to Cloud, via Fog</h2>
-      <p class="lead">Run communication locally at the edge, connect and protect it in the fog, and add the convenience of cloud where it helps. The same SIP platform across all three.</p>
-      <div class="quote-sm">Market call it Hybrid, we redefined as Fog.<span>SIPazon · Platform overview</span></div>
+      <p class="lead">Run communication locally at the edge, connect and protect it in the fog, and add the convenience of cloud where it helps. The same MOR platform across all three.</p>
+      <div class="quote-sm">Market call it Hybrid, we redefined as Fog.<span>MORazon · Platform overview</span></div>
     </div>
     <div class="layers rv d1">
       <div class="pipes" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="layer cloud">
         <div class="ln"><span class="k"><svg class="ic"><use href="#i-cloud"/></svg>Cloud</span><small>The Convenience of Cloud</small></div>
-        <div class="nodes"><span><svg class="ic"><use href="#i-grid"/></svg>SBP Cloud</span><span><svg class="ic"><use href="#i-phone"/></svg>VirCom</span><span><svg class="ic"><use href="#i-users"/></svg>SIPavox Call Center</span><span><svg class="ic"><use href="#i-plug"/></svg>AI · IoT · CRM</span></div>
+        <div class="nodes"><span><svg class="ic"><use href="#i-grid"/></svg>SBP Cloud</span><span><svg class="ic"><use href="#i-phone"/></svg>VirCom</span><span><svg class="ic"><use href="#i-users"/></svg>MORavox Call Center</span><span><svg class="ic"><use href="#i-plug"/></svg>AI · IoT · CRM</span></div>
       </div>
       <div class="layer fog">
         <div class="ln"><span class="k"><svg class="ic"><use href="#i-fog"/></svg>Fog</span><small>To Connect &amp; Protect against Cloud</small></div>
-        <div class="nodes"><span><svg class="ic"><use href="#i-server"/></svg>AMS servers</span><span><svg class="ic"><use href="#i-ha"/></svg>HA pair</span><span><svg class="ic"><use href="#i-cross"/></svg>ConnCross</span><span><svg class="ic"><use href="#i-rec"/></svg>SIPrec</span></div>
+        <div class="nodes"><span><svg class="ic"><use href="#i-server"/></svg>AMS servers</span><span><svg class="ic"><use href="#i-ha"/></svg>HA pair</span><span><svg class="ic"><use href="#i-cross"/></svg>ConnCross</span><span><svg class="ic"><use href="#i-rec"/></svg>MORrec</span></div>
       </div>
       <div class="layer edge">
         <div class="ln"><span class="k"><svg class="ic"><use href="#i-chip"/></svg>Edge</span><small>The Edge of Success</small></div>
@@ -1218,35 +1218,35 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
       <p class="lead">From a single door entry intercom to the most complex and demanding projects, the same platform adapts to each environment.</p>
     </div>
     <div class="sgrid">
-      <a class="scard rv" href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener">
+      <a class="scard rv" href="https://MORazon.com/solutions/parking" target="_blank" rel="noopener">
         <div class="scene"><svg class="ic big"><use href="#i-car"/></svg>
           <div class="ui"><div class="r"><span class="sdot" style="background:var(--signal)"></span><b>Exit barrier · Level 1</b></div><div class="r m">Call to operator · 00:18</div><div class="acts"><span class="p">Open barrier</span><span>Video</span></div></div></div>
         <div class="body"><h3>Parking</h3><p>Easy in, easy out. A complete communication solution for parkings, for vehicle flow, security and a better driver experience.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
       </a>
-      <a class="scard rv d1" href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener">
+      <a class="scard rv d1" href="https://MORazon.com/solutions/prisons-detention" target="_blank" rel="noopener">
         <div class="scene"><svg class="ic big"><use href="#i-lock"/></svg>
           <div class="ui"><div class="r"><span class="sdot" style="background:var(--error)"></span><b>Cell B-214</b></div><div class="r m">Tamper alarm · J-762C-1</div><div class="acts"><span class="p">Answer</span><span>Listen-in</span></div></div></div>
         <div class="body"><h3>Prisons &amp; Detention</h3><p>Tamper-resistant intercom stations with built-in alarms. Cell intercoms, visitor stations and perimeter loudspeakers on a single uniform platform.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
       </a>
-      <a class="scard rv d2" href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener">
+      <a class="scard rv d2" href="https://MORazon.com/solutions/residential" target="_blank" rel="noopener">
         <div class="scene"><svg class="ic big"><use href="#i-home"/></svg>
           <div class="ui"><div class="r"><span class="sdot" style="background:var(--success)"></span><b>Entrance · Building C</b></div><div class="r m">Answered on jPhone</div><div class="acts"><span class="p">Open door</span><span>Decline</span></div></div></div>
-        <div class="body"><h3>Residential</h3><p>For single homes as well as multi-tenant apartment complexes where third-party integration is required, administered through SIPazon Business Portal (SBP).</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+        <div class="body"><h3>Residential</h3><p>For single homes as well as multi-tenant apartment complexes where third-party integration is required, administered through MORazon Business Portal (SBP).</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
       </a>
-      <a class="scard rv" href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener">
+      <a class="scard rv" href="https://MORazon.com/solutions/elevator" target="_blank" rel="noopener">
         <div class="scene"><svg class="ic big"><use href="#i-elevator"/></svg>
           <div class="ui"><div class="r"><span class="sdot" style="background:var(--warning)"></span><b>Lift 3 · Car</b></div><div class="r m">EN81 alarm call · LiftCom</div><div class="acts"><span class="p">Talk</span><span>Camera</span></div></div></div>
         <div class="body"><h3>Elevator</h3><p>EN81 critical communication with LiftCom, from a single shaft to airports and subways, over IP or wired networks.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
       </a>
-      <a class="scard rv d1" href="https://sipazon.com/solutions/office" target="_blank" rel="noopener">
+      <a class="scard rv d1" href="https://MORazon.com/solutions/office" target="_blank" rel="noopener">
         <div class="scene"><svg class="ic big"><use href="#i-brief"/></svg>
           <div class="ui"><div class="r"><span class="sdot" style="background:var(--primary)"></span><b>Visitor · Main door</b></div><div class="r m">QR access code · host notified</div><div class="acts"><span class="p">Grant access</span><span>Call host</span></div></div></div>
         <div class="body"><h3>Office</h3><p>Streamlining daily operational access at the workplace. Visitors reach their host directly, with QR or SMS access codes and live video verification.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
       </a>
-      <a class="scard rv d2" href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener">
+      <a class="scard rv d2" href="https://MORazon.com/solutions/public-safety-security" target="_blank" rel="noopener">
         <div class="scene"><svg class="ic big"><use href="#i-siren"/></svg>
           <div class="ui"><div class="r"><span class="sdot" style="background:var(--error)"></span><b>Square · Pole 12</b></div><div class="r m">Pre-alarm · audio detection</div><div class="acts"><span class="p">Talk down</span><span>CCTV</span></div></div></div>
-        <div class="body"><h3>Public Safety &amp; Security</h3><p>Imagine watching TV on mute. SIPazon adds audio communication, pre-alarm detection and emergency response to the city's existing CCTV.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+        <div class="body"><h3>Public Safety &amp; Security</h3><p>Imagine watching TV on mute. MORazon adds audio communication, pre-alarm detection and emergency response to the city's existing CCTV.</p><span class="link-arrow">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></div>
       </a>
     </div>
   </div>
@@ -1270,8 +1270,8 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
           <div><svg class="ic"><use href="#i-cloud"/></svg>IoT cloud integration</div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-          <a class="btn btn-primary" href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener">Elevator solution <svg class="ic"><use href="#i-arrow"/></svg></a>
-          <a class="btn btn-ghost" href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener">MvM Liftcom</a>
+          <a class="btn btn-primary" href="https://MORazon.com/solutions/elevator" target="_blank" rel="noopener">Elevator solution <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="https://MORazon.com/platform/mvm" target="_blank" rel="noopener">MvM Liftcom</a>
         </div>
       </div>
       <div class="shaft rv d1">
@@ -1320,7 +1320,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
 <section class="sec" id="hardware" style="padding-top:clamp(40px,6vw,72px)">
   <div class="wrap hw">
     <div class="hw-hero rv">
-      <div class="jnode"><span class="top"></span><span class="plate"><b>jNode · CS2</b><span>SIPazon</span></span><span class="leds"><i></i><i></i><i></i></span></div>
+      <div class="jnode"><span class="top"></span><span class="plate"><b>jNode · CS2</b><span>MORazon</span></span><span class="leds"><i></i><i></i><i></i></span></div>
       <span class="callout" style="left:22px;top:28px"><i></i>Fanless</span>
       <span class="callout" style="right:22px;top:88px"><i></i>Compact IP server</span>
       <span class="callout" style="left:34px;bottom:34px"><i></i>Maintenance-free</span>
@@ -1335,9 +1335,9 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
         <div><svg class="ic"><use href="#i-shield"/></svg><b>Maintenance-free</b><small class="muted">Critical use</small></div>
       </div>
       <div class="lineup">
-        <a class="row" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-server"/></svg><span><b>UC800 Platform</b><small>SIPrec recording without additional hardware</small></span><span class="badge">HA-ready</span></a>
-        <a class="row" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chip"/></svg><span><b>jNode Compact CS2</b><small>Compact, fanless node for the edge</small></span><span class="badge">HA-ready</span></a>
-        <a class="row" href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-layers"/></svg><span><b>VM SIPazon</b><small>SIPazon as a virtual machine</small></span><span class="badge">HA-ready</span></a>
+        <a class="row" href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-server"/></svg><span><b>UC800 Platform</b><small>MORrec recording without additional hardware</small></span><span class="badge">HA-ready</span></a>
+        <a class="row" href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chip"/></svg><span><b>jNode Compact CS2</b><small>Compact, fanless node for the edge</small></span><span class="badge">HA-ready</span></a>
+        <a class="row" href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener"><svg class="ic"><use href="#i-layers"/></svg><span><b>VM MORazon</b><small>MORazon as a virtual machine</small></span><span class="badge">HA-ready</span></a>
       </div>
     </div>
   </div>
@@ -1349,11 +1349,11 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
     <div class="sec-head center rv">
       <span class="eyebrow">Integrations &amp; Compatibilities</span>
       <h2>Eco-system instead of ego-system</h2>
-      <p class="lead">The SIPazon AMS solution offers broad compatibility with various SIP-enabled brands and seamlessly integrates with third-party systems, including VMS, Access Control, PSIM, BMS and SCADA.</p>
+      <p class="lead">The MORazon AMS solution offers broad compatibility with various MOR-enabled brands and seamlessly integrates with third-party systems, including VMS, Access Control, PSIM, BMS and SCADA.</p>
     </div>
     <div class="intg rv">
       <div class="icol">
-        <h4>IP-PBX &amp; SIP servers <span>8</span></h4>
+        <h4>IP-PBX &amp; MOR servers <span>8</span></h4>
         <div class="vendor"><span class="lg">CI</span><span class="n">Cisco Unified CM</span><span class="sm">Compatible</span></div>
         <div class="vendor"><span class="lg">AV</span><span class="n">Avaya Aura CM</span><span class="sm">Compatible</span></div>
         <div class="vendor"><span class="lg">MI</span><span class="n">Mitel VoIP 3300</span><span class="sm">Compatible</span></div>
@@ -1363,7 +1363,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
       </div>
       <div class="hub">
         <div class="wires" aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="core"><div><b>SIPazon AMS</b><small>SIP headend</small></div></div>
+        <div class="core"><div><b>MORazon AMS</b><small>MOR headend</small></div></div>
       </div>
       <div class="icol">
         <h4>Security &amp; building <span>VMS · PSIM · BMS</span></h4>
@@ -1376,11 +1376,11 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
       </div>
     </div>
     <div class="proto rv">
-      <span>SIP</span><span>OPC UA / DA</span><span>MQTT</span><span>BACnet</span><span>RS485 / 232</span><span>API / SDK</span><span>RTSP</span><span>ONVIF<em>Profile S · coming soon</em></span>
+      <span>MOR</span><span>OPC UA / DA</span><span>MQTT</span><span>BACnet</span><span>RS485 / 232</span><span>API / SDK</span><span>RTSP</span><span>ONVIF<em>Profile S · coming soon</em></span>
     </div>
     <div class="feature-xp rv">
-      <div class="l"><span class="ico2"><svg class="ic"><use href="#i-monitor"/></svg></span><div><b>SIPazon AMS Call Manager for Milestone XProtect</b><small>The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).</small></div></div>
-      <a class="btn btn-ghost btn-sm" href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener">All integrations <svg class="ic"><use href="#i-arrow"/></svg></a>
+      <div class="l"><span class="ico2"><svg class="ic"><use href="#i-monitor"/></svg></span><div><b>MORazon AMS Call Manager for Milestone XProtect</b><small>The first-ever Audio Management System (AMS) fully integrated within a Video Management System (VMS).</small></div></div>
+      <a class="btn btn-ghost btn-sm" href="https://MORazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener">All integrations <svg class="ic"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
@@ -1391,24 +1391,24 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Critical Communication</span>
-      <h2>If you're seeking an integrated critical communication, reach out to SIPazon</h2>
-      <p class="lead">Intercom, PA, audio, video and IoT managed together over SIP, with security built into the transport.</p>
+      <h2>If you're seeking an integrated critical communication, reach out to MORazon</h2>
+      <p class="lead">Intercom, PA, audio, video and IoT managed together over MOR, with security built into the transport.</p>
     </div>
     <div class="bento">
       <div class="bx hero-bx w4 rv">
         <svg class="ic"><use href="#i-wave"/></svg>
-        <h3>Feel the freedom with SIPazon</h3>
-        <p>Customers are walking away from old style pricing structures and lock-in policies. SIPazon keeps solution providers vendor-independent, with mixed SIP endpoints from different brands on one platform.</p>
-<div class="sipline"><span class="k">INVITE</span> sip:control-room@ams.site-01 SIP/2.0
+        <h3>Feel the freedom with MORazon</h3>
+        <p>Customers are walking away from old style pricing structures and lock-in policies. MORazon keeps solution providers vendor-independent, with mixed MOR endpoints from different brands on one platform.</p>
+<div class="sipline"><span class="k">INVITE</span> sip:control-room@ams.site-01 MOR/2.0
 <span class="k">From:</span> <span class="v">"Cell B-214"</span> &lt;sip:b214@ams.site-01&gt;
 <span class="k">Content-Type:</span> application/sdp   <span class="g">m=audio · m=video</span></div>
       </div>
       <div class="bx w2 rv d1"><svg class="ic"><use href="#i-intercom"/></svg><h3>Intercom</h3><p>HD voice, tamper alarms, programmable buttons and relay outputs, indoor and outdoor.</p><span class="mono">J-762 · J-263 · J-264</span></div>
       <div class="bx w2 rv"><svg class="ic"><use href="#i-speaker"/></svg><h3>Public Address</h3><p>Station announcements and quick message relay through loudspeakers.</p><span class="mono">J-IPS30 · J-PA1000</span></div>
-      <div class="bx w2 rv d1"><svg class="ic"><use href="#i-camera"/></svg><h3>Video</h3><p>Extract streams from existing IP cameras and pair them with SIP audio.</p><span class="mono">Video Engine · RTSP</span></div>
-      <div class="bx w2 rv d2"><svg class="ic"><use href="#i-rec"/></svg><h3>Audio &amp; recording</h3><p>Audio or lip-synchronized A/V recording of calls, groups and announcements.</p><span class="mono">SIPrec</span></div>
-      <div class="bx w3 rv"><svg class="ic"><use href="#i-chip"/></svg><h3>IoT</h3><p>Real-time events into building automation and industrial systems through jOPC, the first OPC server for SIP intercom and PA.</p><span class="mono">OPC UA/DA · MQTT · BACnet · RS485</span></div>
-      <div class="bx w3 rv d1"><svg class="ic"><use href="#i-shield"/></svg><h3>Security</h3><p>SIP TLS with state-of-the-art cypher algorithms, with SRTP and ZRTP for audio and video in the jPhone app.</p><span class="mono">SIP/TLS · SRTP · ZRTP</span></div>
+      <div class="bx w2 rv d1"><svg class="ic"><use href="#i-camera"/></svg><h3>Video</h3><p>Extract streams from existing IP cameras and pair them with MOR audio.</p><span class="mono">Video Engine · RTSP</span></div>
+      <div class="bx w2 rv d2"><svg class="ic"><use href="#i-rec"/></svg><h3>Audio &amp; recording</h3><p>Audio or lip-synchronized A/V recording of calls, groups and announcements.</p><span class="mono">MORrec</span></div>
+      <div class="bx w3 rv"><svg class="ic"><use href="#i-chip"/></svg><h3>IoT</h3><p>Real-time events into building automation and industrial systems through jOPC, the first OPC server for MOR intercom and PA.</p><span class="mono">OPC UA/DA · MQTT · BACnet · RS485</span></div>
+      <div class="bx w3 rv d1"><svg class="ic"><use href="#i-shield"/></svg><h3>Security</h3><p>MOR TLS with state-of-the-art cypher algorithms, with SRTP and ZRTP for audio and video in the jPhone app.</p><span class="mono">MOR/TLS · SRTP · ZRTP</span></div>
     </div>
   </div>
 </section>
@@ -1419,15 +1419,15 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
     <div class="sec-head rv">
       <span class="eyebrow">Enterprise</span>
       <h2>Reliability that never lets you down</h2>
-      <p class="lead">What SIPazon brings to large, distributed and security-critical deployments.</p>
+      <p class="lead">What MORazon brings to large, distributed and security-critical deployments.</p>
     </div>
     <div class="ent rv">
       <div><svg class="ic"><use href="#i-ha"/></svg><span class="mono">HA Redundancy</span><h3>High availability</h3><p>A master and hot-standby pair with identical configuration. Intercom connections shift automatically to the redundant server on failure, and roll back when the main server recovers.</p></div>
-      <div><svg class="ic"><use href="#i-grid"/></svg><span class="mono">Multi-vendor</span><h3>Any SIP endpoint</h3><p>Manage mixed SIP endpoints from different vendor brands, and connect to Cisco, Avaya, Mitel, Alcatel-Lucent, 3CX, Asterisk, FreeSWITCH and Kamailio.</p></div>
+      <div><svg class="ic"><use href="#i-grid"/></svg><span class="mono">Multi-vendor</span><h3>Any MOR endpoint</h3><p>Manage mixed MOR endpoints from different vendor brands, and connect to Cisco, Avaya, Mitel, Alcatel-Lucent, 3CX, Asterisk, FreeSWITCH and Kamailio.</p></div>
       <div><svg class="ic"><use href="#i-scale"/></svg><span class="mono">Scalability</span><h3>From one door to an airport</h3><p>The same platform scales from a single door entry intercom to airport and prison systems. MvM handles thousands of monitored objects.</p></div>
-      <div><svg class="ic"><use href="#i-shield"/></svg><span class="mono">Security</span><h3>Encrypted by design</h3><p>SIP TLS signalling, SRTP and ZRTP media encryption in the jPhone app, and tamper-resistant stations for high-security areas.</p></div>
-      <div><svg class="ic"><use href="#i-rec"/></svg><span class="mono">SIPrec</span><h3>Every conversation kept</h3><p>Record all incoming and outgoing calls by class of service, to local UC-series storage or external NAS.</p></div>
-      <div><svg class="ic"><use href="#i-layers"/></svg><span class="mono">Edge · Fog · Cloud</span><h3>Deploy where it fits</h3><p>Run on UC800, jNode, a virtual machine or SIPazon Cloud, across Edge, Fog and Cloud deployments.</p></div>
+      <div><svg class="ic"><use href="#i-shield"/></svg><span class="mono">Security</span><h3>Encrypted by design</h3><p>MOR TLS signalling, SRTP and ZRTP media encryption in the jPhone app, and tamper-resistant stations for high-security areas.</p></div>
+      <div><svg class="ic"><use href="#i-rec"/></svg><span class="mono">MORrec</span><h3>Every conversation kept</h3><p>Record all incoming and outgoing calls by class of service, to local UC-series storage or external NAS.</p></div>
+      <div><svg class="ic"><use href="#i-layers"/></svg><span class="mono">Edge · Fog · Cloud</span><h3>Deploy where it fits</h3><p>Run on UC800, jNode, a virtual machine or MORazon Cloud, across Edge, Fog and Cloud deployments.</p></div>
     </div>
   </div>
 </section>
@@ -1439,10 +1439,10 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
     <div class="wrap cta">
       <span class="eyebrow">Get in touch</span>
       <h2>Planning a critical communication project?</h2>
-      <p class="lead" style="text-align:center">From a single door entry intercom to an airport or prison system, talk to SIPazon about intercom, PA and integration for your site.</p>
+      <p class="lead" style="text-align:center">From a single door entry intercom to an airport or prison system, talk to MORazon about intercom, PA and integration for your site.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact us <svg class="ic"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-ghost" href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener">SIPazon OEM &amp; API</a>
+        <a class="btn btn-primary" href="https://MORazon.com/contact" target="_blank" rel="noopener">Contact us <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="https://MORazon.com/services/MORazon-oem" target="_blank" rel="noopener">MORazon OEM &amp; API</a>
       </div>
     </div>
   </div>
@@ -1454,50 +1454,50 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   <div class="wrap">
     <div class="f-top">
       <div class="f-brand">
-        <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="data:image/png;base64,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" alt="SIPazon" width="128" height="28"></a>
-        <p>SIP compatible headend communication and IoT platform for all types of projects or applications.</p>
+        <a class="brand" href="#top" aria-label="MORazon home"><img class="logo" src="data:image/png;base64,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" alt="MORazon" width="128" height="28"></a>
+        <p>MOR compatible headend communication and IoT platform for all types of projects or applications.</p>
         <div class="social">
-          <a class="icon-btn" href="https://www.linkedin.com/company/sipazon/" target="_blank" rel="noopener" aria-label="SIPazon on LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a>
-          <a class="icon-btn" href="https://www.youtube.com/@sipazon6601/videos" target="_blank" rel="noopener" aria-label="SIPazon on YouTube"><svg class="ic"><use href="#i-play"/></svg></a>
+          <a class="icon-btn" href="https://www.linkedin.com/company/MORazon/" target="_blank" rel="noopener" aria-label="MORazon on LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a>
+          <a class="icon-btn" href="https://www.youtube.com/@MORazon6601/videos" target="_blank" rel="noopener" aria-label="MORazon on YouTube"><svg class="ic"><use href="#i-play"/></svg></a>
         </div>
       </div>
       <div class="f-col"><h5>Products</h5><ul>
-        <li><a href="https://sipazon.com/products/intercom-stations" target="_blank" rel="noopener">Intercom Stations</a></li>
-        <li><a href="https://sipazon.com/products/ams-servers" target="_blank" rel="noopener">AMS Servers</a></li>
-        <li><a href="https://sipazon.com/products/pa" target="_blank" rel="noopener">PA</a></li>
-        <li><a href="https://sipazon.com/products/special-products" target="_blank" rel="noopener">Special Products</a></li>
-        <li><a href="https://sipazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener">Integrations</a></li>
+        <li><a href="https://MORazon.com/products/intercom-stations" target="_blank" rel="noopener">Intercom Stations</a></li>
+        <li><a href="https://MORazon.com/products/ams-servers" target="_blank" rel="noopener">AMS Servers</a></li>
+        <li><a href="https://MORazon.com/products/pa" target="_blank" rel="noopener">PA</a></li>
+        <li><a href="https://MORazon.com/products/special-products" target="_blank" rel="noopener">Special Products</a></li>
+        <li><a href="https://MORazon.com/products/integrations-and-compatibilities" target="_blank" rel="noopener">Integrations</a></li>
       </ul></div>
       <div class="f-col"><h5>Platform</h5><ul>
-        <li><a href="https://sipazon.com/platform/platform-overview" target="_blank" rel="noopener">Overview</a></li>
-        <li><a href="https://sipazon.com/platform/mvm" target="_blank" rel="noopener">MvM Console</a></li>
-        <li><a href="https://sipazon.com/platform/ha" target="_blank" rel="noopener">HA Redundancy</a></li>
-        <li><a href="https://sipazon.com/platform/siprec" target="_blank" rel="noopener">SIPrec Recording</a></li>
-        <li><a href="https://sipazon.com/platform/videoengine" target="_blank" rel="noopener">Video Engine</a></li>
-        <li><a href="https://sipazon.com/platform/vircom" target="_blank" rel="noopener">VirCom</a></li>
-        <li><a href="https://sipazon.com/platform/conncross" target="_blank" rel="noopener">ConnCross</a></li>
+        <li><a href="https://MORazon.com/platform/platform-overview" target="_blank" rel="noopener">Overview</a></li>
+        <li><a href="https://MORazon.com/platform/mvm" target="_blank" rel="noopener">MvM Console</a></li>
+        <li><a href="https://MORazon.com/platform/ha" target="_blank" rel="noopener">HA Redundancy</a></li>
+        <li><a href="https://MORazon.com/platform/siprec" target="_blank" rel="noopener">MORrec Recording</a></li>
+        <li><a href="https://MORazon.com/platform/videoengine" target="_blank" rel="noopener">Video Engine</a></li>
+        <li><a href="https://MORazon.com/platform/vircom" target="_blank" rel="noopener">VirCom</a></li>
+        <li><a href="https://MORazon.com/platform/conncross" target="_blank" rel="noopener">ConnCross</a></li>
       </ul></div>
       <div class="f-col"><h5>Solutions</h5><ul>
-        <li><a href="https://sipazon.com/solutions/parking" target="_blank" rel="noopener">Parking</a></li>
-        <li><a href="https://sipazon.com/solutions/prisons-detention" target="_blank" rel="noopener">Prisons &amp; Detention</a></li>
-        <li><a href="https://sipazon.com/solutions/residential" target="_blank" rel="noopener">Residential</a></li>
-        <li><a href="https://sipazon.com/solutions/elevator" target="_blank" rel="noopener">Elevator</a></li>
-        <li><a href="https://sipazon.com/solutions/office" target="_blank" rel="noopener">Office</a></li>
-        <li><a href="https://sipazon.com/solutions/public-safety-security" target="_blank" rel="noopener">Public Safety &amp; Security</a></li>
+        <li><a href="https://MORazon.com/solutions/parking" target="_blank" rel="noopener">Parking</a></li>
+        <li><a href="https://MORazon.com/solutions/prisons-detention" target="_blank" rel="noopener">Prisons &amp; Detention</a></li>
+        <li><a href="https://MORazon.com/solutions/residential" target="_blank" rel="noopener">Residential</a></li>
+        <li><a href="https://MORazon.com/solutions/elevator" target="_blank" rel="noopener">Elevator</a></li>
+        <li><a href="https://MORazon.com/solutions/office" target="_blank" rel="noopener">Office</a></li>
+        <li><a href="https://MORazon.com/solutions/public-safety-security" target="_blank" rel="noopener">Public Safety &amp; Security</a></li>
       </ul></div>
       <div class="f-col"><h5>Services</h5><ul>
-        <li><a href="https://sipazon.com/services/app-customisation" target="_blank" rel="noopener">App Customisation</a></li>
-        <li><a href="https://sipazon.com/services/sipazon-oem" target="_blank" rel="noopener">SIPazon OEM</a></li>
-        <li><a href="https://sipazon.com/services/api" target="_blank" rel="noopener">API</a></li>
+        <li><a href="https://MORazon.com/services/app-customisation" target="_blank" rel="noopener">App Customisation</a></li>
+        <li><a href="https://MORazon.com/services/MORazon-oem" target="_blank" rel="noopener">MORazon OEM</a></li>
+        <li><a href="https://MORazon.com/services/api" target="_blank" rel="noopener">API</a></li>
       </ul></div>
       <div class="f-col"><h5>Company</h5><ul>
-        <li><a href="https://sipazon.com/company-information" target="_blank" rel="noopener">Company Information</a></li>
-        <li><a href="https://sipazon.com/team" target="_blank" rel="noopener">Team</a></li>
-        <li><a href="https://sipazon.com/contact" target="_blank" rel="noopener">Contact Us</a></li>
-        <li><a href="https://sipazon.com/privacy-statements" target="_blank" rel="noopener">Privacy Statements</a></li>
+        <li><a href="https://MORazon.com/company-information" target="_blank" rel="noopener">Company Information</a></li>
+        <li><a href="https://MORazon.com/team" target="_blank" rel="noopener">Team</a></li>
+        <li><a href="https://MORazon.com/contact" target="_blank" rel="noopener">Contact Us</a></li>
+        <li><a href="https://MORazon.com/privacy-statements" target="_blank" rel="noopener">Privacy Statements</a></li>
       </ul></div>
     </div>
-    <div class="f-bot"><div class="f-meta"><span>© Copyright 2026 SIPazon.</span><span class="mono">Design prototype · content from sipazon.com</span></div><button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"><svg class="ic moon"><use href="#i-moon"/></svg><svg class="ic sun"><use href="#i-sun"/></svg><span id="themeLabel">Switch to dark mode</span></button></div>
+    <div class="f-bot"><div class="f-meta"><span>© Copyright 2026 MORazon.</span><span class="mono">Design prototype · content from MORazon.com</span></div><button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"><svg class="ic moon"><use href="#i-moon"/></svg><svg class="ic sun"><use href="#i-sun"/></svg><span id="themeLabel">Switch to dark mode</span></button></div>
   </div>
 </footer>
 
@@ -1567,7 +1567,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
     ['warn','WARN','Workshop · J-IPS30 · packet loss 2%'],
     ['pri','INFO','ConnCross · Gate 2 relay → CCTV preset 4'],
     ['ok','OK','Lift 3 · EN81 call closed by service centre'],
-    ['pri','INFO','jPhone · Guard 4 registered (SIP/TLS)']
+    ['pri','INFO','jPhone · Guard 4 registered (MOR/TLS)']
   ];
   let ei = 0;
   const fmt = d => d.toTimeString().slice(0,8);
@@ -1582,29 +1582,29 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   /* Platform module */
   const P = [
     {id:'mvm', ic:'i-monitor', t:'MvM Console', s:'Monitoring, Visualization & Management',
-     d:'A Windows application tailored for overseeing, visualizing and managing the SIPazon platform, for intercoms, speakers, amplifiers and sensors.',
-     b:['Mixed SIP endpoints from different vendor brands','Communication events with video surveillance and access control','OPC UA, MQTT, BACnet and RS485','Variants: MvM, MvM Edge and MvM Liftcom'],
+     d:'A Windows application tailored for overseeing, visualizing and managing the MORazon platform, for intercoms, speakers, amplifiers and sensors.',
+     b:['Mixed MOR endpoints from different vendor brands','Communication events with video surveillance and access control','OPC UA, MQTT, BACnet and RS485','Variants: MvM, MvM Edge and MvM Liftcom'],
      v:`<div class="pv mvm"><div class="mh"><span class="dots"><i></i><i></i><i></i></span>MvM · Site overview</div><div class="mg"><div class="map"><i style="left:18%;top:30%"></i><i style="left:40%;top:62%"></i><i class="a" style="left:66%;top:28%"></i><i style="left:78%;top:70%"></i><i style="left:30%;top:80%"></i></div><div class="ml"><div>Lift 3<span class="warn">alarm</span></div><div>Block A PA<span>live</span></div><div>Gate 2<span>ok</span></div><div>Car park<span>ok</span></div><div>Workshop<span>ok</span></div></div></div></div>`},
     {id:'ha', ic:'i-ha', t:'HA Redundancy', s:'Redundancy that never lets you down',
      d:'A pair of servers with identical configuration for an intercom or PA system. One is Master, the other a hot-standby Slave kept in sync with the latest database copy.',
-     b:['Automatic failover when health checks fail','Automatic rollback when the main server recovers','UC800, UC700, UC600, jNode and SIPazon VM','Load balancer configurations supported'],
+     b:['Automatic failover when health checks fail','Automatic rollback when the main server recovers','UC800, UC700, UC600, jNode and MORazon VM','Load balancer configurations supported'],
      v:`<div class="pv pv-ha"><div class="srv"><b>UC800-A</b><small>Master · active</small><div class="bar"><i></i></div><small class="ok">● healthy</small></div><div class="hb"><svg viewBox="0 0 70 28"><path d="M0 14h18l4-9 6 18 5-12 3 3h34"/></svg>health check</div><div class="srv"><b>UC800-B</b><small>Slave · hot standby</small><div class="bar"><i style="background:var(--p-primary)"></i></div><small class="pri">● synced</small></div></div>`},
-    {id:'rec', ic:'i-rec', t:'SIPrec Recording', s:'Your complete SIP-based recording solution',
+    {id:'rec', ic:'i-rec', t:'MORrec Recording', s:'Your complete MOR-based recording solution',
      d:'Seamless audio and lip-synchronized audio-video recording across Edge, Fog and Cloud, for two-way calls, group conversations and public address announcements.',
      b:['Record by class of service for chosen extensions','Local UC-series add-on storage or external NAS','No additional hardware on UC800/UC700','Scalable licences from S-L-REC2 to S-L-RECX'],
      v:`<div class="pv pv-rec"><div class="r1"><span>Cell B-214 ↔ Control room</span><span class="recd"><span class="pulse"></span>REC 01:34</span></div><div class="wavebar" id="wb"></div><div class="r1"><span>audio + video · lip-sync</span><span>→ NAS</span></div></div>`},
     {id:'video', ic:'i-camera', t:'Video Engine', s:'Two-sense communication in any scenario',
-     d:'Extracts video streams from existing IP cameras and combines them with SIP audio into synchronized video calls, without dedicated video intercoms.',
+     d:'Extracts video streams from existing IP cameras and combines them with MOR audio into synchronized video calls, without dedicated video intercoms.',
      b:['Link up to five cameras to one audio device','Switch cameras with DTMF 1–4 mid-call','Lip-synchronized audio and video','Optional A/V recording for compliance'],
      v:`<div class="pv"><div class="pv-cams"><div class="cam"><span>CAM 1</span></div><div class="cam on"><span>CAM 2 · live</span></div><div class="cam"><span>CAM 3</span></div><div class="cam"><span>CAM 4</span></div><div class="cam aud"><svg class="ic"><use href="#i-intercom"/></svg></div><div class="cam"><span>CAM 5</span></div></div><div class="dtmf"><i>1</i><i class="on">2</i><i>3</i><i>4</i></div></div>`},
     {id:'vircom', ic:'i-phone', t:'VirCom', s:'Virtual communication',
      d:'A virtual intercom endpoint. Scan an encrypted QR code and a smartphone becomes an intercom, with no app to install. Paired with jPhone for answering from anywhere.',
-     b:['Audio and video calls','AI face/speaker verification and liveness detection','GPS positioning and OCR for ID verification','Digital twin for critical communications in SIPazon Cloud'],
+     b:['Audio and video calls','AI face/speaker verification and liveness detection','GPS positioning and OCR for ID verification','Digital twin for critical communications in MORazon Cloud'],
      v:`<div class="pv pv-vir"><div class="qr" id="qr"></div><div class="phone"><div class="ph-h">VirCom · Entrance</div><div class="ph-v"></div><div class="ph-b"><i></i><i></i></div></div></div>`},
     {id:'cc', ic:'i-cross', t:'ConnCross', s:'Connect & Cross',
-     d:'The event orchestration hub between SIP stations, IP speakers, CCTV cameras and I/O devices, so integrators can combine endpoints from various manufacturers.',
-     b:['AND, OR, XOR, XAND and timer logic','Low-level (jCon relay, I/O) and high-level (OPC UA/DA, API) interfaces','A2A converter: OPC, API/SDK, RS485/232, SIP, ONVIF, MQTT','jOPC: the first OPC server for SIP intercom and PA'],
-     v:`<div class="pv pv-logic"><div class="lg-in"><div>SIP · call request</div><div>I/O · door contact</div><div>timer · 22:00–06:00</div></div><div class="lg-gate">AND<br>+ TIMER</div><div class="lg-in"><div>CCTV · preset 4</div><div>PA · zone chime</div><div>OPC · BMS event</div></div></div>`}
+     d:'The event orchestration hub between MOR stations, IP speakers, CCTV cameras and I/O devices, so integrators can combine endpoints from various manufacturers.',
+     b:['AND, OR, XOR, XAND and timer logic','Low-level (jCon relay, I/O) and high-level (OPC UA/DA, API) interfaces','A2A converter: OPC, API/SDK, RS485/232, MOR, ONVIF, MQTT','jOPC: the first OPC server for MOR intercom and PA'],
+     v:`<div class="pv pv-logic"><div class="lg-in"><div>MOR · call request</div><div>I/O · door contact</div><div>timer · 22:00–06:00</div></div><div class="lg-gate">AND<br>+ TIMER</div><div class="lg-in"><div>CCTV · preset 4</div><div>PA · zone chime</div><div>OPC · BMS event</div></div></div>`}
   ];
   const list = document.getElementById('platList'), panel = document.getElementById('platPanel');
   P.forEach((p,i) => {
@@ -1619,7 +1619,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
     cur = i;
     [...list.children].forEach((b,j) => b.setAttribute('aria-selected', j===i));
     const p = P[i];
-    panel.innerHTML = `<div class="plat-viz">${p.v}</div><div class="plat-txt fade-in"><span class="tag">${p.s}</span><h3>${p.t}</h3><p class="muted">${p.d}</p><ul>${p.b.map(x=>`<li><svg class="ic"><use href="#i-check"/></svg><span>${x}</span></li>`).join('')}</ul><a class="link-arrow" href="https://sipazon.com/platform/${({mvm:'mvm',ha:'ha',rec:'siprec',video:'videoengine',vircom:'vircom',cc:'conncross'})[p.id]}" target="_blank" rel="noopener">Read more about ${p.t} <svg class="ic"><use href="#i-arrow"/></svg></a></div>`;
+    panel.innerHTML = `<div class="plat-viz">${p.v}</div><div class="plat-txt fade-in"><span class="tag">${p.s}</span><h3>${p.t}</h3><p class="muted">${p.d}</p><ul>${p.b.map(x=>`<li><svg class="ic"><use href="#i-check"/></svg><span>${x}</span></li>`).join('')}</ul><a class="link-arrow" href="https://MORazon.com/platform/${({mvm:'mvm',ha:'ha',rec:'siprec',video:'videoengine',vircom:'vircom',cc:'conncross'})[p.id]}" target="_blank" rel="noopener">Read more about ${p.t} <svg class="ic"><use href="#i-arrow"/></svg></a></div>`;
     const wb = panel.querySelector('#wb');
     if (wb) for (let k=0;k<64;k++){ const e=document.createElement('i'); e.style.height=(12+Math.abs(Math.sin(k*.45))*60+Math.random()*28)+'%'; wb.appendChild(e); }
     const qr = panel.querySelector('#qr');
@@ -1653,7 +1653,7 @@ footer{border-top:1px solid var(--border);padding-block:64px 36px;margin-top:cla
   tbtn.addEventListener('click', () => {
     root.classList.add('theming');
     const d = root.classList.toggle('dark');
-    try { localStorage.setItem('sipazon-theme', d ? 'dark' : 'light'); } catch(e){}
+    try { localStorage.setItem('MORazon-theme', d ? 'dark' : 'light'); } catch(e){}
     syncT();
     setTimeout(() => root.classList.remove('theming'), 400);
   });

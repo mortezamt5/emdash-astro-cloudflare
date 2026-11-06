@@ -7,7 +7,7 @@ const { items } = Astro.props;
 ---
 <nav class="mnav" id="mnav" aria-label="Mobile navigation" aria-hidden="true" inert>
   <div class="mnav-top">
-    <a class="brand" href="#top" aria-label="SIPazon home"><img class="logo" src="/assets/logo/SIPazon-wordmark-navy.svg" alt="SIPazon" width="123" height="28" /></a>
+    <a class="brand" href="#top" aria-label="MORazon home"><img class="logo" src="/assets/logo/MORazon-wordmark-navy.svg" alt="MORazon" width="123" height="28" /></a>
     <button type="button" class="icon-btn" id="mclose" aria-label="Close menu"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button>
   </div>
   {items.map((item, index) => item.children.length ? <details open={index === 0}>
@@ -18,7 +18,7 @@ const { items } = Astro.props;
     </div>
   </details> : <NavigationItemView item={item} mode="mobile-top" />)}
   <div class="mnav-cta">
-    <a class="btn btn-primary" href="https://sipazon.com/contact" target="_blank" rel="noopener noreferrer">Contact us</a>
-    <a class="btn btn-ghost" href="https://sipazon.com/portal" target="_blank" rel="noopener noreferrer">Portal</a>
+    <a class="btn btn-primary" href="https://MORazon.com/contact" target="_blank" rel="noopener noreferrer">Contact us</a>
+    <a class="btn btn-ghost" href="https://MORazon.com/portal" target="_blank" rel="noopener noreferrer">Portal</a>
   </div>
 </nav>

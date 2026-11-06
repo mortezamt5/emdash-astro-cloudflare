@@ -1,6 +1,6 @@
 ---
 name: cloudflare-deployment
-description: Configure or operate Sipazon's Astro/EmDash Cloudflare Workers deployment, D1, R2, environments, caching, migrations, secrets, and recovery.
+description: Configure or operate MORazon's Astro/EmDash Cloudflare Workers deployment, D1, R2, environments, caching, migrations, secrets, and recovery.
 ---
 
 # Cloudflare deployment

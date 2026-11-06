@@ -1,9 +1,9 @@
-# SIPazon Website: Implementation Spec for Agents
+# MORazon Website: Implementation Spec for Agents
 
 **Version 1.0 · 4 November 2026**
-**Built from:** `sipazon-prototype.html` (structure, CSS, fonts, components, behaviour), `colour-roles-palette.png` (approved colours), `Archive.zip` (final logo set SIPazon2027MN)
+**Built from:** `MORazon-prototype.html` (structure, CSS, fonts, components, behaviour), `colour-roles-palette.png` (approved colours), `Archive.zip` (final logo set MORazon2027MN)
 
-This document tells an implementing agent (Codex, Claude Code or a developer) **how the new SIPazon website is built**: page structure, CSS architecture, fonts, colours, components, motion, responsive rules, JavaScript behaviour and logo usage. Everything is extracted from the prototype source. Where the prototype conflicts with the approved brand, this spec says which one wins.
+This document tells an implementing agent (Codex, Claude Code or a developer) **how the new MORazon website is built**: page structure, CSS architecture, fonts, colours, components, motion, responsive rules, JavaScript behaviour and logo usage. Everything is extracted from the prototype source. Where the prototype conflicts with the approved brand, this spec says which one wins.
 
 ---
 
@@ -13,20 +13,20 @@ This document tells an implementing agent (Codex, Claude Code or a developer) **
 
 | File | Role |
 |---|---|
-| `SIPazon-Website-Implementation-Spec.md` | This spec |
-| `sipazon-prototype.html` | **Visual and structural reference.** One self-contained file (inline CSS, JS and SVG icon sprite). Open it in a browser next to this spec |
+| `MORazon-Website-Implementation-Spec.md` | This spec |
+| `MORazon-prototype.html` | **Visual and structural reference.** One self-contained file (inline CSS, JS and SVG icon sprite). Open it in a browser next to this spec |
 | `colour-roles-palette.png` | **Approved colour palette** (8 colour roles). Authoritative for every colour |
-| `Archive.zip` | **Final logo set** `SIPazon2027MN`: Illustrator master, 6-page PDF, 6 SVGs |
-| `logo-web/` | **Ready-to-use web logos** derived from Archive.zip: `SIPazon-wordmark-navy.svg`, `SIPazon-wordmark-white.svg`, `SIPazon-symbol-navy.svg` (§12.2) |
+| `Archive.zip` | **Final logo set** `MORazon2027MN`: Illustrator master, 6-page PDF, 6 SVGs |
+| `logo-web/` | **Ready-to-use web logos** derived from Archive.zip: `MORazon-wordmark-navy.svg`, `MORazon-wordmark-white.svg`, `MORazon-symbol-navy.svg` (§12.2) |
 
 ### 0.2 Source hierarchy (when sources disagree)
 
 | Topic | Wins | Never take it from |
 |---|---|---|
 | Colours | `colour-roles-palette.png` (§4) | The prototype's own HEX values |
-| Logo | `Archive.zip` → SIPazon2027MN (§12) | The base64 PNG logo inside the prototype |
-| Layout, spacing, typography, components, motion, responsive behaviour | `sipazon-prototype.html` (§2–§11) | — |
-| **Text / product content** | The approved CS3 marketing documents (CS3-MKT-01…09), supplied separately | **The prototype's text.** It is copied from the old sipazon.com and describes features that are not current for CS3 |
+| Logo | `Archive.zip` → MORazon2027MN (§12) | The base64 PNG logo inside the prototype |
+| Layout, spacing, typography, components, motion, responsive behaviour | `MORazon-prototype.html` (§2–§11) | — |
+| **Text / product content** | The approved CS3 marketing documents (CS3-MKT-01…09), supplied separately | **The prototype's text.** It is copied from the old MORazon.com and describes features that are not current for CS3 |
 
 ### 0.3 Hard rules
 
@@ -50,12 +50,12 @@ If the production stack uses a framework (e.g. a React/Next.js app with Tailwind
 | Item | Value |
 |---|---|
 | File | Single HTML file, 177,903 bytes, 1,665 lines |
-| `<head>` | `charset utf-8`; `viewport width=device-width, initial-scale=1, viewport-fit=cover`; title "SIPazon Prototype"; meta description |
+| `<head>` | `charset utf-8`; `viewport width=device-width, initial-scale=1, viewport-fit=cover`; title "MORazon Prototype"; meta description |
 | External dependencies | **Only Google Fonts** (Geist, Geist Mono). No JS libraries, no images except the inline logo PNG |
 | CSS | One inline `<style>` block (lines 7–703), ~266 class selectors, custom properties on `:root` and `:root.dark` |
 | Icons | Inline SVG sprite of **42 `<symbol>`s** (`#i-*`), used via `<svg class="ic"><use href="#i-…"/></svg>` |
 | JS | One inline IIFE at the end of `<body>` (lines 1504–1664), plus a one-line theme pre-loader at the start of `<body>` |
-| Storage | `localStorage` key `sipazon-theme` (`dark` / `light`), wrapped in `try/catch` |
+| Storage | `localStorage` key `MORazon-theme` (`dark` / `light`), wrapped in `try/catch` |
 | Without network | Works; fonts fall back to the system sans/mono stack |
 
 **Recommended production structure:**
@@ -137,7 +137,7 @@ Every section's inner content sits in `<div class="wrap">` (max 1200 px, fluid s
 | Services | `.dd-grid.dd-1`, 300 px | 3 |
 | Company | `.dd-grid.dd-1`, title only (no description) | 4 |
 
-Each dropdown item (`.dd-item`) = 36 px icon tile (`.dd-ico`) + title (`.dd-t`, 14.5 px/600) + one-line description (`.dd-d`, 13 px muted). The labels, items and URLs in the prototype (links to the old sipazon.com) are **placeholders**: take the real information architecture from the project.
+Each dropdown item (`.dd-item`) = 36 px icon tile (`.dd-ico`) + title (`.dd-t`, 14.5 px/600) + one-line description (`.dd-d`, 13 px muted). The labels, items and URLs in the prototype (links to the old MORazon.com) are **placeholders**: take the real information architecture from the project.
 
 Right side of the bar: search pill (`.search-pill`, visual only, shows a `/` shortcut hint), "Portal" ghost button, "Contact us" primary button. ≤1024 px: menu and ghost button hidden, burger shown.
 
@@ -429,13 +429,13 @@ Test at **1440, 1024, 768, 390px**. No horizontal page scroll at any width; wide
 
 | File | Content | Use |
 |---|---|---|
-| `SIPazon2027MN-01.svg` | Deep Navy wordmark + Graphite tagline, transparent | Default lock-up on light |
-| `SIPazon2027MN-02.svg` | White wordmark + Comm. Cyan tagline on Deep Navy | Dark hero / banner |
-| `SIPazon2027MN-03.svg` | White wordmark + Ice Blue tagline on Slate Navy | Dark sections |
-| `SIPazon2027MN-04.svg` | White wordmark + Ice Blue tagline on Electric Blue | Brand-moment backgrounds |
-| `SIPazon2027MN-05.svg` | Ice Blue wordmark + Comm. Cyan tagline on Graphite | Large sizes only (tagline contrast 2.1:1) |
-| `SIPazon2027MN-06.svg` | Symbol only, Deep Navy | Favicon, app icon, small sizes |
-| `SIPazon2027MN.pdf` / `.ai` | All artboards / Illustrator master | Print / designer |
+| `MORazon2027MN-01.svg` | Deep Navy wordmark + Graphite tagline, transparent | Default lock-up on light |
+| `MORazon2027MN-02.svg` | White wordmark + Comm. Cyan tagline on Deep Navy | Dark hero / banner |
+| `MORazon2027MN-03.svg` | White wordmark + Ice Blue tagline on Slate Navy | Dark sections |
+| `MORazon2027MN-04.svg` | White wordmark + Ice Blue tagline on Electric Blue | Brand-moment backgrounds |
+| `MORazon2027MN-05.svg` | Ice Blue wordmark + Comm. Cyan tagline on Graphite | Large sizes only (tagline contrast 2.1:1) |
+| `MORazon2027MN-06.svg` | Symbol only, Deep Navy | Favicon, app icon, small sizes |
+| `MORazon2027MN.pdf` / `.ai` | All artboards / Illustrator master | Print / designer |
 
 Ignore the `__MACOSX/` folder in the ZIP (macOS metadata).
 
@@ -448,20 +448,20 @@ Ignore the `__MACOSX/` folder in the ZIP (macOS metadata).
 
 | File | From | Use |
 |---|---|---|
-| `SIPazon-wordmark-navy.svg` | `SIPazon2027MN-01.svg` | Header and footer on light backgrounds |
-| `SIPazon-wordmark-white.svg` | `SIPazon2027MN-02.svg` | Header and footer on dark backgrounds |
-| `SIPazon-symbol-navy.svg` | `SIPazon2027MN-06.svg` | Favicon, app icon, small sizes |
+| `MORazon-wordmark-navy.svg` | `MORazon2027MN-01.svg` | Header and footer on light backgrounds |
+| `MORazon-wordmark-white.svg` | `MORazon2027MN-02.svg` | Header and footer on dark backgrounds |
+| `MORazon-symbol-navy.svg` | `MORazon2027MN-06.svg` | Favicon, app icon, small sizes |
 
-They were produced exactly as described below and checked by rendering them against the originals. When the designer delivers official exports from `SIPazon2027MN.ai`, those replace these files.
+They were produced exactly as described below and checked by rendering them against the originals. When the designer delivers official exports from `MORazon2027MN.ai`, those replace these files.
 
 **How they were made** (repeat this for other colour variants):
 
-- Take `SIPazon2027MN-01.svg` (navy) or `-02.svg` (white).
+- Take `MORazon2027MN-01.svg` (navy) or `-02.svg` (white).
 - Remove the `<text>` element (tagline), the background `<rect>` and the unused font style class.
 - **Do not change any `<path>`.**
 - Set the `viewBox` to the bounding box of the remaining paths (measured: `920.57 667.10 3124.71 709.00`, ratio ≈ 4.41:1).
-- Add `role="img" aria-label="SIPazon"`.
-- For the symbol, crop `SIPazon2027MN-06.svg` the same way (measured viewBox `2093.62 880.19 792.97 701.01`).
+- Add `role="img" aria-label="MORazon"`.
+- For the symbol, crop `MORazon2027MN-06.svg` the same way (measured viewBox `2093.62 880.19 792.97 701.01`).
 - Each file carries a comment stating its origin.
 
 ### 12.3 Logo rules
@@ -474,10 +474,10 @@ They were produced exactly as described below and checked by rendering them agai
 | Clear space | ½ of the cap height on every side |
 | Dark backgrounds | use the **white** SVG, never `filter: invert()` (remove the prototype's `--logo-filter`) |
 | Lock-up with tagline | only when the wordmark is ≥ 72px tall |
-| Markup | `<a class="brand" href="/" aria-label="SIPazon home"><img src="/assets/logo/SIPazon-wordmark-navy.svg" alt="SIPazon" height="26"></a>` |
+| Markup | `<a class="brand" href="/" aria-label="MORazon home"><img src="/assets/logo/MORazon-wordmark-navy.svg" alt="MORazon" height="26"></a>` |
 | Favicon | from the symbol (SVG favicon + PNG fallbacks) |
 
-The prototype's embedded logo (a 623×136 px base64 PNG reading "S │ SIPazon", used three times) is **obsolete**. Remove it.
+The prototype's embedded logo (a 623×136 px base64 PNG reading "S │ MORazon", used three times) is **obsolete**. Remove it.
 
 ---
 
@@ -504,8 +504,8 @@ The prototype's embedded logo (a 623×136 px base64 PNG reading "S │ SIPazon",
 
 | Item | Why |
 |---|---|
-| All visible text: headings, descriptions, product and model names (J-762C-1, UC800, jNode…), integration names, "First AMS" claims, menu items, footer links | Placeholder content from the old sipazon.com; partly incorrect for CS3. Use the approved CS3 marketing documents |
-| Links to `https://sipazon.com/...` | Old site URLs; build the new IA |
+| All visible text: headings, descriptions, product and model names (J-762C-1, UC800, jNode…), integration names, "First AMS" claims, menu items, footer links | Placeholder content from the old MORazon.com; partly incorrect for CS3. Use the approved CS3 marketing documents |
+| Links to `https://MORazon.com/...` | Old site URLs; build the new IA |
 | Base64 logo PNG and `--logo-filter` | Obsolete logo (§12) |
 | Orange `--signal` and all other off-palette values | Replaced by §4.2 |
 | Dark theme and toggle | Not approved (§4.6) |

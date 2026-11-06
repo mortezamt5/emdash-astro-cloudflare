@@ -1,6 +1,6 @@
 ---
 name: seo-performance
-description: Review or implement Sipazon public-page technical SEO, search-related accessibility, and Core Web Vitals performance.
+description: Review or implement MORazon public-page technical SEO, search-related accessibility, and Core Web Vitals performance.
 ---
 
 # SEO and performance

@@ -1,6 +1,6 @@
 ---
 name: frontend-development
-description: Build or maintain Sipazon's public Astro pages, components, vanilla CSS, and native browser interactions, including prototype and responsive visual work.
+description: Build or maintain MORazon's public Astro pages, components, vanilla CSS, and native browser interactions, including prototype and responsive visual work.
 ---
 
 # Frontend development
@@ -15,7 +15,7 @@ Own Astro pages, layouts, reusable sections/components, TypeScript view models, 
 
 ## Workflow
 
-1. Inspect the current implementation and .prototype/sipazon-prototype.html for section order, geometry, responsive behavior, and interactions. Check .prototype/SIPazon-Website-Implementation-Spec.md for supplementary guidance and ARCHITECTURE_ASSESSMENT.md for known gaps.
+1. Inspect the current implementation and .prototype/MORazon-prototype.html for section order, geometry, responsive behavior, and interactions. Check .prototype/MORazon-Website-Implementation-Spec.md for supplementary guidance and ARCHITECTURE_ASSESSMENT.md for known gaps.
 2. Identify reusable Astro components without changing the approved section composition. Identify copy, images, links, and product claims that need production approval.
 3. Check .prototype/colour-roles-palette.png before defining semantic color tokens. The image shows Deep Navy #041C2B, Electric Blue #1F3FE6, Communication Cyan #00A8F4, Signal Blue #1476FF, Slate Navy #0A3348, Graphite #676767, Silver #D8D8D8, Ice Blue #EAF7FF, and White #FFFFFF. Use the image as final authority if a transcription differs.
 4. Implement semantic HTML, responsive vanilla CSS, Astro components, and only the native JavaScript needed for approved interactions. Use the appropriate approved SVG from .prototype/logo-web/ without altering it.
